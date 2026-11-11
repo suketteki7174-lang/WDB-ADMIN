@@ -12,8 +12,8 @@
 .signout{border:1px solid #dce6e0;background:#fff;color:#9b3028;border-radius:9px;padding:10px 14px;font-weight:750;cursor:pointer}
 .rolebox{padding:13px 15px;border-radius:12px;background:#eaf5ee;border:1px solid #cfe8d8;color:#176344;font-size:12px;line-height:1.6;margin-bottom:20px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}.stat{border:1px solid var(--line);border-radius:13px;padding:16px;background:#fbfdfb}.stat small{display:block;color:var(--muted);font-size:11px}.stat b{display:block;font-size:25px;color:var(--green);margin-top:7px}
-.menuGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.menuCard{border:1px solid var(--line);border-radius:13px;padding:17px;background:#fff}.menuCard .ico{font-size:22px}.menuCard b{display:block;margin:8px 0 4px;color:#18352b;font-size:14px}.menuCard span{font-size:11px;line-height:1.5;color:var(--muted)}
-.dashnote{margin-top:18px;padding:13px;border-radius:10px;background:#fff8e8;border:1px solid #f1e3bd;color:#765c22;font-size:11px;line-height:1.6}
+.menuGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.menuCard{border:1px solid var(--line);border-radius:13px;padding:17px;background:#fff}.menuCard.action{width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;transition:.18s}.menuCard.action:hover{border-color:#8fc7a8;box-shadow:0 7px 18px #064e3b12;transform:translateY(-1px)}.menuCard .ico{font-size:22px}.menuCard b{display:block;margin:8px 0 4px;color:#18352b;font-size:14px}.menuCard span{font-size:11px;line-height:1.5;color:var(--muted)}
+.newsPanel{margin-top:18px;border:1px solid var(--line);border-radius:15px;padding:18px;background:#fbfdfb}.newsHead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.newsHead h3{margin:0;color:#153d2e;font-size:18px}.newsTools{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.newsTools select,.newsTools input{border:1px solid #dce6e0;border-radius:9px;padding:10px 12px;background:#fff;font:inherit;font-size:12px;color:#18352b}.newsList{display:grid;gap:10px}.newsItem{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}.newsItem h4{margin:0 0 6px;font-size:14px;color:#18352b}.newsMeta{font-size:11px;color:var(--muted);line-height:1.6}.statusPill{display:inline-block;padding:4px 8px;border-radius:99px;background:#f1f4f2;color:#52665b;font-size:10px;font-weight:800}.newsActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.smallBtn{border:0;border-radius:8px;padding:8px 11px;font-size:11px;font-weight:750;cursor:pointer}.viewBtn{background:#edf4f0;color:#245b42}.approveBtn{background:#08734f;color:white}.rejectBtn{background:#fff0ef;color:#a3332b}.newsDetail{margin-top:12px;background:white;border:1px solid var(--line);border-radius:12px;padding:15px;white-space:pre-wrap;font-size:13px;line-height:1.7}.newsDetail img{display:block;max-width:100%;max-height:360px;object-fit:contain;border-radius:10px;margin:12px 0}.emptyNews{padding:24px;text-align:center;color:var(--muted);font-size:12px;border:1px dashed #cbd9d0;border-radius:10px}.dashnote{margin-top:18px;padding:13px;border-radius:10px;background:#fff8e8;border:1px solid #f1e3bd;color:#765c22;font-size:11px;line-height:1.6}
 @media(max-width:560px){.stats{grid-template-columns:1fr}.menuGrid{grid-template-columns:1fr}.dashboard{padding:19px}}@media(max-width:760px){main{padding:35px 15px 28px}.layout{grid-template-columns:1fr}.welcome{min-height:300px;padding:25px}.welcome h2{font-size:25px}.login{padding:25px}.hero{margin-bottom:25px}.bottom{flex-direction:column;text-align:center;gap:7px}}
 </style></head><body>
 <header class="top"><div class="brand"><div class="mark">WDB</div><div><b>WARTA DESA BONDOWOSO</b><small>PORTAL PENGELOLAAN ADMIN</small></div></div><a class="toplink" href="https://suketteki7174-lang.github.io/WDB-TPP/">← Kembali ke WDB Publik</a></header>
@@ -27,14 +27,21 @@
  <div class="rolebox" id="roleStatus">Login berhasil. Memeriksa hak akses Admin Pusat...</div>
  <div class="stats"><div class="stat"><small>Total Berita</small><b>—</b></div><div class="stat"><small>Menunggu Pemeriksaan</small><b>—</b></div><div class="stat"><small>Kontributor Terdaftar</small><b>—</b></div></div>
  <div class="menuGrid">
-  <div class="menuCard"><div class="ico">📰</div><b>Kelola Berita</b><span>Melihat, memeriksa, menyetujui, dan menolak kiriman berita.</span></div>
+  <button class="menuCard action" id="openNewsMenu" type="button"><div class="ico">📰</div><b>Kelola Berita</b><span>Melihat, memeriksa, menyetujui, dan menolak kiriman berita.</span></button>
   <div class="menuCard"><div class="ico">✍️</div><b>Kontributor</b><span>Verifikasi pendaftaran dan mengelola akun kontributor.</span></div>
   <div class="menuCard"><div class="ico">🏢</div><b>Admin Kecamatan</b><span>Mengelola akun admin dan kewenangan wilayah kecamatan.</span></div>
   <div class="menuCard"><div class="ico">🌐</div><b>Publikasi WDB</b><span>Memantau berita yang sudah disetujui dan diterbitkan.</span></div>
   <div class="menuCard"><div class="ico">📍</div><b>Data Wilayah</b><span>Pengaturan daftar kecamatan dan desa di Kabupaten Bondowoso.</span></div>
   <div class="menuCard"><div class="ico">⚙️</div><b>Pengaturan Admin</b><span>Pengaturan peran, akun, dan konfigurasi portal.</span></div>
  </div>
- <div class="dashnote">Hak akses Admin Pusat telah diverifikasi melalui tabel wdb_admins. Menu dan angka ringkasan masih berupa tampilan awal dan belum terhubung ke tabel berita/kontributor.</div>
+ <section class="newsPanel hidden" id="newsPanel">
+  <div class="newsHead"><h3>Kelola Berita</h3><button class="smallBtn viewBtn" id="closeNewsMenu" type="button">Tutup</button></div>
+  <div class="newsTools"><select id="newsStatusFilter"><option value="semua">Semua status</option><option value="menunggu">Menunggu pemeriksaan</option><option value="terbit">Terbit</option><option value="ditolak">Ditolak</option></select><input id="newsSearch" type="search" placeholder="Cari judul atau penulis..."><button class="smallBtn viewBtn" id="refreshNews" type="button">Muat ulang</button></div>
+  <div id="newsMessage" class="newsMeta" role="status" aria-live="polite">Tekan Kelola Berita untuk memuat data.</div>
+  <div class="newsList" id="newsList"></div>
+  <div id="newsDetail" class="newsDetail hidden"></div>
+ </section>
+ <div class="dashnote">Hak akses Admin Pusat terverifikasi. Menu Kelola Berita terhubung ke tabel wdb_berita. Menu administrasi lainnya akan diaktifkan bertahap.</div>
 </section></section>
 <footer class="bottom"><span>© 2026 <b>WDB TPP P3MD Kabupaten Bondowoso</b></span><span>Admin Portal • Versi awal</span></footer></main>
 <script>
@@ -79,6 +86,51 @@ async function openDashboard(user){
  document.getElementById('roleStatus').textContent=
   'Hak akses terverifikasi: Admin Pusat. Anda dapat mengelola seluruh wilayah WDB.';
 }
+let cachedNews=[];
+const newsPanel=document.getElementById('newsPanel');
+const newsList=document.getElementById('newsList');
+const newsMessage=document.getElementById('newsMessage');
+const newsDetail=document.getElementById('newsDetail');
+function safeText(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function newsStatusLabel(status){const v=String(status||'menunggu').toLowerCase();if(v==='terbit')return 'Terbit';if(v==='ditolak')return 'Ditolak';return status||'Menunggu pemeriksaan';}
+function renderNews(){
+ const filter=document.getElementById('newsStatusFilter').value;
+ const q=document.getElementById('newsSearch').value.trim().toLowerCase();
+ const rows=cachedNews.filter(n=>{const st=String(n.status||'menunggu').toLowerCase();const matchStatus=filter==='semua'||(filter==='menunggu'&&!['terbit','ditolak'].includes(st))||st===filter;const matchText=[n.judul,n.penulis,n.kategori].some(x=>String(x||'').toLowerCase().includes(q));return matchStatus&&matchText;});
+ if(!rows.length){newsList.innerHTML='<div class="emptyNews">Belum ada berita yang sesuai dengan filter.</div>';return;}
+ newsList.innerHTML=rows.map(n=>`<article class="newsItem"><div><h4>${safeText(n.judul)}</h4><div class="newsMeta">${safeText(n.kategori||'Tanpa kategori')} · ${safeText(n.penulis||'Penulis tidak dicantumkan')}<br>${n.created_at?new Date(n.created_at).toLocaleString('id-ID'):'Waktu tidak tersedia'} · <span class="statusPill">${safeText(newsStatusLabel(n.status))}</span></div><div class="newsActions"><button class="smallBtn viewBtn" data-news-action="detail" data-news-id="${safeText(n.id)}" type="button">Lihat detail</button>${String(n.status||'menunggu').toLowerCase()!=='terbit'?`<button class="smallBtn approveBtn" data-news-action="approve" data-news-id="${safeText(n.id)}" type="button">Setujui & terbitkan</button>`:''}${String(n.status||'').toLowerCase()!=='ditolak'?`<button class="smallBtn rejectBtn" data-news-action="reject" data-news-id="${safeText(n.id)}" type="button">Tolak</button>`:''}</div></div></article>`).join('');
+}
+async function loadNews(){
+ newsMessage.textContent='Mengambil data berita dari Supabase...';newsList.innerHTML='';newsDetail.classList.add('hidden');
+ const {data,error}=await supabaseClient.from('wdb_berita').select('id,judul,kategori,penulis,isi,foto_url,status,created_at').order('created_at',{ascending:false});
+ if(error){newsMessage.textContent='Gagal memuat berita: '+error.message;return;}
+ cachedNews=data||[];newsMessage.textContent=`Berhasil memuat ${cachedNews.length} berita.`;renderNews();
+ const total=cachedNews.length,waiting=cachedNews.filter(n=>!['terbit','ditolak'].includes(String(n.status||'menunggu').toLowerCase())).length;
+ const statEls=document.querySelectorAll('.stats .stat b');if(statEls[0])statEls[0].textContent=total;if(statEls[1])statEls[1].textContent=waiting;
+}
+function showNewsDetail(id){
+ const n=cachedNews.find(x=>String(x.id)===String(id));if(!n)return;
+ newsDetail.classList.remove('hidden');newsDetail.innerHTML='';
+ const heading=document.createElement('h3');heading.textContent=n.judul||'Tanpa judul';newsDetail.appendChild(heading);
+ const meta=document.createElement('p');meta.className='newsMeta';meta.textContent=`${n.kategori||'Tanpa kategori'} · ${n.penulis||'Penulis tidak dicantumkan'} · Status: ${newsStatusLabel(n.status)}`;newsDetail.appendChild(meta);
+ if(n.foto_url){try{const u=new URL(n.foto_url);if(['http:','https:'].includes(u.protocol)){const img=document.createElement('img');img.src=u.href;img.alt='Foto berita';img.loading='lazy';newsDetail.appendChild(img);}}catch{}}
+ const body=document.createElement('div');body.textContent=n.isi||'Isi berita belum tersedia.';newsDetail.appendChild(body);
+}
+async function updateNewsStatus(id,status){
+ const label=status==='terbit'?'menyetujui dan menerbitkan':'menolak';
+ if(!confirm(`Anda akan ${label} berita ini. Lanjutkan?`))return;
+ newsMessage.textContent='Menyimpan perubahan status...';
+ const {error}=await supabaseClient.from('wdb_berita').update({status}).eq('id',id);
+ if(error){newsMessage.textContent='Gagal mengubah status: '+error.message;return;}
+ newsMessage.textContent=status==='terbit'?'Berita berhasil diterbitkan.':'Berita berhasil ditolak.';
+ await loadNews();
+}
+document.getElementById('openNewsMenu').addEventListener('click',()=>{newsPanel.classList.remove('hidden');loadNews();newsPanel.scrollIntoView({behavior:'smooth',block:'start'});});
+document.getElementById('closeNewsMenu').addEventListener('click',()=>newsPanel.classList.add('hidden'));
+document.getElementById('refreshNews').addEventListener('click',loadNews);
+document.getElementById('newsStatusFilter').addEventListener('change',renderNews);
+document.getElementById('newsSearch').addEventListener('input',renderNews);
+newsList.addEventListener('click',e=>{const b=e.target.closest('button[data-news-action]');if(!b)return;const id=b.dataset.newsId,action=b.dataset.newsAction;if(action==='detail')showNewsDetail(id);if(action==='approve')updateNewsStatus(id,'terbit');if(action==='reject')updateNewsStatus(id,'ditolak');});
 async function restoreSession(){
  const hash=new URLSearchParams(location.hash.substring(1));
  if(hash.get('type')==='recovery')return;
