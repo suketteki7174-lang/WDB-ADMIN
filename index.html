@@ -34,7 +34,7 @@
   <div class="menuCard"><div class="ico">📍</div><b>Data Wilayah</b><span>Pengaturan daftar kecamatan dan desa di Kabupaten Bondowoso.</span></div>
   <div class="menuCard"><div class="ico">⚙️</div><b>Pengaturan Admin</b><span>Pengaturan peran, akun, dan konfigurasi portal.</span></div>
  </div>
- <div class="dashnote">Tahap awal dashboard. Menu dan angka ringkasan di atas belum terhubung ke tabel berita/kontributor. Hak akses Admin Pusat harus diverifikasi melalui tabel peran sebelum menu pengelolaan diaktifkan.</div>
+ <div class="dashnote">Hak akses Admin Pusat telah diverifikasi melalui tabel wdb_admins. Menu dan angka ringkasan masih berupa tampilan awal dan belum terhubung ke tabel berita/kontributor.</div>
 </section></section>
 <footer class="bottom"><span>© 2026 <b>WDB TPP P3MD Kabupaten Bondowoso</b></span><span>Admin Portal • Versi awal</span></footer></main>
 <script>
@@ -44,14 +44,40 @@ const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHA
 const notice=document.getElementById('loginNotice');
 
 async function openDashboard(user){
+ if(!user?.id){
+  showNotice('Sesi tidak valid','Silakan masuk kembali.',true);
+  return;
+ }
+
+ // Verifikasi peran langsung dari tabel wdb_admins sebelum dashboard dibuka.
+ const {data:adminData,error:roleError}=await supabaseClient
+  .from('wdb_admins')
+  .select('role')
+  .eq('user_id',user.id)
+  .maybeSingle();
+
+ if(roleError){
+  showNotice('Hak akses belum dapat diperiksa',
+   'Login berhasil, tetapi pemeriksaan tabel wdb_admins gagal: '+roleError.message+
+   '. Periksa kebijakan RLS agar pengguna dapat membaca data perannya sendiri.',true);
+  return;
+ }
+
+ if(!adminData || adminData.role!=='admin_pusat'){
+  await supabaseClient.auth.signOut();
+  showNotice('Akses ditolak',
+   'Akun ini belum terdaftar sebagai Admin Pusat WDB. Hubungi pengelola untuk pengaturan hak akses.',true);
+  return;
+ }
+
  document.querySelector('.welcome').classList.add('hidden');
  document.querySelector('.hero').classList.add('hidden');
  document.getElementById('loginForm').classList.add('hidden');
  const panel=document.getElementById('dashboardPanel');panel.classList.remove('hidden');
  document.querySelector('.layout').style.gridTemplateColumns='1fr';
- document.getElementById('dashEmail').textContent=user?.email||'Pengguna WDB';
- const status=document.getElementById('roleStatus');
- status.textContent='Login Supabase berhasil. Akun '+(user?.email||'ini')+' sudah memiliki sesi aktif. Pemeriksaan peran Admin Pusat belum diaktifkan karena struktur tabel hak akses perlu dipastikan.';
+ document.getElementById('dashEmail').textContent=user.email||'Pengguna WDB';
+ document.getElementById('roleStatus').textContent=
+  'Hak akses terverifikasi: Admin Pusat. Anda dapat mengelola seluruh wilayah WDB.';
 }
 async function restoreSession(){
  const hash=new URLSearchParams(location.hash.substring(1));
