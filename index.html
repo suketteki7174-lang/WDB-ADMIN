@@ -108,23 +108,56 @@ const notice=document.getElementById('loginNotice');
 
 async function openDashboard(user){
  if(!user?.id){showNotice('Sesi tidak valid','Silakan masuk kembali.',true);return;}
- // Periksa admin terlebih dahulu. Jika RLS menyembunyikan tabel admin dari kontributor,
- // lanjutkan pemeriksaan profil kontributor dan jangan langsung menggagalkan login.
- const {data:adminData,error:roleError}=await supabaseClient.from('wdb_admins').select('role').eq('user_id',user.id).maybeSingle();
- if(roleError){showNotice('Hak akses belum dapat diperiksa','Login berhasil, tetapi tabel wdb_admins gagal dibaca: '+roleError.message,true);return;}
- if(adminData && adminData.role==='admin_pusat'){
-  document.getElementById('contributorDashboard').classList.add('hidden');
-  document.querySelector('.welcome').classList.add('hidden');document.querySelector('.hero').classList.add('hidden');
-  document.getElementById('loginForm').classList.add('hidden');
-  const panel=document.getElementById('dashboardPanel');panel.classList.remove('hidden');
-  document.querySelector('.layout').style.gridTemplateColumns='1fr';
+ const adminPanel=document.getElementById('dashboardPanel');
+ const contributorPanel=document.getElementById('contributorDashboard');
+ const loginForm=document.getElementById('loginForm');
+ const layout=document.querySelector('.layout');
+ const hideLogin=()=>{
+  document.querySelector('.welcome')?.classList.add('hidden');
+  document.querySelector('.hero')?.classList.add('hidden');
+  loginForm?.classList.add('hidden');
+  if(layout)layout.style.gridTemplateColumns='1fr';
+ };
+ // Jangan anggap error query sebagai bukti bahwa pengguna bukan Admin Pusat.
+ // Error jaringan/RLS berbeda dengan hasil query sukses tanpa baris admin.
+ let adminData=null, roleError=null;
+ try{
+  const result=await supabaseClient.from('wdb_admins').select('role').eq('user_id',user.id).maybeSingle();
+  adminData=result.data; roleError=result.error;
+ }catch(err){roleError=err;}
+ if(roleError){
+  console.warn('[WDB] Pemeriksaan peran Admin Pusat gagal; melanjutkan pemeriksaan profil kontributor.',roleError);
+ }else if(adminData?.role==='admin_pusat'){
+  contributorPanel.classList.add('hidden');
+  adminPanel.classList.remove('hidden');
+  hideLogin();
   document.getElementById('dashEmail').textContent=user.email||'Pengguna WDB';
   document.getElementById('roleStatus').textContent='Hak akses terverifikasi: Admin Pusat. Anda dapat mengelola seluruh wilayah WDB.';
   return;
  }
- const {data:kontributor,error:kontributorError}=await supabaseClient.from('wdb_kontributor').select('nama,status,desa,kecamatan').eq('id',user.id).maybeSingle();
- if(kontributorError){await supabaseClient.auth.signOut();showNotice('Profil kontributor belum dapat dibaca',kontributorError.message+' Periksa kebijakan SELECT untuk akun kontributor.',true);return;}
- if(!kontributor){await supabaseClient.auth.signOut();showNotice('Akses belum terdaftar','Akun ini belum memiliki profil kontributor WDB. Hubungi Admin Pusat.',true);return;}
+ // Jika tabel admin berhasil dibaca tetapi role bukan admin_pusat, lanjutkan ke profil kontributor.
+ let kontributor=null, kontributorError=null;
+ try{
+  const result=await supabaseClient.from('wdb_kontributor').select('nama,status,desa,kecamatan').eq('id',user.id).maybeSingle();
+  kontributor=result.data; kontributorError=result.error;
+ }catch(err){kontributorError=err;}
+ if(kontributorError){
+  console.error('[WDB] Gagal membaca profil kontributor:',kontributorError);
+  showNotice('Hak akses belum dapat diperiksa',
+   'Login berhasil, tetapi profil dan hak akses belum bisa dibaca. Periksa koneksi serta kebijakan SELECT tabel wdb_admins dan wdb_kontributor, lalu muat ulang halaman. Sesi tidak dihapus.',true);
+  return;
+ }
+ if(!kontributor){
+  if(roleError){
+   showNotice('Verifikasi Admin Pusat diperlukan',
+    'Login berhasil, tetapi pemeriksaan peran Admin Pusat mengalami kendala dan profil kontributor tidak ditemukan. Periksa kebijakan SELECT tabel wdb_admins untuk pengguna yang sedang login. Sesi tetap dipertahankan.',true);
+   console.warn('[WDB] Tidak ada profil kontributor dan status Admin Pusat belum dapat dipastikan.');
+   return;
+  }
+  await supabaseClient.auth.signOut();
+  showNotice('Akses belum terdaftar','Akun ini belum memiliki profil Admin Pusat atau kontributor WDB. Hubungi Admin Pusat.',true);
+  return;
+ }
  const status=String(kontributor.status||'menunggu').toLowerCase();
  if(status!=='disetujui'){
   await supabaseClient.auth.signOut();
@@ -132,11 +165,12 @@ async function openDashboard(user){
   else showNotice('Pendaftaran sedang diperiksa','Akun kontributor Anda masih menunggu persetujuan Admin Pusat.');
   return;
  }
- document.getElementById('dashboardPanel').classList.add('hidden');
- document.querySelector('.welcome').classList.add('hidden');document.querySelector('.hero').classList.add('hidden');
- document.getElementById('loginForm').classList.add('hidden');
- document.querySelector('.layout').style.gridTemplateColumns='1fr';
- document.getElementById('contributorDashboard').classList.remove('hidden');
+ adminPanel.classList.add('hidden');
+ document.querySelector('.welcome')?.classList.add('hidden');
+ document.querySelector('.hero')?.classList.add('hidden');
+ loginForm?.classList.add('hidden');
+ if(layout)layout.style.gridTemplateColumns='1fr';
+ contributorPanel.classList.remove('hidden');
  document.getElementById('contributorIdentity').textContent=(kontributor.nama||user.email)+' · '+(kontributor.desa||'-')+', '+(kontributor.kecamatan||'-');
  await loadMyNews(user.id); await loadMySubmissions(user.id);
 }
