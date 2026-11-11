@@ -36,6 +36,14 @@
 .admin-secondary-actions{margin-top:13px;padding-top:12px;border-top:1px solid var(--line)}
 @media(max-width:900px){.admin-main-menu{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
 @media(max-width:600px){.admin-main-menu{grid-template-columns:repeat(2,minmax(0,1fr))!important}.admin-main-menu .menuCard{padding:13px 10px}}
+
+.contrib-menu{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin:18px 0}
+.contrib-menu button{border:1px solid var(--line);border-radius:12px;background:#fff;padding:13px 9px;text-align:left;cursor:pointer;color:var(--ink)}
+.contrib-menu b{display:block;font-size:12px;margin:7px 0 4px}.contrib-menu span{font-size:10px;color:var(--muted);line-height:1.4}
+.submitPanel{border:1px solid var(--line);border-radius:14px;padding:17px;margin:14px 0;background:#fbfdfb}
+.submitPanel[hidden]{display:none!important}.submitPanel h3{margin:0 0 8px;color:#153d2e}
+@media(max-width:800px){.contrib-menu{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:560px){.contrib-menu{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style></head><body>
 <header class="top"><div class="brand"><div class="mark">WDB</div><div><b>WARTA DESA BONDOWOSO</b><small>PORTAL PENGELOLAAN ADMIN</small></div></div><a class="toplink" href="https://suketteki7174-lang.github.io/WDB-TPP/">← Kembali ke WDB Publik</a></header>
 <main><section class="hero"><div class="eyebrow"><i class="dot"></i> ADMINISTRATION PORTAL</div><h1>Ruang Pengelolaan WDB</h1><p>Kelola berita, kontributor, dan publikasi informasi desa dalam satu tempat.</p></section>
@@ -55,8 +63,8 @@
   <button class="menuCard action" id="openAnnouncementMenu" type="button"><div class="ico">📣</div><b>4. Isi Pengumuman</b><span>Buat, ubah, aktifkan, dan hapus pengumuman WDB.</span></button>
   <button class="menuCard action" id="openGalleryMenu" type="button"><div class="ico">🖼️</div><b>5. Isi Galeri Foto</b><span>Kelola dokumentasi foto kegiatan desa.</span></button>
  </div>
- <div class="admin-secondary-actions"><button class="smallBtn viewBtn" id="openContributorMenu" type="button">✍️ Kelola Kontributor</button></div>
- <section class="newsPanel hidden" id="contributorPanel"><div class="newsHead"><h3>Verifikasi Kontributor</h3><button class="smallBtn viewBtn" id="closeContributorPanel" type="button">Tutup</button></div><div id="contributorMessage" class="newsMeta">Memuat pendaftar...</div><div id="contributorList" class="newsList"></div></section><section class="newsPanel hidden" id="newsPanel">
+ <div class="admin-secondary-actions"><button class="smallBtn approveBtn" id="openSubmissionQueue" type="button">📥 Antrean Kiriman Kontributor</button> <button class="smallBtn viewBtn" id="openContributorMenu" type="button">✍️ Kelola Kontributor</button></div>
+ <section class="newsPanel hidden" id="submissionQueuePanel"><div class="newsHead"><h3>Antrean Kiriman Kontributor</h3><button class="smallBtn viewBtn" id="closeSubmissionQueue" type="button">Tutup</button></div><div id="submissionQueueMessage" class="newsMeta">Memuat kiriman...</div><div id="submissionQueueList" class="newsList"></div></section><section class="newsPanel hidden" id="contributorPanel"><div class="newsHead"><h3>Verifikasi Kontributor</h3><button class="smallBtn viewBtn" id="closeContributorPanel" type="button">Tutup</button></div><div id="contributorMessage" class="newsMeta">Memuat pendaftar...</div><div id="contributorList" class="newsList"></div></section><section class="newsPanel hidden" id="newsPanel">
   <div class="newsHead"><h3>Kelola Berita</h3><button class="smallBtn viewBtn" id="closeNewsMenu" type="button">Tutup</button></div>
   <div class="newsTools"><select id="newsStatusFilter"><option value="semua">Semua status</option><option value="menunggu">Menunggu pemeriksaan</option><option value="terbit">Terbit</option><option value="ditolak">Ditolak</option></select><input id="newsSearch" type="search" placeholder="Cari judul atau penulis..."><button class="smallBtn viewBtn" id="refreshNews" type="button">Muat ulang</button></div>
   <div id="newsMessage" class="newsMeta" role="status" aria-live="polite">Tekan Kelola Berita untuk memuat data.</div>
@@ -76,7 +84,7 @@
 </section></section>
 <section class="contributorDash hidden" id="contributorDashboard">
  <div class="contribTop"><div><h2>Ruang Kerja Kontributor</h2><div class="muted" id="contributorIdentity">Akun kontributor</div></div><button class="contribExit" id="contributorSignOut" type="button">Keluar</button></div>
- <div class="rolebox" style="margin-top:16px">Akun Anda telah disetujui Admin Pusat. Silakan tulis berita dan kirim untuk diperiksa sebelum diterbitkan.</div>
+ <div class="rolebox" style="margin-top:16px">Akun Anda telah disetujui Admin Pusat. Silakan kirim berita, data TPP, iklan, galeri foto/video, dan pengumuman. Semua kiriman diperiksa Admin Pusat sebelum diterbitkan.</div>
  <h3 style="margin:20px 0 8px;color:#153d2e">Tulis Berita</h3>
  <form id="contributorNewsForm">
   <div class="contribForm">
@@ -88,7 +96,7 @@
   <div class="contribButtons"><button class="contribSave" type="button" id="saveDraftBtn">Simpan Draft</button><button class="contribSend" type="submit" id="sendNewsBtn">Kirim ke Admin Pusat</button></div>
  </form>
  <div id="contribNewsMessage" class="newsMeta" role="status" style="margin-top:12px"></div>
- <h3 style="margin:24px 0 8px;color:#153d2e">Riwayat Berita Saya</h3><div class="contribList" id="myNewsList"><div class="emptyNews">Memuat riwayat berita...</div></div>
+ <h3 style="margin:24px 0 8px;color:#153d2e">Riwayat Kiriman Saya</h3><div class="contribList" id="mySubmissionList"><div class="emptyNews">Memuat riwayat kiriman...</div></div><h3 style="margin:24px 0 8px;color:#153d2e">Riwayat Berita Saya</h3><div class="contribList" id="myNewsList"><div class="emptyNews">Memuat riwayat berita...</div></div>
  <p class="muted" style="margin-top:14px">Catatan: Foto utama saat ini dimasukkan melalui tautan URL gambar. Pengunggahan foto langsung akan diaktifkan setelah penyimpanan Storage WDB disiapkan.</p>
 </section>
 <footer class="bottom"><span>© 2026 <b>WDB TPP P3MD Kabupaten Bondowoso</b></span><span>Admin Portal • Versi awal</span></footer></main>
@@ -130,7 +138,7 @@ async function openDashboard(user){
  document.querySelector('.layout').style.gridTemplateColumns='1fr';
  document.getElementById('contributorDashboard').classList.remove('hidden');
  document.getElementById('contributorIdentity').textContent=(kontributor.nama||user.email)+' · '+(kontributor.desa||'-')+', '+(kontributor.kecamatan||'-');
- await loadMyNews(user.id);
+ await loadMyNews(user.id); await loadMySubmissions(user.id);
 }
 
 let cachedNews=[];
@@ -249,7 +257,7 @@ async function saveContributorNews(status){
  else{result=await supabaseClient.from('wdb_berita').insert(payload);}
  if(result.error){document.getElementById('contribNewsMessage').textContent='Gagal menyimpan berita: '+result.error.message;return;}
  document.getElementById('contribNewsMessage').textContent=status==='draft'?'Draft berhasil disimpan.':'Berita berhasil dikirim ke Admin Pusat untuk diperiksa.';
- resetContributorForm();await loadMyNews(user.id);
+ resetContributorForm();await loadMyNews(user.id); await loadMySubmissions(user.id);
 }
 document.getElementById('saveDraftBtn').onclick=()=>saveContributorNews('draft');
 document.getElementById('contributorNewsForm').addEventListener('submit',e=>{e.preventDefault();saveContributorNews('menunggu');});
@@ -298,6 +306,70 @@ document.addEventListener('click',async e=>{const edit=e.target.closest('[data-c
  if(key==='announcement'){document.getElementById('announcementId').value=data.id;document.getElementById('announcementJudul').value=data.judul||'';document.getElementById('announcementIsi').value=data.isi||'';document.getElementById('announcementTanggal').value=data.tanggal?new Date(data.tanggal).toISOString().slice(0,16):'';document.getElementById('announcementAktif').value=String(data.aktif!==false);}
  if(key==='gallery'){let a=Array.isArray(data.media_urls)?data.media_urls:(typeof data.media_urls==='string'?(()=>{try{return JSON.parse(data.media_urls)}catch{return []}})():[]);document.getElementById('galleryId').value=data.id;document.getElementById('galleryJudul').value=data.judul||'';document.getElementById('galleryKategori').value=data.kategori||'';document.getElementById('galleryLokasi').value=data.lokasi||'';document.getElementById('galleryKeterangan').value=data.keterangan||'';document.getElementById('galleryMedia').value=a.join('\n');document.getElementById('galleryAktif').value=String(data.aktif!==false);}
  document.getElementById(key==='ads'?'adsForm':key==='team'?'teamForm':key==='announcement'?'announcementForm':'galleryForm').scrollIntoView({behavior:'smooth',block:'center'});});
+
+
+// Kiriman konten non-berita disimpan di antrean terpisah; Admin Pusat yang menerbitkannya.
+let activeExtraKind='';
+const extraFields={
+ team:`<label>Nama lengkap<input name="nama" required maxlength="180"></label><label>Jabatan<input name="jabatan" required maxlength="180"></label><label>Wilayah tugas<input name="wilayah" placeholder="Kabupaten/Kecamatan/Desa"></label><label>Urutan tampil<input name="urutan" type="number" value="0"></label><label class="wide">Informasi singkat<textarea name="informasi"></textarea></label><label class="wide">URL foto<input name="foto_url" type="url" placeholder="https://..."></label>`,
+ ads:`<label>Nama/Judul iklan<input name="nama" required maxlength="180"></label><label>Tautan tujuan<input name="tautan" type="url" placeholder="https://..."></label><label class="wide">URL gambar/banner<input name="gambar_url" type="url" required placeholder="https://..."></label>`,
+ announcement:`<label class="wide">Judul pengumuman<input name="judul" required maxlength="200"></label><label class="wide">Isi pengumuman<textarea name="isi" required></textarea></label><label>Tanggal pengumuman<input name="tanggal" type="datetime-local"></label>`,
+ gallery:`<label>Judul dokumentasi<input name="judul" required maxlength="180"></label><label>Kategori<input name="kategori" placeholder="Kegiatan desa"></label><label>Lokasi<input name="lokasi"></label><label class="wide">Keterangan<textarea name="keterangan"></textarea></label><label class="wide">URL foto/video (satu tautan per baris)<textarea name="media_urls" required placeholder="https://...jpg&#10;https://...mp4"></textarea></label><p class="contentHint wide">Untuk saat ini gunakan tautan media publik. Unggah langsung dari perangkat memerlukan pengaturan Supabase Storage.</p>`
+};
+const extraLabels={team:'Isi Data TPP',ads:'Isi Iklan',announcement:'Isi Pengumuman',gallery:'Galeri Foto/Video'};
+document.querySelectorAll('[data-contrib-kind]').forEach(btn=>btn.addEventListener('click',()=>{
+ const kind=btn.dataset.contribKind;
+ if(kind==='berita'){document.getElementById('contributorNewsForm').scrollIntoView({behavior:'smooth',block:'center'});return;}
+ activeExtraKind=kind;document.getElementById('contribExtraTitle').textContent=extraLabels[kind];
+ document.getElementById('contribExtraFields').innerHTML=extraFields[kind];
+ document.getElementById('contribExtraMessage').textContent='Lengkapi data, lalu kirim untuk diperiksa Admin Pusat.';
+ const panel=document.getElementById('contribExtraPanel');panel.classList.remove('hidden');panel.scrollIntoView({behavior:'smooth',block:'start'});
+}));
+document.getElementById('cancelExtraForm').onclick=()=>{document.getElementById('contribExtraPanel').classList.add('hidden');document.getElementById('contribExtraForm').reset();};
+document.getElementById('contribExtraForm').addEventListener('submit',async e=>{
+ e.preventDefault();const form=e.currentTarget;const {data:{user}}=await supabaseClient.auth.getUser();
+ if(!user){document.getElementById('contribExtraMessage').textContent='Sesi berakhir. Silakan login kembali.';return;}
+ const fd=new FormData(form),payload={};for(const [k,v] of fd.entries())if(v!== '')payload[k]=v;
+ if(activeExtraKind==='team')payload.urutan=Number(payload.urutan||0);
+ if(activeExtraKind==='gallery')payload.media_urls=String(payload.media_urls||'').split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+ if(activeExtraKind==='announcement'&&payload.tanggal)payload.tanggal=new Date(payload.tanggal).toISOString();
+ const {error}=await supabaseClient.from('wdb_kiriman').insert({kontributor_id:user.id,jenis:activeExtraKind,payload,status:'menunggu'});
+ if(error){document.getElementById('contribExtraMessage').textContent='Gagal mengirim: '+error.message+'. Pastikan SQL tabel wdb_kiriman sudah dijalankan.';return;}
+ document.getElementById('contribExtraMessage').textContent='Kiriman berhasil dikirim. Menunggu pemeriksaan Admin Pusat.';form.reset();await loadMySubmissions(user.id);
+});
+async function loadMySubmissions(userId){
+ const box=document.getElementById('mySubmissionList');if(!box)return;
+ const {data,error}=await supabaseClient.from('wdb_kiriman').select('id,jenis,status,created_at,catatan_admin').eq('kontributor_id',userId).order('created_at',{ascending:false});
+ if(error){box.innerHTML='<div class="emptyNews">Riwayat kiriman tambahan belum dapat dimuat: '+safeText(error.message)+'</div>';return;}
+ if(!data?.length){box.innerHTML='<div class="emptyNews">Belum ada kiriman selain berita.</div>';return;}
+ const names={team:'Data TPP',ads:'Iklan',gallery:'Galeri Foto/Video',announcement:'Pengumuman'};
+ box.innerHTML=data.map(x=>`<article class="contribArticle"><b>${safeText(names[x.jenis]||x.jenis)}</b><p>Status: <b>${safeText(x.status)}</b> · ${new Date(x.created_at).toLocaleString('id-ID')}</p>${x.catatan_admin?`<p>Catatan Admin: ${safeText(x.catatan_admin)}</p>`:''}</article>`).join('');
+}
+async function loadSubmissionQueue(){
+ const msg=document.getElementById('submissionQueueMessage'),box=document.getElementById('submissionQueueList');msg.textContent='Memuat antrean kiriman...';box.innerHTML='';
+ const {data,error}=await supabaseClient.from('wdb_kiriman').select('id,kontributor_id,jenis,payload,status,created_at,catatan_admin').order('created_at',{ascending:false});
+ if(error){msg.textContent='Gagal memuat antrean: '+error.message;return;}
+ const rows=data||[];msg.textContent=`Total kiriman: ${rows.length} · Menunggu: ${rows.filter(x=>x.status==='menunggu').length}`;
+ const names={team:'Data TPP',ads:'Iklan',gallery:'Galeri Foto/Video',announcement:'Pengumuman'};
+ if(!rows.length){box.innerHTML='<div class="emptyNews">Belum ada kiriman.</div>';return;}
+ box.innerHTML=rows.map(x=>{const p=x.payload||{};const title=p.nama||p.judul||names[x.jenis]||x.jenis;return `<article class="newsItem"><div><h4>${safeText(title)}</h4><div class="newsMeta">${safeText(names[x.jenis]||x.jenis)} · ${new Date(x.created_at).toLocaleString('id-ID')} · <span class="statusPill">${safeText(x.status)}</span><br>${safeText(p.jabatan||p.lokasi||p.kategori||'')}</div><div class="newsActions"><button class="smallBtn viewBtn" data-sub-detail="${safeText(x.id)}">Lihat data</button>${x.status==='menunggu'?`<button class="smallBtn approveBtn" data-sub-approve="${safeText(x.id)}">Setujui & tampilkan</button><button class="smallBtn rejectBtn" data-sub-reject="${safeText(x.id)}">Tolak</button>`:''}</div></div></article>`;}).join('');
+ window.cachedSubmissions=rows;
+}
+async function reviewSubmission(id,approve){
+ const item=(window.cachedSubmissions||[]).find(x=>String(x.id)===String(id));if(!item)return;
+ let note='';if(!approve){note=prompt('Tuliskan alasan/catatan penolakan:')||'';if(!note.trim())return;}
+ if(!confirm(approve?'Setujui dan tampilkan kiriman ini?':'Tolak kiriman ini?'))return;
+ if(approve){const targets={team:'wdb_tim_tpp',ads:'wdb_iklan',gallery:'wdb_galeri',announcement:'wdb_pengumuman'};const table=targets[item.jenis];if(!table){alert('Jenis kiriman tidak dikenali.');return;}
+  const payload={...item.payload};if(item.jenis==='ads')payload.aktif=true;if(item.jenis==='gallery'||item.jenis==='announcement')payload.aktif=true;
+  const {error:insertError}=await supabaseClient.from(table).insert(payload);if(insertError){alert('Gagal menerbitkan: '+insertError.message);return;}
+ }
+ const {data:{user}}=await supabaseClient.auth.getUser();const {error}=await supabaseClient.from('wdb_kiriman').update({status:approve?'disetujui':'ditolak',catatan_admin:note,reviewed_by:user?.id||null,reviewed_at:new Date().toISOString()}).eq('id',id);
+ if(error){alert('Konten sudah diproses tetapi status antrean gagal diperbarui: '+error.message);return;}
+ await loadSubmissionQueue();
+}
+document.getElementById('openSubmissionQueue').onclick=()=>{document.getElementById('submissionQueuePanel').classList.remove('hidden');loadSubmissionQueue();document.getElementById('submissionQueuePanel').scrollIntoView({behavior:'smooth'});};
+document.getElementById('closeSubmissionQueue').onclick=()=>document.getElementById('submissionQueuePanel').classList.add('hidden');
+document.getElementById('submissionQueueList').addEventListener('click',e=>{const a=e.target.closest('[data-sub-approve],[data-sub-reject],[data-sub-detail]');if(!a)return;const id=a.dataset.subApprove||a.dataset.subReject||a.dataset.subDetail;if(a.dataset.subDetail){const x=(window.cachedSubmissions||[]).find(y=>String(y.id)===String(id));if(x)alert(JSON.stringify(x.payload,null,2));}else reviewSubmission(id,!!a.dataset.subApprove);});
 
 async function restoreSession(){
  const hash=new URLSearchParams(location.hash.substring(1));
