@@ -182,8 +182,9 @@ async function openDashboard(user){
  document.getElementById('loginForm').classList.add('hidden');
  document.querySelector('.layout').style.gridTemplateColumns='1fr';
  document.getElementById('contributorDashboard').classList.remove('hidden');
- document.getElementById('contributorIdentity').textContent=(kontributor.nama||user.email)+' · '+(kontributor.desa||'-')+', '+(kontributor.kecamatan||'-');
- document.getElementById('contribAuthor').value=kontributor.nama||user.email||'';
+ document.getElementById('contributorIdentity').textContent='';
+ document.getElementById('contributorIdentity').style.display='none';
+ document.getElementById('contribAuthor').value='';
  await loadMyNews(user.id);
 }
 
@@ -345,7 +346,7 @@ async function saveContributorNews(status){
  const title=document.getElementById('contribTitle').value.trim(),category=document.getElementById('contribCategory').value,body=document.getElementById('contribBody').value.trim(),photo=document.getElementById('contribPhoto').value.trim();
  if(!title||!category||!body){document.getElementById('contribNewsMessage').textContent='Judul, kategori, dan isi berita wajib diisi.';return;}
  const {data:{user}}=await supabaseClient.auth.getUser();if(!user){document.getElementById('contribNewsMessage').textContent='Sesi berakhir. Silakan login kembali.';return;}
- const payload={kontributor_id:user.id,judul:title,kategori:category,penulis:document.getElementById('contribAuthor').value.trim()||document.getElementById('contributorIdentity').textContent.split(' · ')[0],isi:body,foto_url:photo||null,status};
+ const payload={kontributor_id:user.id,judul:title,kategori:category,penulis:document.getElementById('contribAuthor').value.trim(),isi:body,foto_url:photo||null,status};
  const editId=document.getElementById('contributorNewsForm').dataset.editId;
  let result;
  if(editId){result=await supabaseClient.from('wdb_berita').update(payload).eq('id',editId).eq('kontributor_id',user.id);}
