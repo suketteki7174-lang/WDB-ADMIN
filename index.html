@@ -93,13 +93,13 @@
  <div class="dashhead"><div><h2>Dashboard Admin Pusat</h2><p id="dashEmail">Akun WDB</p></div><button class="signout" id="signOutBtn" type="button">Keluar</button></div>
  <div class="rolebox" id="roleStatus">Login berhasil. Memeriksa hak akses Admin Pusat...</div>
  <div class="stats"><div class="stat"><small>Total Berita</small><b>—</b></div><div class="stat"><small>Menunggu Pemeriksaan</small><b>—</b></div><div class="stat"><small>Kontributor Terdaftar</small><b>—</b></div></div>
- <div class="admin-menu-caption">Pilih salah satu menu untuk mengelola konten WDB</div>
+ <div class="admin-menu-caption">Pilih menu untuk memeriksa dan mengelola konten WDB</div>
  <div class="menuGrid admin-main-menu">
-  <button class="menuCard action" id="openNewsMenu" type="button"><div class="ico">📰</div><b>1. Isi Berita</b><span>Periksa kiriman, edit status, setujui, terbitkan, dan tolak berita.</span></button>
-  <button class="menuCard action" id="openTeamMenu" type="button"><div class="ico">👥</div><b>2. Isi Data TPP</b><span>Tambah, ubah, hapus profil dan urutan Tim TPP.</span></button>
-  <button class="menuCard action" id="openAdsMenu" type="button"><div class="ico">📢</div><b>3. Isi Iklan</b><span>Kelola poster, tautan, dan status tayang iklan.</span></button>
-  <button class="menuCard action" id="openAnnouncementMenu" type="button"><div class="ico">📣</div><b>4. Isi Pengumuman</b><span>Buat, ubah, aktifkan, dan hapus pengumuman WDB.</span></button>
-  <button class="menuCard action" id="openGalleryMenu" type="button"><div class="ico">🖼️</div><b>5. Isi Galeri Foto</b><span>Kelola dokumentasi foto kegiatan desa.</span></button>
+  <button class="menuCard action" id="openNewsMenu" type="button"><div class="ico">📰</div><b>1. Pemeriksaan Berita</b><span>Periksa kiriman, edit status, setujui, terbitkan, dan tolak berita.</span></button>
+  <button class="menuCard action" id="openTeamMenu" type="button"><div class="ico">👥</div><b>2. Data TPP</b><span>Tambah, ubah, hapus profil dan urutan Tim TPP.</span></button>
+  <button class="menuCard action" id="openAdsMenu" type="button"><div class="ico">📢</div><b>3. Iklan WDB</b><span>Kelola poster, tautan, dan status tayang iklan.</span></button>
+  <button class="menuCard action" id="openAnnouncementMenu" type="button"><div class="ico">📣</div><b>4. Pengumuman WDB</b><span>Buat, ubah, aktifkan, dan hapus pengumuman WDB.</span></button>
+  <button class="menuCard action" id="openGalleryMenu" type="button"><div class="ico">🖼️</div><b>5. Galeri Foto</b><span>Kelola dokumentasi foto kegiatan desa.</span></button>
  </div>
  <div class="admin-secondary-actions"><button class="smallBtn viewBtn" id="openContributorMenu" type="button">✍️ Kelola Kontributor</button></div>
  <section class="newsPanel hidden" id="contributorPanel"><div class="newsHead"><h3>Verifikasi Kontributor</h3><button class="smallBtn viewBtn" id="closeContributorPanel" type="button">Tutup</button></div><div id="contributorMessage" class="newsMeta">Memuat pendaftar...</div><div id="contributorList" class="newsList"></div></section><section class="newsPanel hidden" id="newsPanel">
@@ -177,7 +177,7 @@
  <p class="muted" style="margin-top:14px">Catatan: foto utama dan thumbnail diunggah ke Supabase Storage WDB. Setiap thumbnail dapat memiliki keterangan sendiri.</p>
  </div>
 </section>
-<footer class="bottom"><span>© 2026 <b>WDB TPP P3MD Kabupaten Bondowoso</b></span><span>Admin Portal • Versi awal</span></footer></main>
+<footer class="bottom"><span>© 2026 <b>WDB TPP P3MD Kabupaten Bondowoso</b></span><span>Dashboard Admin Pusat</span></footer></main>
 <script>
 // Panel konten tetap di dalam dashboard dan dipindahkan ke ruang kontributor hanya saat dipilih.
 const SUPABASE_URL='https://afzbcqnbgxtpffrqorfy.supabase.co';
@@ -505,17 +505,14 @@ const contentModules={
 function contentMsg(key,msg,isError=false){const el=document.getElementById(contentModules[key].message);el.textContent=msg;el.style.color=isError?'#a3332b':'#52665b';}
 const adminPanelIds=['newsPanel','contributorPanel','teamPanel','adsPanel','announcementPanel','galleryPanel'];
 function hideContentPanels(){
- adminPanelIds.forEach(id=>{
-  const panel=document.getElementById(id);
-  if(panel){panel.classList.add('hidden');panel.style.removeProperty('display');}
- });
+ document.querySelectorAll('.newsPanel,.contentPanel').forEach(panel=>panel.classList.add('hidden'));
+ adminPanelIds.forEach(id=>{const panel=document.getElementById(id);if(panel)panel.classList.add('hidden');});
 }
 async function showOnlyAdminPanel(id,key){
  hideContentPanels();
  const panel=document.getElementById(id);
  if(!panel)return;
  panel.classList.remove('hidden');
- panel.style.removeProperty('display');
  if(key)await loadContent(key);
  panel.scrollIntoView({behavior:'smooth',block:'start'});
 }
@@ -525,7 +522,7 @@ document.getElementById('openTeamMenu').onclick=()=>showOnlyAdminPanel('teamPane
 document.getElementById('openAdsMenu').onclick=()=>showOnlyAdminPanel('adsPanel','ads');
 document.getElementById('openAnnouncementMenu').onclick=()=>showOnlyAdminPanel('announcementPanel','announcement');
 document.getElementById('openGalleryMenu').onclick=()=>showOnlyAdminPanel('galleryPanel','gallery');
-document.addEventListener('click',e=>{const c=e.target.closest('[data-close-panel]');if(c)document.getElementById(c.dataset.closePanel).classList.add('hidden');const r=e.target.closest('[data-reset-form]');if(r){document.getElementById(r.dataset.resetForm).reset();if(r.dataset.resetForm==='announcementForm'){document.getElementById('announcementMediaUrl').value='';document.getElementById('announcementMediaFile').value='';document.getElementById('announcementMediaPreview').innerHTML='';}if(r.dataset.resetForm==='galleryForm'){document.getElementById('galleryPreview').innerHTML='';document.getElementById('galleryMedia').value='';document.getElementById('galleryCaptions').value='[]';document.getElementById('galleryMainFile').value='';document.getElementById('galleryExtraFiles').innerHTML='';addGalleryMediaRow();}const hid=document.getElementById(r.dataset.resetForm).querySelector('input[type=hidden]');if(hid)hid.value='';}});
+document.addEventListener('click',e=>{const c=e.target.closest('[data-close-panel]');if(c)hideContentPanels();const r=e.target.closest('[data-reset-form]');if(r){document.getElementById(r.dataset.resetForm).reset();if(r.dataset.resetForm==='announcementForm'){document.getElementById('announcementMediaUrl').value='';document.getElementById('announcementMediaFile').value='';document.getElementById('announcementMediaPreview').innerHTML='';}if(r.dataset.resetForm==='galleryForm'){document.getElementById('galleryPreview').innerHTML='';document.getElementById('galleryMedia').value='';document.getElementById('galleryCaptions').value='[]';document.getElementById('galleryMainFile').value='';document.getElementById('galleryExtraFiles').innerHTML='';addGalleryMediaRow();}const hid=document.getElementById(r.dataset.resetForm).querySelector('input[type=hidden]');if(hid)hid.value='';}});
 function rowCard(title,sub,img,id,key,active){const image=img?`<img src="${safeText(img)}" alt="" onerror="this.style.display='none'">`:'<div class="team-avatar">WDB</div>';return `<article class="contentRow">${image}<div class="info"><b>${safeText(title||'Tanpa judul')}</b><small>${safeText(sub||'')} · ${active===false?'Nonaktif':'Aktif'}</small></div><div class="actions"><button class="smallBtn viewBtn" data-content-edit="${key}" data-id="${safeText(id)}">Edit</button><button class="smallBtn rejectBtn" data-content-delete="${key}" data-id="${safeText(id)}">Hapus</button></div></article>`;}
 async function loadContent(key){const m=contentModules[key];contentMsg(key,'Memuat data...');const order=key==='team'?'urutan':'created_at';const {data,error}=await supabaseClient.from(m.table).select('*').order(order,{ascending:key==='team'});if(error){contentMsg(key,'Gagal memuat data: '+error.message,true);document.getElementById(m.list).innerHTML='';return;}const rows=data||[];if(!rows.length){document.getElementById(m.list).innerHTML='<div class="emptyNews">Belum ada data.</div>';contentMsg(key,'Belum ada data tersimpan.');return;}
  let html='';if(key==='ads')html=rows.map(x=>rowCard(x.nama,x.tautan,x.gambar_url,x.id,key,x.aktif)).join('');
