@@ -70,6 +70,18 @@
 .contributor-menu-message{display:none;margin:-5px 0 16px;padding:10px 12px;border:1px solid #f1e3bd;border-radius:9px;background:#fff8e8;color:#765c22;font-size:11px;line-height:1.6}
 @media(max-width:900px){.contributor-main-menu{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:600px){.contributor-main-menu{grid-template-columns:repeat(2,minmax(0,1fr))}.contributor-main-menu button{font-size:11px;padding:10px 5px}}
+</style><style>
+.galleryMediaTitle{background:#eef3ef;border-left:4px solid #d5b65b;padding:10px 13px;font-weight:800;color:#075b45;margin-top:8px}
+.galleryMainInfo{border:2px solid #087b57;background:#eef8f2;border-radius:10px;padding:13px;color:#075b45;font-weight:700}
+#galleryExtraFiles{display:grid;gap:10px}
+.galleryExtraRow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:start;border:1px solid #d7e5dc;border-radius:10px;padding:12px;background:#fff}
+.galleryExtraFields{display:grid;gap:7px;min-width:0}
+.galleryExtraFields label{font-weight:700}
+.galleryExtraFields input[type=file],.galleryExtraFields input[type=text]{width:100%;box-sizing:border-box}
+.galleryPreview{display:flex;gap:10px;flex-wrap:wrap}
+.galleryPreviewItem{width:125px;border:1px solid #d7e5dc;border-radius:9px;padding:7px;overflow:hidden}
+.galleryPreviewItem img{width:100%;height:85px;object-fit:cover;border-radius:6px}
+@media(max-width:600px){.galleryExtraRow{grid-template-columns:1fr}}
 </style></head><body>
 <header class="top"><div class="brand"><div class="mark">WDB</div><div><b>WARTA DESA BONDOWOSO</b><small>PORTAL PENGELOLAAN ADMIN</small></div></div><a class="toplink" href="https://suketteki7174-lang.github.io/WDB-TPP/">← Kembali ke WDB Publik</a></header>
 <main><section class="hero"><div class="eyebrow"><i class="dot"></i> ADMINISTRATION PORTAL</div><h1>Ruang Pengelolaan WDB</h1><p>Kelola berita, kontributor, dan publikasi informasi desa dalam satu tempat.</p></section>
@@ -105,7 +117,15 @@
  <section class="contentPanel hidden" id="announcementPanel"><div class="newsHead"><h3>Kelola Pengumuman WDB</h3><button class="smallBtn viewBtn" data-close-panel="announcementPanel" type="button">Tutup</button></div>
  <form id="announcementForm" class="contentForm"><input type="hidden" id="announcementId"><label class="wide">Judul pengumuman<input id="announcementJudul" required maxlength="200" placeholder="Masukkan judul pengumuman"></label><label class="wide">Isi pengumuman<textarea id="announcementIsi" required placeholder="Tuliskan isi pengumuman..."></textarea></label><label>Tanggal pengumuman<input id="announcementTanggal" type="datetime-local"></label><label>Status<select id="announcementAktif"><option value="true">Aktif</option><option value="false">Nonaktif</option></select></label><div class="wide contentFormActions"><button class="contentSave" type="submit">Simpan Pengumuman</button><button class="contentCancel" type="button" data-reset-form="announcementForm">Kosongkan</button></div></form><div id="announcementMessage" class="newsMeta"></div><div id="announcementList" class="contentList"></div></section>
  <section class="contentPanel hidden" id="galleryPanel"><div class="newsHead"><h3>Kelola Galeri Foto</h3><button class="smallBtn viewBtn" data-close-panel="galleryPanel" type="button">Tutup</button></div>
- <form id="galleryForm" class="contentForm"><input type="hidden" id="galleryId"><label>Judul dokumentasi<input id="galleryJudul" required maxlength="180"></label><label>Kategori<input id="galleryKategori"></label><label>Lokasi<input id="galleryLokasi"></label><label class="wide">Keterangan<textarea id="galleryKeterangan"></textarea></label><label class="wide">Pilih foto dokumentasi<input id="galleryFiles" type="file" accept="image/*" multiple><small>Pilih satu atau beberapa foto dari HP/komputer. Foto akan diunggah ke penyimpanan WDB.</small></label><div class="wide" id="galleryPreview" style="display:flex;gap:10px;flex-wrap:wrap"></div><textarea id="galleryMedia" hidden></textarea><label>Status<select id="galleryAktif"><option value="true">Aktif</option><option value="false">Nonaktif</option></select></label><div class="wide contentFormActions"><button class="contentSave" type="submit">Simpan Galeri</button><button class="contentCancel" type="button" data-reset-form="galleryForm">Kosongkan</button></div></form><p class="contentHint">Foto yang dipilih akan diunggah dan alamat fotonya disimpan otomatis pada data galeri.</p><div id="galleryMessage" class="newsMeta"></div><div id="galleryList" class="contentList"></div></section>
+ <form id="galleryForm" class="contentForm"><input type="hidden" id="galleryId"><label>Judul dokumentasi<input id="galleryJudul" required maxlength="180"></label><label>Kategori<input id="galleryKategori"></label><label>Lokasi<input id="galleryLokasi"></label><label class="wide">Keterangan<textarea id="galleryKeterangan"></textarea></label><div class="wide galleryMediaTitle">1. FOTO UTAMA GALERI</div>
+ <div class="wide galleryMainInfo" id="galleryMainInfo">Belum dipilih — pilih foto utama galeri di bawah ini.</div>
+ <label class="wide">Pilih Foto Utama<input id="galleryMainFile" type="file" accept="image/*"></label>
+ <div class="wide galleryMediaTitle">2. THUMBNAIL FOTO TAMBAHAN</div>
+ <div class="wide" id="galleryExtraFiles"></div>
+ <div class="wide"><button type="button" class="contribAddMedia" id="addGalleryMedia">＋ Tambah Foto</button></div>
+ <div class="wide galleryPreview" id="galleryPreview"></div>
+ <textarea id="galleryMedia" hidden></textarea>
+ <textarea id="galleryCaptions" hidden></textarea><label>Status<select id="galleryAktif"><option value="true">Aktif</option><option value="false">Nonaktif</option></select></label><div class="wide contentFormActions"><button class="contentSave" type="submit">Simpan Galeri</button><button class="contentCancel" type="button" data-reset-form="galleryForm">Kosongkan</button></div></form><p class="contentHint">Foto 1 adalah foto utama. Foto tambahan dimulai dari Foto 2, Foto 3, Foto 4, dan seterusnya. Setiap foto tambahan dapat diberi keterangan.</p><div id="galleryMessage" class="newsMeta"></div><div id="galleryList" class="contentList"></div></section>
  <div class="dashnote">Hak akses Admin Pusat terverifikasi. Menu Kelola Berita terhubung ke tabel wdb_berita. Menu Isi Iklan, Isi Data TPP, Isi Pengumuman, dan Isi Galeri Foto terhubung ke tabel Supabase masing-masing.</div>
 </section></section>
 <section class="contributorDash hidden" id="contributorDashboard">
@@ -490,7 +510,7 @@ document.getElementById('openAdsMenu').onclick=()=>openContentPanel('ads');
 document.getElementById('openTeamMenu').onclick=()=>openContentPanel('team');
 document.getElementById('openGalleryMenu').onclick=()=>openContentPanel('gallery');
 document.getElementById('openAnnouncementMenu').onclick=()=>openContentPanel('announcement');
-document.addEventListener('click',e=>{const c=e.target.closest('[data-close-panel]');if(c)document.getElementById(c.dataset.closePanel).classList.add('hidden');const r=e.target.closest('[data-reset-form]');if(r){document.getElementById(r.dataset.resetForm).reset();if(r.dataset.resetForm==='galleryForm'){document.getElementById('galleryPreview').innerHTML='';document.getElementById('galleryMedia').value='';}const hid=document.getElementById(r.dataset.resetForm).querySelector('input[type=hidden]');if(hid)hid.value='';}});
+document.addEventListener('click',e=>{const c=e.target.closest('[data-close-panel]');if(c)document.getElementById(c.dataset.closePanel).classList.add('hidden');const r=e.target.closest('[data-reset-form]');if(r){document.getElementById(r.dataset.resetForm).reset();if(r.dataset.resetForm==='galleryForm'){document.getElementById('galleryPreview').innerHTML='';document.getElementById('galleryMedia').value='';document.getElementById('galleryCaptions').value='[]';document.getElementById('galleryMainFile').value='';document.getElementById('galleryExtraFiles').innerHTML='';addGalleryMediaRow();}const hid=document.getElementById(r.dataset.resetForm).querySelector('input[type=hidden]');if(hid)hid.value='';}});
 function rowCard(title,sub,img,id,key,active){const image=img?`<img src="${safeText(img)}" alt="" onerror="this.style.display='none'">`:'<div class="team-avatar">WDB</div>';return `<article class="contentRow">${image}<div class="info"><b>${safeText(title||'Tanpa judul')}</b><small>${safeText(sub||'')} · ${active===false?'Nonaktif':'Aktif'}</small></div><div class="actions"><button class="smallBtn viewBtn" data-content-edit="${key}" data-id="${safeText(id)}">Edit</button><button class="smallBtn rejectBtn" data-content-delete="${key}" data-id="${safeText(id)}">Hapus</button></div></article>`;}
 async function loadContent(key){const m=contentModules[key];contentMsg(key,'Memuat data...');const order=key==='team'?'urutan':'created_at';const {data,error}=await supabaseClient.from(m.table).select('*').order(order,{ascending:key==='team'});if(error){contentMsg(key,'Gagal memuat data: '+error.message,true);document.getElementById(m.list).innerHTML='';return;}const rows=data||[];if(!rows.length){document.getElementById(m.list).innerHTML='<div class="emptyNews">Belum ada data.</div>';contentMsg(key,'Belum ada data tersimpan.');return;}
  let html='';if(key==='ads')html=rows.map(x=>rowCard(x.nama,x.tautan,x.gambar_url,x.id,key,x.aktif)).join('');
@@ -501,7 +521,7 @@ async function loadContent(key){const m=contentModules[key];contentMsg(key,'Memu
 function formPayload(key){if(key==='ads')return {nama:document.getElementById('adsNama').value.trim(),tautan:document.getElementById('adsTautan').value.trim()||null,gambar_url:document.getElementById('adsGambar').value.trim(),aktif:document.getElementById('adsAktif').value==='true'};
  if(key==='team')return {nama:document.getElementById('teamNama').value.trim(),jabatan:document.getElementById('teamJabatan').value.trim(),wilayah:document.getElementById('teamWilayah').value.trim()||null,informasi:document.getElementById('teamInformasi').value.trim()||null,foto_url:document.getElementById('teamFoto').value.trim()||null,urutan:Number(document.getElementById('teamUrutan').value)||0};
  if(key==='announcement'){const dt=document.getElementById('announcementTanggal').value;return {judul:document.getElementById('announcementJudul').value.trim(),isi:document.getElementById('announcementIsi').value.trim(),tanggal:dt?new Date(dt).toISOString():new Date().toISOString(),aktif:document.getElementById('announcementAktif').value==='true'};}
- const urls=document.getElementById('galleryMedia').value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);return {judul:document.getElementById('galleryJudul').value.trim(),kategori:document.getElementById('galleryKategori').value.trim()||null,lokasi:document.getElementById('galleryLokasi').value.trim()||null,keterangan:document.getElementById('galleryKeterangan').value.trim()||null,media_urls:urls,aktif:document.getElementById('galleryAktif').value==='true'};}
+ const urls=document.getElementById('galleryMedia').value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);const captions=JSON.parse(document.getElementById('galleryCaptions').value||'[]');return {judul:document.getElementById('galleryJudul').value.trim(),kategori:document.getElementById('galleryKategori').value.trim()||null,lokasi:document.getElementById('galleryLokasi').value.trim()||null,keterangan:document.getElementById('galleryKeterangan').value.trim()||null,media_urls:urls,media_keterangan:captions,aktif:document.getElementById('galleryAktif').value==='true'};}
 async function uploadOneMedia(inputId,hiddenId,folder,previewId){
  const input=document.getElementById(inputId),file=input.files?.[0];
  if(!file)return document.getElementById(hiddenId).value.trim();
@@ -528,39 +548,89 @@ function previewPickedMedia(inputId,previewId){
 }
 previewPickedMedia('teamFotoFile','teamFotoPreview');
 previewPickedMedia('adsGambarFile','adsGambarPreview');
-async function uploadGalleryPhotos(){
- const input=document.getElementById('galleryFiles');
- const files=Array.from(input.files||[]);
- if(!files.length)return document.getElementById('galleryMedia').value.split(/\\r?\\n/).map(x=>x.trim()).filter(Boolean);
- const existing=document.getElementById('galleryMedia').value.split(/\\r?\\n/).map(x=>x.trim()).filter(Boolean);
- const uploaded=[];
- for(const file of files){
-  if(!file.type.startsWith('image/'))throw new Error('Pilih berkas foto/gambar saja.');
-  const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
-  const path=`galeri/${Date.now()}_${Math.random().toString(36).slice(2,8)}_${safeName}`;
-  const {error}=await supabaseClient.storage.from('wdb-galeri').upload(path,file,{cacheControl:'3600',upsert:false});
-  if(error)throw new Error('Upload foto gagal: '+error.message+' (periksa bucket wdb-galeri dan izin Storage).');
-  const {data}=supabaseClient.storage.from('wdb-galeri').getPublicUrl(path);
-  if(data?.publicUrl)uploaded.push(data.publicUrl);
- }
- return [...existing,...uploaded];
-}
-document.getElementById('galleryFiles').addEventListener('change',()=>{
- const box=document.getElementById('galleryPreview');box.innerHTML='';
- Array.from(document.getElementById('galleryFiles').files||[]).forEach(file=>{
-  const url=URL.createObjectURL(file),img=document.createElement('img');
-  img.src=url;img.alt=file.name;img.style.cssText='width:110px;height:85px;object-fit:cover;border-radius:8px;border:1px solid #d6e4dc';
-  box.appendChild(img);
+const galleryMainFile=document.getElementById('galleryMainFile');
+const galleryExtraFiles=document.getElementById('galleryExtraFiles');
+function renumberGalleryRows(){
+ galleryExtraFiles.querySelectorAll('.galleryExtraRow').forEach((row,i)=>{
+  const n=i+2;row.querySelector('.galleryExtraTitle').textContent='FOTO '+n+' (THUMBNAIL)';
+  row.querySelector('.galleryCaptionLabel').textContent='Keterangan Foto '+n;
  });
-});
-async function saveContent(key){const m=contentModules[key],form=document.getElementById(key==='ads'?'adsForm':key==='team'?'teamForm':key==='announcement'?'announcementForm':'galleryForm'),id=form.querySelector('input[type=hidden]').value;let payload=formPayload(key);if(key==='team'||key==='ads'){try{contentMsg(key,'Mengunggah foto/video...');const url=await uploadOneMedia(key==='team'?'teamFotoFile':'adsGambarFile',key==='team'?'teamFoto':'adsGambar',key==='team'?'tpp':'iklan',key==='team'?'teamFotoPreview':'adsGambarPreview');if(key==='team')payload.foto_url=url||null;else payload.gambar_url=url;}catch(err){contentMsg(key,err.message,true);return;}}if(!payload.nama&&!payload.judul){contentMsg(key,'Judul/nama wajib diisi.',true);return;}if(key==='announcement'&&!payload.isi){contentMsg(key,'Isi pengumuman wajib diisi.',true);return;}if(key==='ads'&&!payload.gambar_url){contentMsg(key,'URL gambar iklan wajib diisi.',true);return;}if(key==='gallery'){try{contentMsg(key,'Mengunggah foto...');payload.media_urls=await uploadGalleryPhotos();}catch(err){contentMsg(key,err.message,true);return;}if(!payload.media_urls.length){contentMsg(key,'Pilih minimal satu foto dokumentasi.',true);return;}}const q=id?supabaseClient.from(m.table).update(payload).eq('id',id):supabaseClient.from(m.table).insert(payload);const {error}=await q;if(error){contentMsg(key,'Gagal menyimpan: '+error.message,true);return;}form.reset();form.querySelector('input[type=hidden]').value='';document.getElementById('galleryPreview').innerHTML='';['teamFotoPreview','adsGambarPreview'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='';});contentMsg(key,'Data berhasil disimpan.');await loadContent(key);}
+}
+function addGalleryMediaRow(){
+ const row=document.createElement('div');row.className='galleryExtraRow';
+ const fields=document.createElement('div');fields.className='galleryExtraFields';
+ const title=document.createElement('strong');title.className='galleryExtraTitle';
+ const pick=document.createElement('label');pick.textContent='Pilih Foto Thumbnail';
+ const file=document.createElement('input');file.type='file';file.accept='image/*';
+ const capLabel=document.createElement('label');capLabel.className='galleryCaptionLabel';
+ const cap=document.createElement('input');cap.type='text';cap.maxLength=300;cap.placeholder='Tuliskan keterangan foto ini';
+ capLabel.appendChild(cap);
+ fields.append(title,pick,file,capLabel);
+ const remove=document.createElement('button');remove.type='button';remove.className='contentCancel';remove.textContent='Hapus';
+ remove.addEventListener('click',()=>{row.remove();renumberGalleryRows();refreshGalleryPreview();});
+ file.addEventListener('change',refreshGalleryPreview);cap.addEventListener('input',refreshGalleryPreview);
+ row.append(fields,remove);galleryExtraFiles.appendChild(row);renumberGalleryRows();
+}
+function refreshGalleryPreview(){
+ const box=document.getElementById('galleryPreview');box.innerHTML='';
+ const main=galleryMainFile.files?.[0];
+ document.getElementById('galleryMainInfo').textContent=main?main.name:'Belum dipilih — pilih foto utama galeri di bawah ini.';
+ const add=(file,label)=>{
+  if(!file)return;
+  const url=URL.createObjectURL(file),card=document.createElement('div');card.className='galleryPreviewItem';
+  const img=document.createElement('img');img.src=url;img.alt=label;
+  const cap=document.createElement('small');cap.textContent=label;
+  card.append(img,cap);box.appendChild(card);
+ };
+ add(main,'Foto 1 — Foto Utama');
+ galleryExtraFiles.querySelectorAll('.galleryExtraRow').forEach((row,i)=>{
+  const f=row.querySelector('input[type=file]').files?.[0],c=row.querySelector('input[type=text]').value.trim();
+  add(f,'Foto '+(i+2)+(c?' — '+c:''));
+ });
+}
+galleryMainFile.addEventListener('change',refreshGalleryPreview);
+document.getElementById('addGalleryMedia').addEventListener('click',addGalleryMediaRow);
+addGalleryMediaRow();
+async function uploadGalleryFile(file,folder){
+ const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+ const path=`${folder}/${Date.now()}_${Math.random().toString(36).slice(2,8)}_${safeName}`;
+ const {error}=await supabaseClient.storage.from('wdb-galeri').upload(path,file,{cacheControl:'3600',upsert:false});
+ if(error)throw new Error('Upload foto galeri gagal: '+error.message);
+ const {data}=supabaseClient.storage.from('wdb-galeri').getPublicUrl(path);
+ if(!data?.publicUrl)throw new Error('URL foto galeri tidak berhasil dibuat.');
+ return data.publicUrl;
+}
+async function uploadGalleryPhotos(){
+ const urls=document.getElementById('galleryMedia').value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+ let captions=[];try{captions=JSON.parse(document.getElementById('galleryCaptions').value||'[]');}catch{}
+ const main=galleryMainFile.files?.[0];
+ if(main){
+  const url=await uploadGalleryFile(main,'galeri/utama');
+  if(urls.length)urls[0]=url;else urls.push(url);
+  captions=captions.filter(x=>x.url!==url);
+  captions=captions.filter(x=>x.url!==urls[0]||x.caption==='Foto Utama');
+  const oldIndex=captions.findIndex(x=>x.url===urls[0]);
+  if(oldIndex>=0)captions[oldIndex].caption='Foto Utama';else captions.unshift({url,caption:'Foto Utama'});
+ }else if(urls.length&&!captions.some(x=>x.url===urls[0])){
+  captions.unshift({url:urls[0],caption:'Foto Utama'});
+ }
+ for(const row of galleryExtraFiles.querySelectorAll('.galleryExtraRow')){
+  const file=row.querySelector('input[type=file]').files?.[0];if(!file)continue;
+  const url=await uploadGalleryFile(file,'galeri/thumbnail');urls.push(url);
+  captions.push({url,caption:row.querySelector('input[type=text]').value.trim()});
+ }
+ document.getElementById('galleryMedia').value=urls.join('\n');
+ document.getElementById('galleryCaptions').value=JSON.stringify(captions);
+ return urls;
+}
+async function saveContent(key){const m=contentModules[key],form=document.getElementById(key==='ads'?'adsForm':key==='team'?'teamForm':key==='announcement'?'announcementForm':'galleryForm'),id=form.querySelector('input[type=hidden]').value;let payload=formPayload(key);if(key==='team'||key==='ads'){try{contentMsg(key,'Mengunggah foto/video...');const url=await uploadOneMedia(key==='team'?'teamFotoFile':'adsGambarFile',key==='team'?'teamFoto':'adsGambar',key==='team'?'tpp':'iklan',key==='team'?'teamFotoPreview':'adsGambarPreview');if(key==='team')payload.foto_url=url||null;else payload.gambar_url=url;}catch(err){contentMsg(key,err.message,true);return;}}if(!payload.nama&&!payload.judul){contentMsg(key,'Judul/nama wajib diisi.',true);return;}if(key==='announcement'&&!payload.isi){contentMsg(key,'Isi pengumuman wajib diisi.',true);return;}if(key==='ads'&&!payload.gambar_url){contentMsg(key,'URL gambar iklan wajib diisi.',true);return;}if(key==='gallery'){try{contentMsg(key,'Mengunggah foto...');payload.media_urls=await uploadGalleryPhotos();payload.media_keterangan=JSON.parse(document.getElementById('galleryCaptions').value||'[]');}catch(err){contentMsg(key,err.message,true);return;}if(!payload.media_urls.length){contentMsg(key,'Pilih minimal satu foto dokumentasi.',true);return;}}const q=id?supabaseClient.from(m.table).update(payload).eq('id',id):supabaseClient.from(m.table).insert(payload);const {error}=await q;if(error){contentMsg(key,'Gagal menyimpan: '+error.message,true);return;}form.reset();form.querySelector('input[type=hidden]').value='';document.getElementById('galleryPreview').innerHTML='';document.getElementById('galleryMainFile').value='';document.getElementById('galleryExtraFiles').innerHTML='';addGalleryMediaRow();['teamFotoPreview','adsGambarPreview'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='';});contentMsg(key,'Data berhasil disimpan.');await loadContent(key);}
 document.getElementById('adsForm').addEventListener('submit',e=>{e.preventDefault();saveContent('ads')});document.getElementById('teamForm').addEventListener('submit',e=>{e.preventDefault();saveContent('team')});document.getElementById('galleryForm').addEventListener('submit',e=>{e.preventDefault();saveContent('gallery')});
 document.getElementById('announcementForm').addEventListener('submit',e=>{e.preventDefault();saveContent('announcement')});
 document.addEventListener('click',async e=>{const edit=e.target.closest('[data-content-edit]'),del=e.target.closest('[data-content-delete]');if(!edit&&!del)return;const key=(edit||del).dataset.contentEdit||(edit||del).dataset.contentDelete,id=(edit||del).dataset.id,m=contentModules[key];if(del){if(!confirm('Hapus data ini? Tindakan ini tidak dapat dibatalkan.'))return;const {error}=await supabaseClient.from(m.table).delete().eq('id',id);if(error){contentMsg(key,'Gagal menghapus: '+error.message,true);return;}contentMsg(key,'Data berhasil dihapus.');await loadContent(key);return;}const {data,error}=await supabaseClient.from(m.table).select('*').eq('id',id).maybeSingle();if(error||!data){contentMsg(key,'Data gagal dibuka: '+(error?.message||'tidak ditemukan'),true);return;}
  if(key==='ads'){document.getElementById('adsId').value=data.id;document.getElementById('adsNama').value=data.nama||'';document.getElementById('adsTautan').value=data.tautan||'';document.getElementById('adsGambar').value=data.gambar_url||'';document.getElementById('adsGambarFile').value='';document.getElementById('adsGambarPreview').innerHTML='';document.getElementById('adsAktif').value=String(data.aktif!==false);}
  if(key==='team'){document.getElementById('teamId').value=data.id;document.getElementById('teamNama').value=data.nama||'';document.getElementById('teamJabatan').value=data.jabatan||'';document.getElementById('teamWilayah').value=data.wilayah||'';document.getElementById('teamInformasi').value=data.informasi||'';document.getElementById('teamFoto').value=data.foto_url||'';document.getElementById('teamFotoFile').value='';document.getElementById('teamFotoPreview').innerHTML='';document.getElementById('teamUrutan').value=data.urutan??0;}
  if(key==='announcement'){document.getElementById('announcementId').value=data.id;document.getElementById('announcementJudul').value=data.judul||'';document.getElementById('announcementIsi').value=data.isi||'';document.getElementById('announcementTanggal').value=data.tanggal?new Date(data.tanggal).toISOString().slice(0,16):'';document.getElementById('announcementAktif').value=String(data.aktif!==false);}
- if(key==='gallery'){let a=Array.isArray(data.media_urls)?data.media_urls:(typeof data.media_urls==='string'?(()=>{try{return JSON.parse(data.media_urls)}catch{return []}})():[]);document.getElementById('galleryId').value=data.id;document.getElementById('galleryJudul').value=data.judul||'';document.getElementById('galleryKategori').value=data.kategori||'';document.getElementById('galleryLokasi').value=data.lokasi||'';document.getElementById('galleryKeterangan').value=data.keterangan||'';document.getElementById('galleryMedia').value=a.join('\n');document.getElementById('galleryFiles').value='';document.getElementById('galleryPreview').innerHTML='';document.getElementById('galleryAktif').value=String(data.aktif!==false);}
+ if(key==='gallery'){let a=Array.isArray(data.media_urls)?data.media_urls:(typeof data.media_urls==='string'?(()=>{try{return JSON.parse(data.media_urls)}catch{return []}})():[]);document.getElementById('galleryId').value=data.id;document.getElementById('galleryJudul').value=data.judul||'';document.getElementById('galleryKategori').value=data.kategori||'';document.getElementById('galleryLokasi').value=data.lokasi||'';document.getElementById('galleryKeterangan').value=data.keterangan||'';document.getElementById('galleryMedia').value=a.join('\n');document.getElementById('galleryMainFile').value='';document.getElementById('galleryExtraFiles').innerHTML='';addGalleryMediaRow();document.getElementById('galleryPreview').innerHTML='';document.getElementById('galleryCaptions').value=JSON.stringify(data.media_keterangan||[]);document.getElementById('galleryAktif').value=String(data.aktif!==false);}
  document.getElementById(key==='ads'?'adsForm':key==='team'?'teamForm':key==='announcement'?'announcementForm':'galleryForm').scrollIntoView({behavior:'smooth',block:'center'});});
 
 async function restoreSession(){
