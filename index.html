@@ -109,7 +109,7 @@
  <div class="dashnote">Hak akses Admin Pusat terverifikasi. Menu Kelola Berita terhubung ke tabel wdb_berita. Menu Isi Iklan, Isi Data TPP, Isi Pengumuman, dan Isi Galeri Foto terhubung ke tabel Supabase masing-masing.</div>
 </section></section>
 <section class="contributorDash hidden" id="contributorDashboard">
- <div class="contribTop"><div><h2>Ruang Kerja Kontributor</h2><div class="muted" id="contributorIdentity">Akun kontributor</div></div><button class="contribExit" id="contributorSignOut" type="button">Keluar</button></div>
+ <div class="contribTop"><div><h2>Ruang Kerja Kontributor</h2><div class="muted" id="contributorIdentity" hidden></div></div><button class="contribExit" id="contributorSignOut" type="button">Keluar</button></div>
  <div class="rolebox" style="margin-top:16px">Akun Anda telah disetujui Admin Pusat. Silakan gunakan menu berikut untuk mengelola kiriman kontributor WDB.</div>
  <nav class="contributor-main-menu" aria-label="Menu Kontributor">
   <button type="button" class="active" data-contributor-menu="news">1. Isi Berita</button>
@@ -124,8 +124,19 @@
   <input type="hidden" id="contribPhoto" value="">
   <div class="contribForm contribNewsFormGrid">
    <label class="wide">Judul berita<input id="contribTitle" required maxlength="180" placeholder="Masukkan judul berita"></label>
-   <label>Kategori<select id="contribCategory" required><option value="">Pilih kategori</option><option>Desa</option><option>Pembangunan</option><option>Pemerintahan</option><option>Pemberdayaan</option><option>Sosial</option><option>Lingkungan</option><option>Budaya</option><option>Lainnya</option></select></label>
-   <label>Penulis<input id="contribAuthor" type="text" maxlength="120" placeholder="Nama penulis"></label>
+   <label>Kategori<select id="contribCategory" required>
+    <option value="">Pilih kategori</option>
+    <option value="Berita Nasional">Berita Nasional</option>
+    <option value="Berita Desa">Berita Desa</option>
+    <option value="Perencanaan">Perencanaan</option>
+    <option value="Pelaksanaan">Pelaksanaan</option>
+    <option value="Wisata Desa">Wisata Desa</option>
+    <option value="Produk Desa">Produk Desa</option>
+    <option value="BUMDes">BUMDes</option>
+    <option value="Kopdes">Kopdes</option>
+    <option value="Hobi">Hobi</option>
+   </select></label>
+   <input id="contribAuthor" type="hidden" value="Kontributor WDB">
    <label class="wide">Isi berita<textarea id="contribBody" required placeholder="Tulis isi berita di sini..."></textarea></label>
   </div>
   <div class="contribMediaArea">
@@ -183,8 +194,8 @@ async function openDashboard(user){
  document.querySelector('.layout').style.gridTemplateColumns='1fr';
  document.getElementById('contributorDashboard').classList.remove('hidden');
  document.getElementById('contributorIdentity').textContent='';
- document.getElementById('contributorIdentity').style.display='none';
- document.getElementById('contribAuthor').value='';
+ document.getElementById('contributorIdentity').style.display='none';document.getElementById('contributorIdentity').hidden=true;
+ document.getElementById('contribAuthor').value='Kontributor WDB';
  await loadMyNews(user.id);
 }
 
@@ -346,7 +357,7 @@ async function saveContributorNews(status){
  const title=document.getElementById('contribTitle').value.trim(),category=document.getElementById('contribCategory').value,body=document.getElementById('contribBody').value.trim(),photo=document.getElementById('contribPhoto').value.trim();
  if(!title||!category||!body){document.getElementById('contribNewsMessage').textContent='Judul, kategori, dan isi berita wajib diisi.';return;}
  const {data:{user}}=await supabaseClient.auth.getUser();if(!user){document.getElementById('contribNewsMessage').textContent='Sesi berakhir. Silakan login kembali.';return;}
- const payload={kontributor_id:user.id,judul:title,kategori:category,penulis:document.getElementById('contribAuthor').value.trim(),isi:body,foto_url:photo||null,status};
+ const payload={kontributor_id:user.id,judul:title,kategori:category,penulis:'Kontributor WDB',isi:body,foto_url:photo||null,status};
  const editId=document.getElementById('contributorNewsForm').dataset.editId;
  let result;
  if(editId){result=await supabaseClient.from('wdb_berita').update(payload).eq('id',editId).eq('kontributor_id',user.id);}
@@ -375,7 +386,7 @@ document.getElementById('myNewsList').addEventListener('click',async e=>{
  const {data:{user}}=await supabaseClient.auth.getUser();if(!user)return;
  const {data,error}=await supabaseClient.from('wdb_berita').select('id,judul,kategori,penulis,isi,foto_url,status').eq('id',b.dataset.editNews).eq('kontributor_id',user.id).maybeSingle();
  if(error||!data){document.getElementById('contribNewsMessage').textContent='Berita tidak dapat dibuka: '+(error?.message||'data tidak ditemukan');return;}
- document.getElementById('contribTitle').value=data.judul||'';document.getElementById('contribCategory').value=data.kategori||'';document.getElementById('contribAuthor').value=data.penulis||'';document.getElementById('contribBody').value=data.isi||'';document.getElementById('contributorNewsForm').dataset.editId=data.id;document.getElementById('contribNewsMessage').textContent='Mode edit: perbaiki berita lalu simpan draft atau kirim ulang.';document.getElementById('contributorNewsForm').scrollIntoView({behavior:'smooth'});
+ document.getElementById('contribTitle').value=data.judul||'';document.getElementById('contribCategory').value=data.kategori||'';document.getElementById('contribAuthor').value='Kontributor WDB';document.getElementById('contribBody').value=data.isi||'';document.getElementById('contributorNewsForm').dataset.editId=data.id;document.getElementById('contribNewsMessage').textContent='Mode edit: perbaiki berita lalu simpan draft atau kirim ulang.';document.getElementById('contributorNewsForm').scrollIntoView({behavior:'smooth'});
 });
 document.getElementById('contributorSignOut').onclick=async()=>{const {error}=await supabaseClient.auth.signOut();if(error){document.getElementById('contribNewsMessage').textContent='Gagal keluar: '+error.message;return;}document.getElementById('contributorDashboard').classList.add('hidden');document.getElementById('loginForm').classList.remove('hidden');document.querySelector('.welcome').classList.remove('hidden');document.querySelector('.hero').classList.remove('hidden');document.querySelector('.layout').style.gridTemplateColumns='1.05fr .95fr';showLogin();showNotice('Anda sudah keluar','Silakan masuk kembali untuk mengelola WDB.');};
 
