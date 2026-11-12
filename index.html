@@ -157,6 +157,13 @@
 </section>
 <footer class="bottom"><span>© 2026 <b>WDB TPP P3MD Kabupaten Bondowoso</b></span><span>Admin Portal • Versi awal</span></footer></main>
 <script>
+// Gunakan formulir TPP, Iklan, Galeri, dan Pengumuman yang sama pada ruang Kontributor.
+// Elemen dipindahkan, bukan dibuat ulang, sehingga fungsi simpan/edit/hapus yang sudah ada tetap dipakai.
+['teamPanel','adsPanel','galleryPanel','announcementPanel'].forEach(id=>{
+ const panel=document.getElementById(id);
+ if(panel) document.body.appendChild(panel);
+});
+
 const SUPABASE_URL='https://afzbcqnbgxtpffrqorfy.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_bLIv3hwfommmCUo3PIacQw_4_M1Z2zq';
 const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
@@ -318,10 +325,12 @@ document.querySelectorAll('[data-contributor-menu]').forEach(button=>{
    document.getElementById('contributorNewsForm').scrollIntoView({behavior:'smooth',block:'start'});
    return;
   }
-  const labels={team:'Isi Data TPP',ads:'Isi Iklan',announcement:'Isi Pengumuman',gallery:'Isi Galeri Foto'};
-  msg.textContent='Menu "'+labels[key]+'" sudah tersedia pada tampilan Kontributor. Untuk menjaga hak akses dan keamanan data WDB, pengisian menu ini perlu diaktifkan oleh Admin Pusat terlebih dahulu. Saat ini Kontributor dapat mengirim berita melalui menu Isi Berita.';
-  msg.style.display='block';
-  msg.scrollIntoView({behavior:'smooth',block:'nearest'});
+  msg.style.display='none';
+  const panelKey={team:'team',ads:'ads',announcement:'announcement',gallery:'gallery'}[key];
+  if(panelKey){
+   openContentPanel(panelKey);
+   document.getElementById(contentModules[panelKey].panel).scrollIntoView({behavior:'smooth',block:'start'});
+  }
  });
 });
 
