@@ -256,7 +256,7 @@
  </form>
  <div id="contribNewsMessage" class="newsMeta" role="status" style="margin-top:12px"></div>
  <h3 style="margin:24px 0 8px;color:#153d2e">Riwayat Berita Saya</h3><div class="contribList" id="myNewsList"><div class="emptyNews">Memuat riwayat berita...</div></div>
- <p class="muted" style="margin-top:14px">Foto utama akan diunggah ke penyimpanan WDB. Foto/video tambahan saat ini masih berupa pratinjau dan belum disimpan ke berita.</p>
+ <p class="muted" style="margin-top:14px">Foto utama dan seluruh foto/video tambahan akan diunggah ke penyimpanan WDB dan ditautkan ke berita.</p>
  </div>
  <section class="contribTeamPanel hidden" id="contributorTeamWorkspace">
   <h3>FORMULIR DATA TIM TPP</h3>
@@ -688,27 +688,57 @@ async function uploadContributorMainPhoto(file,userId){
  document.getElementById('contribPhoto').value=publicData.publicUrl;
  return publicData.publicUrl;
 }
+async function uploadContributorExtraMedia(userId){
+ const uploaded=[];
+ const inputs=[...contribExtraFiles.querySelectorAll('input[type=file]')];
+ for(let i=0;i<inputs.length;i++){
+  const file=inputs[i].files?.[0];if(!file)continue;
+  const isImage=file.type.startsWith('image/'),isVideo=file.type.startsWith('video/');
+  if(!isImage&&!isVideo)throw new Error(`Media tambahan ke-${i+1} harus berupa foto atau video.`);
+  const limit=isVideo?50*1024*1024:8*1024*1024;
+  if(file.size>limit)throw new Error(`Ukuran ${isVideo?'video':'foto'} tambahan ke-${i+1} maksimal ${isVideo?'50':'8'} MB.`);
+  const cleanName=file.name.normalize('NFKD').replace(/[^a-zA-Z0-9._-]+/g,'-').replace(/-+/g,'-').slice(-100)||'media-berita';
+  const path=`${userId}/berita/${Date.now()}-${i+1}-${cleanName}`;
+  const {data,error}=await supabaseClient.storage.from('wdb-media').upload(path,file,{cacheControl:'3600',upsert:false,contentType:file.type});
+  if(error)throw new Error(`Gagal mengunggah media tambahan "${file.name}": ${error.message}`);
+  const {data:publicData}=supabaseClient.storage.from('wdb-media').getPublicUrl(data.path);
+  if(!publicData?.publicUrl)throw new Error(`URL publik media "${file.name}" tidak berhasil dibuat.`);
+  uploaded.push({type:isVideo?'video':'image',src:publicData.publicUrl,name:file.name});
+ }
+ return uploaded;
+}
 async function saveContributorNews(status){
  const msg=document.getElementById('contribNewsMessage');
  const title=document.getElementById('contribTitle').value.trim(),category=document.getElementById('contribCategory').value,body=document.getElementById('contribBody').value.trim();
  if(!title||!category||!body){msg.textContent='Judul, kategori, dan isi berita wajib diisi.';return;}
  const {data:{user}}=await supabaseClient.auth.getUser();if(!user){msg.textContent='Sesi berakhir. Silakan login kembali.';return;}
  const sendBtn=document.getElementById(status==='draft'?'saveDraftBtn':'sendNewsBtn');
- sendBtn.disabled=true;const oldLabel=sendBtn.textContent;sendBtn.textContent='Mengunggah dan menyimpan...';msg.textContent='Menyiapkan berita...';
+ sendBtn.disabled=true;const oldLabel=sendBtn.textContent;sendBtn.textContent='Mengunggah dan menyimpan...';msg.textContent='Mengunggah foto dan video ke penyimpanan WDB...';msg.style.color='';
  try{
   const selectedMain=contribMainFile.files?.[0]||null;
   const photo=await uploadContributorMainPhoto(selectedMain,user.id);
-  const payload={kontributor_id:user.id,judul:title,kategori:category,penulis:document.getElementById('contribAuthor').value.trim(),isi:body,foto_url:photo,status};
+  const newMedia=await uploadContributorExtraMedia(user.id);
   const editId=document.getElementById('contributorNewsForm').dataset.editId;
+  let existingMedia=[];
+  if(editId){
+   const {data:oldData,error:oldError}=await supabaseClient.from('wdb_berita').select('media_urls').eq('id',editId).eq('kontributor_id',user.id).maybeSingle();
+   if(oldError)throw new Error('Gagal membaca media berita lama: '+oldError.message);
+   const raw=oldData?.media_urls;
+   existingMedia=Array.isArray(raw)?raw:(typeof raw==='string'?(()=>{try{return JSON.parse(raw)||[]}catch{return []}})():[]);
+  }
+  const mediaUrls=[...existingMedia,...newMedia];
+  const payload={kontributor_id:user.id,judul:title,kategori:category,penulis:document.getElementById('contribAuthor').value.trim(),isi:body,foto_url:photo,media_urls:mediaUrls,status};
   let result;
   if(editId){result=await supabaseClient.from('wdb_berita').update(payload).eq('id',editId).eq('kontributor_id',user.id);}
   else{result=await supabaseClient.from('wdb_berita').insert(payload);}
   if(result.error)throw new Error('Gagal menyimpan berita: '+result.error.message);
-  msg.textContent=(status==='draft'?'Draft berhasil disimpan.':'Berita berhasil dikirim ke Admin Pusat untuk diperiksa.')+(photo?' Foto utama berhasil diunggah.':'');
+  msg.textContent=(status==='draft'?'Draft berhasil disimpan.':'Berita berhasil dikirim ke Admin Pusat untuk diperiksa.')+` Foto utama: ${photo?'tersimpan':'tidak dipilih'}. Media tambahan tersimpan: ${newMedia.length}.`;
+  msg.style.color='#176344';
   resetContributorForm();await loadMyNews(user.id);
- }catch(err){msg.textContent=err.message||'Terjadi kesalahan saat mengunggah foto atau menyimpan berita.';msg.style.color='#a3332b';}
+ }catch(err){msg.textContent=err.message||'Terjadi kesalahan saat mengunggah media atau menyimpan berita.';msg.style.color='#a3332b';}
  finally{sendBtn.disabled=false;sendBtn.textContent=oldLabel;}
 }
+
 document.getElementById('saveDraftBtn').onclick=()=>saveContributorNews('draft');
 document.getElementById('contributorNewsForm').addEventListener('submit',e=>{e.preventDefault();saveContributorNews('menunggu');});
 document.getElementById('myNewsList').addEventListener('click',async e=>{
