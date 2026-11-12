@@ -5,24 +5,21 @@
 <title>WDB Admin | Warta Desa Bondowoso</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--green:#064e3b;--green2:#08734f;--gold:#d6b45a;--ink:#18352b;--muted:#718078;--line:#e5ece8;--bg:#f3f7f4}*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}.top{height:68px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,5vw,64px)}.brand{display:flex;align-items:center;gap:12px}.mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(145deg,#0b7652,#03432f);display:grid;place-items:center;color:#fff;font-weight:900;letter-spacing:-1px;box-shadow:0 5px 14px #064e3b2b}.brand b{display:block;font-size:15px;letter-spacing:.5px}.brand small{color:var(--muted);font-size:11px;letter-spacing:1.2px}.toplink{font-size:13px;color:var(--green2);text-decoration:none;font-weight:700}main{max-width:1120px;margin:0 auto;padding:58px 22px 44px}.hero{text-align:center;margin-bottom:34px}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid #d8e9df;background:#eaf5ee;color:#176344;border-radius:99px;font-size:11px;font-weight:800;letter-spacing:1.1px}.dot{width:7px;height:7px;background:#19a56e;border-radius:50%}h1{font-size:clamp(27px,4vw,42px);line-height:1.12;margin:17px 0 10px;color:#103d2d;letter-spacing:-1.2px}.hero p{margin:0;color:#718078;font-size:14px;line-height:1.7}.layout{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:stretch}.welcome{border-radius:22px;padding:34px;color:white;background:radial-gradient(circle at 90% 10%,#16845c 0,transparent 34%),linear-gradient(145deg,#07543c,#033b2b);position:relative;overflow:hidden;min-height:390px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 18px 42px #064e3b22}.welcome:after{content:"WDB";position:absolute;right:-10px;bottom:-30px;font-size:150px;font-weight:900;letter-spacing:-12px;color:#ffffff0a;pointer-events:none}.welcome .mini{color:#e5d39b;font-size:11px;font-weight:800;letter-spacing:2px}.welcome h2{font-size:29px;line-height:1.2;margin:15px 0 12px;max-width:380px}.welcome p{font-size:13px;line-height:1.8;color:#d3e5dc;max-width:390px;margin:0}.features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:30px;position:relative;z-index:1}.feature{border:1px solid #ffffff26;background:#ffffff0d;border-radius:12px;padding:12px}.feature b{display:block;font-size:12px;margin-bottom:4px}.feature span{font-size:10px;color:#c5ddd2}.login{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:0 12px 35px #153c2a0a}.login h2{font-size:22px;margin:2px 0 7px;color:#153d2e}.login .sub{font-size:12px;color:var(--muted);margin:0 0 25px;line-height:1.6}label{display:block;font-size:12px;font-weight:750;margin:16px 0 8px;color:#304c40}.field{position:relative}.field input{width:100%;height:48px;border:1px solid #dce6e0;border-radius:10px;padding:0 14px;font-size:14px;outline:none;background:#fbfdfb;color:#173c2d}.field input:focus{border-color:#29966a;box-shadow:0 0 0 3px #15945c18}.field input::placeholder{color:#a4b1aa}.show{position:absolute;right:12px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:#527264;font-size:11px;font-weight:700;cursor:pointer}.btn{width:100%;height:49px;margin-top:23px;border:0;border-radius:10px;background:linear-gradient(100deg,#08734f,#07543c);color:#fff;font-size:14px;font-weight:800;letter-spacing:.2px;cursor:pointer;box-shadow:0 8px 18px #08734f2a}.btn:disabled{opacity:.65;cursor:wait}.textbtn{display:block;margin:14px auto 0;border:0;background:none;color:#08734f;font-size:12px;font-weight:750;cursor:pointer;padding:7px}.backbtn{display:block;margin:8px auto 0;border:0;background:none;color:#718078;font-size:12px;cursor:pointer;padding:7px}.notice{display:flex;gap:10px;padding:12px;border-radius:10px;background:#fff8e8;border:1px solid #f1e3bd;color:#765c22;font-size:11px;line-height:1.6;margin-top:17px}.notice strong{display:block;margin-bottom:2px}.security{text-align:center;color:#87968e;font-size:10px;margin-top:18px}.bottom{display:flex;justify-content:space-between;gap:15px;align-items:center;border-top:1px solid var(--line);margin-top:34px;padding-top:18px;color:#829087;font-size:11px}.bottom b{color:#426353}.hidden{display:none!important}#registerPanel label{margin-top:12px}#registerPanel .field input{height:44px}
+:root{--green:#064e3b;--green2:#08734f;--gold:#d6b45a;--ink:#18352b;--muted:#718078;--line:#e5ece8;--bg:#f3f7f4}*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}.top{height:68px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,5vw,64px)}.brand{display:flex;align-items:center;gap:12px}.mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(145deg,#0b7652,#03432f);display:grid;place-items:center;color:#fff;font-weight:900;letter-spacing:-1px;box-shadow:0 5px 14px #064e3b2b}.brand b{display:block;font-size:15px;letter-spacing:.5px}.brand small{color:var(--muted);font-size:11px;letter-spacing:1.2px}.toplink{font-size:13px;color:var(--green2);text-decoration:none;font-weight:700}main{max-width:1120px;margin:0 auto;padding:58px 22px 44px}.hero{text-align:center;margin-bottom:34px}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid #d8e9df;background:#eaf5ee;color:#176344;border-radius:99px;font-size:11px;font-weight:800;letter-spacing:1.1px}.dot{width:7px;height:7px;background:#19a56e;border-radius:50%}h1{font-size:clamp(27px,4vw,42px);line-height:1.12;margin:17px 0 10px;color:#103d2d;letter-spacing:-1.2px}.hero p{margin:0;color:#718078;font-size:14px;line-height:1.7}.layout{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:stretch}.welcome{border-radius:22px;padding:34px;color:white;background:radial-gradient(circle at 90% 10%,#16845c 0,transparent 34%),linear-gradient(145deg,#07543c,#033b2b);position:relative;overflow:hidden;min-height:390px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 18px 42px #064e3b22}.welcome:after{content:"WDB";position:absolute;right:-10px;bottom:-30px;font-size:150px;font-weight:900;letter-spacing:-12px;color:#ffffff0a;pointer-events:none}.welcome .mini{color:#e5d39b;font-size:11px;font-weight:800;letter-spacing:2px}.welcome h2{font-size:29px;line-height:1.2;margin:15px 0 12px;max-width:380px}.welcome p{font-size:13px;line-height:1.8;color:#d3e5dc;max-width:390px;margin:0}.features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:30px;position:relative;z-index:1}.feature{border:1px solid #ffffff26;background:#ffffff0d;border-radius:12px;padding:12px}.feature b{display:block;font-size:12px;margin-bottom:4px}.feature span{font-size:10px;color:#c5ddd2}.login{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:0 12px 35px #153c2a0a}.login h2{font-size:22px;margin:2px 0 7px;color:#153d2e}.login .sub{font-size:12px;color:var(--muted);margin:0 0 25px;line-height:1.6}label{display:block;font-size:12px;font-weight:750;margin:16px 0 8px;color:#304c40}.field{position:relative}.field input{width:100%;height:48px;border:1px solid #dce6e0;border-radius:10px;padding:0 14px;font-size:14px;outline:none;background:#fbfdfb;color:#173c2d}.field input:focus{border-color:#29966a;box-shadow:0 0 0 3px #15945c18}.field input::placeholder{color:#a4b1aa}.show{position:absolute;right:12px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:#527264;font-size:11px;font-weight:700;cursor:pointer}.btn{width:100%;height:49px;margin-top:23px;border:0;border-radius:10px;background:linear-gradient(100deg,#08734f,#07543c);color:#fff;font-size:14px;font-weight:800;letter-spacing:.2px;cursor:pointer;box-shadow:0 8px 18px #08734f2a}.btn:disabled{opacity:.65;cursor:wait}.textbtn{display:block;margin:14px auto 0;border:0;background:none;color:#08734f;font-size:12px;font-weight:750;cursor:pointer;padding:7px}.backbtn{display:block;margin:8px auto 0;border:0;background:none;color:#718078;font-size:12px;cursor:pointer;padding:7px}.notice{display:flex;gap:10px;padding:12px;border-radius:10px;background:#fff8e8;border:1px solid #f1e3bd;color:#765c22;font-size:11px;line-height:1.6;margin-top:17px}.notice strong{display:block;margin-bottom:2px}.security{text-align:center;color:#87968e;font-size:10px;margin-top:18px}.bottom{display:flex;justify-content:space-between;gap:15px;align-items:center;border-top:1px solid var(--line);margin-top:34px;padding-top:18px;color:#829087;font-size:11px}.bottom b{color:#426353}.hidden{display:none!important}
 .dashboard{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:0 12px 35px #153c2a0a}
 .dashhead{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;margin-bottom:22px}
 .dashhead h2{margin:0 0 6px;font-size:23px;color:#153d2e}.dashhead p{margin:0;color:var(--muted);font-size:12px}
 .signout{border:1px solid #dce6e0;background:#fff;color:#9b3028;border-radius:9px;padding:10px 14px;font-weight:750;cursor:pointer}
 .rolebox{padding:13px 15px;border-radius:12px;background:#eaf5ee;border:1px solid #cfe8d8;color:#176344;font-size:12px;line-height:1.6;margin-bottom:20px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}.stat{border:1px solid var(--line);border-radius:13px;padding:16px;background:#fbfdfb}.stat small{display:block;color:var(--muted);font-size:11px}.stat b{display:block;font-size:25px;color:var(--green);margin-top:7px}
-.menuGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.menuCard{border:1px solid var(--line);border-radius:13px;padding:17px;background:#fff}.menuCard.action{width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;transition:.18s}.menuCard.action:hover{border-color:#8fc7a8;box-shadow:0 7px 18px #064e3b12;transform:translateY(-1px)}.menuCard .ico{font-size:22px}.menuCard b{display:block;margin:8px 0 4px;color:#18352b;font-size:14px}.menuCard span{font-size:11px;line-height:1.5;color:var(--muted)}
-.newsPanel{margin-top:18px;border:1px solid var(--line);border-radius:15px;padding:18px;background:#fbfdfb}.newsHead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.newsHead h3{margin:0;color:#153d2e;font-size:18px}.newsTools{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.newsTools select,.newsTools input{border:1px solid #dce6e0;border-radius:9px;padding:10px 12px;background:#fff;font:inherit;font-size:12px;color:#18352b}.newsList{display:grid;gap:10px}.newsItem{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}.newsItem h4{margin:0 0 6px;font-size:14px;color:#18352b}.newsMeta{font-size:11px;color:var(--muted);line-height:1.6}.statusPill{display:inline-block;padding:4px 8px;border-radius:99px;background:#f1f4f2;color:#52665b;font-size:10px;font-weight:800}.newsActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.smallBtn{border:0;border-radius:8px;padding:8px 11px;font-size:11px;font-weight:750;cursor:pointer}.viewBtn{background:#edf4f0;color:#245b42}.approveBtn{background:#08734f;color:white}.rejectBtn{background:#fff0ef;color:#a3332b}.newsDetail{margin-top:12px;background:white;border:1px solid var(--line);border-radius:12px;padding:15px;white-space:pre-wrap;font-size:13px;line-height:1.7}.newsDetail img{display:block;max-width:100%;max-height:360px;object-fit:contain;border-radius:10px;margin:12px 0}.emptyNews{padding:24px;text-align:center;color:var(--muted);font-size:12px;border:1px dashed #cbd9d0;border-radius:10px}.dashnote{margin-top:18px;padding:13px;border-radius:10px;background:#fff8e8;border:1px solid #f1e3bd;color:#765c22;font-size:11px;line-height:1.6}
+.menuGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.menuCard{border:1px solid var(--line);border-radius:13px;padding:17px;background:#fff}.menuCard .ico{font-size:22px}.menuCard b{display:block;margin:8px 0 4px;color:#18352b;font-size:14px}.menuCard span{font-size:11px;line-height:1.5;color:var(--muted)}
+.dashnote{margin-top:18px;padding:13px;border-radius:10px;background:#fff8e8;border:1px solid #f1e3bd;color:#765c22;font-size:11px;line-height:1.6}
 @media(max-width:560px){.stats{grid-template-columns:1fr}.menuGrid{grid-template-columns:1fr}.dashboard{padding:19px}}@media(max-width:760px){main{padding:35px 15px 28px}.layout{grid-template-columns:1fr}.welcome{min-height:300px;padding:25px}.welcome h2{font-size:25px}.login{padding:25px}.hero{margin-bottom:25px}.bottom{flex-direction:column;text-align:center;gap:7px}}
-
-.contributorDash{background:#fff;border:1px solid var(--line);border-radius:22px;padding:25px;box-shadow:0 12px 35px #153c2a0a;margin-top:20px}.contributorDash h2{margin:0 0 6px;color:#153d2e}.contributorDash .muted{font-size:12px;color:var(--muted)}.contribForm{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.contribForm label{margin:0}.contribForm input,.contribForm select,.contribForm textarea{width:100%;margin-top:7px;border:1px solid #dce6e0;border-radius:9px;padding:11px 12px;font:inherit;font-size:13px;background:#fff;color:#18352b}.contribForm textarea{min-height:170px;resize:vertical;grid-column:1/-1}.contribForm .wide{grid-column:1/-1}.contribButtons{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.contribButtons button{border:0;border-radius:9px;padding:11px 16px;font-weight:750;cursor:pointer}.contribSave{background:#eaf5ee;color:#176344}.contribSend{background:#08734f;color:#fff}.contribList{display:grid;gap:10px;margin-top:14px}.contribArticle{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fff}.contribArticle h4{margin:0 0 6px}.contribArticle p{font-size:12px;color:var(--muted);line-height:1.6;margin:5px 0}.contribTop{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.contribExit{border:1px solid #dce6e0;background:#fff;color:#9b3028;border-radius:9px;padding:10px 14px;font-weight:750;cursor:pointer}
-@media(max-width:560px){.contributorDash{padding:18px}.contribForm{grid-template-columns:1fr}.contribForm textarea,.contribForm .wide{grid-column:auto}}
 </style></head><body>
 <header class="top"><div class="brand"><div class="mark">WDB</div><div><b>WARTA DESA BONDOWOSO</b><small>PORTAL PENGELOLAAN ADMIN</small></div></div><a class="toplink" href="https://suketteki7174-lang.github.io/WDB-TPP/">← Kembali ke WDB Publik</a></header>
 <main><section class="hero"><div class="eyebrow"><i class="dot"></i> ADMINISTRATION PORTAL</div><h1>Ruang Pengelolaan WDB</h1><p>Kelola berita, kontributor, dan publikasi informasi desa dalam satu tempat.</p></section>
 <section class="layout"><div class="welcome"><div><div class="mini">WARTA DESA BONDOWOSO</div><h2>Informasi Desa, Terhubung dan Terpercaya.</h2><p>Portal khusus pengelola WDB TPP P3MD Kabupaten Bondowoso. Setiap berita melalui proses pemeriksaan sesuai kewenangan wilayah.</p></div><div class="features"><div class="feature"><b>Kontributor</b><span>Kirim dan kelola berita</span></div><div class="feature"><b>Admin Kecamatan</b><span>Periksa berita wilayah</span></div><div class="feature"><b>Admin Pusat</b><span>Kelola seluruh wilayah</span></div><div class="feature"><b>Publikasi</b><span>Persetujuan dan penerbitan</span></div></div></div>
-<form class="login" id="loginForm" novalidate><div id="loginPanel"><h2>Masuk ke Admin</h2><p class="sub">Gunakan akun yang telah didaftarkan oleh pengelola WDB.</p><label for="email">Email</label><div class="field"><input id="email" type="email" placeholder="nama@email.com" autocomplete="username" required></div><label for="password">Kata Sandi</label><div class="field"><input id="password" type="password" placeholder="Masukkan kata sandi" autocomplete="current-password" required><button class="show" type="button" id="togglePassword">LIHAT</button></div><button class="btn" id="loginBtn" type="submit">Masuk ke Dashboard →</button><button class="textbtn" type="button" id="showRegisterBtn">Belum punya akun? Daftar sebagai Kontributor</button><button class="textbtn" type="button" id="forgotBtn">Lupa kata sandi? Kirim tautan reset ke email</button></div><div id="registerPanel" class="hidden"><h2>Daftar Kontributor</h2><p class="sub">Pendaftaran akan diperiksa Admin Pusat sebelum akun dapat mengirim berita.</p><label for="regNama">Nama lengkap</label><div class="field"><input id="regNama" required placeholder="Nama lengkap"></div><label for="regHp">Nomor HP/WhatsApp</label><div class="field"><input id="regHp" required placeholder="08xxxxxxxxxx"></div><label for="regDesa">Desa</label><div class="field"><input id="regDesa" required placeholder="Nama desa"></div><label for="regKecamatan">Kecamatan</label><div class="field"><input id="regKecamatan" required placeholder="Nama kecamatan"></div><label for="regEmail">Email aktif</label><div class="field"><input id="regEmail" type="email" required placeholder="nama@email.com"></div><label for="regPassword">Kata sandi</label><div class="field"><input id="regPassword" type="password" minlength="6" required placeholder="Minimal 6 karakter"></div><label for="regPassword2">Ulangi kata sandi</label><div class="field"><input id="regPassword2" type="password" minlength="6" required placeholder="Ulangi kata sandi"></div><button class="btn" id="registerBtn" type="button">Kirim Pendaftaran →</button><button class="backbtn" id="backToLoginBtn" type="button">Kembali ke halaman masuk</button></div>
+<form class="login" id="loginForm"><div id="loginPanel"><h2>Masuk ke Admin</h2><p class="sub">Gunakan akun yang telah didaftarkan oleh pengelola WDB.</p><label for="email">Email</label><div class="field"><input id="email" type="email" placeholder="nama@email.com" autocomplete="username" required></div><label for="password">Kata Sandi</label><div class="field"><input id="password" type="password" placeholder="Masukkan kata sandi" autocomplete="current-password" required><button class="show" type="button" id="togglePassword">LIHAT</button></div><button class="btn" id="loginBtn" type="submit">Masuk ke Dashboard →</button><button class="textbtn" type="button" id="forgotBtn">Lupa kata sandi? Kirim tautan reset ke email</button></div>
 <div id="recoveryPanel" class="hidden"><h2>Buat Kata Sandi Baru</h2><p class="sub">Masukkan kata sandi baru untuk akun WDB Admin Anda.</p><label for="newPassword">Kata Sandi Baru</label><div class="field"><input id="newPassword" type="password" minlength="6" placeholder="Minimal 6 karakter" autocomplete="new-password" required><button class="show" type="button" id="toggleNewPassword">LIHAT</button></div><label for="confirmPassword">Ulangi Kata Sandi</label><div class="field"><input id="confirmPassword" type="password" minlength="6" placeholder="Ulangi kata sandi baru" autocomplete="new-password" required></div><button class="btn" id="savePasswordBtn" type="button">Simpan Kata Sandi Baru</button><button class="backbtn" type="button" id="backLoginBtn">Kembali ke halaman masuk</button></div>
 <div class="notice" id="loginNotice" role="status" aria-live="polite"><div>ⓘ</div><div><strong>Koneksi Supabase</strong><span>Masuk menggunakan email dan kata sandi akun yang sudah terdaftar di proyek WDB.</span></div></div><div class="security">Akses terbatas untuk pengguna terdaftar • WDB TPP P3MD</div></form>
 <section class="dashboard hidden" id="dashboardPanel">
@@ -30,39 +27,15 @@
  <div class="rolebox" id="roleStatus">Login berhasil. Memeriksa hak akses Admin Pusat...</div>
  <div class="stats"><div class="stat"><small>Total Berita</small><b>—</b></div><div class="stat"><small>Menunggu Pemeriksaan</small><b>—</b></div><div class="stat"><small>Kontributor Terdaftar</small><b>—</b></div></div>
  <div class="menuGrid">
-  <button class="menuCard action" id="openNewsMenu" type="button"><div class="ico">📰</div><b>Kelola Berita</b><span>Melihat, memeriksa, menyetujui, dan menolak kiriman berita.</span></button>
-  <button class="menuCard action" id="openContributorMenu" type="button"><div class="ico">✍️</div><b>Kontributor</b><span>Verifikasi pendaftaran dan mengelola akun kontributor.</span></button>
+  <div class="menuCard"><div class="ico">📰</div><b>Kelola Berita</b><span>Melihat, memeriksa, menyetujui, dan menolak kiriman berita.</span></div>
+  <div class="menuCard"><div class="ico">✍️</div><b>Kontributor</b><span>Verifikasi pendaftaran dan mengelola akun kontributor.</span></div>
   <div class="menuCard"><div class="ico">🏢</div><b>Admin Kecamatan</b><span>Mengelola akun admin dan kewenangan wilayah kecamatan.</span></div>
   <div class="menuCard"><div class="ico">🌐</div><b>Publikasi WDB</b><span>Memantau berita yang sudah disetujui dan diterbitkan.</span></div>
   <div class="menuCard"><div class="ico">📍</div><b>Data Wilayah</b><span>Pengaturan daftar kecamatan dan desa di Kabupaten Bondowoso.</span></div>
   <div class="menuCard"><div class="ico">⚙️</div><b>Pengaturan Admin</b><span>Pengaturan peran, akun, dan konfigurasi portal.</span></div>
  </div>
- <section class="newsPanel hidden" id="contributorPanel"><div class="newsHead"><h3>Verifikasi Kontributor</h3><button class="smallBtn viewBtn" id="closeContributorPanel" type="button">Tutup</button></div><div id="contributorMessage" class="newsMeta">Memuat pendaftar...</div><div id="contributorList" class="newsList"></div></section><section class="newsPanel hidden" id="newsPanel">
-  <div class="newsHead"><h3>Kelola Berita</h3><button class="smallBtn viewBtn" id="closeNewsMenu" type="button">Tutup</button></div>
-  <div class="newsTools"><select id="newsStatusFilter"><option value="semua">Semua status</option><option value="menunggu">Menunggu pemeriksaan</option><option value="terbit">Terbit</option><option value="ditolak">Ditolak</option></select><input id="newsSearch" type="search" placeholder="Cari judul atau penulis..."><button class="smallBtn viewBtn" id="refreshNews" type="button">Muat ulang</button></div>
-  <div id="newsMessage" class="newsMeta" role="status" aria-live="polite">Tekan Kelola Berita untuk memuat data.</div>
-  <div class="newsList" id="newsList"></div>
-  <div id="newsDetail" class="newsDetail hidden"></div>
- </section>
- <div class="dashnote">Hak akses Admin Pusat terverifikasi. Menu Kelola Berita terhubung ke tabel wdb_berita. Menu administrasi lainnya akan diaktifkan bertahap.</div>
+ <div class="dashnote">Hak akses Admin Pusat telah diverifikasi melalui tabel wdb_admins. Menu dan angka ringkasan masih berupa tampilan awal dan belum terhubung ke tabel berita/kontributor.</div>
 </section></section>
-<section class="contributorDash hidden" id="contributorDashboard">
- <div class="contribTop"><div><h2>Ruang Kerja Kontributor</h2><div class="muted" id="contributorIdentity">Akun kontributor</div></div><button class="contribExit" id="contributorSignOut" type="button">Keluar</button></div>
- <div class="rolebox" style="margin-top:16px">Akun Anda telah disetujui Admin Pusat. Silakan tulis berita dan kirim untuk diperiksa sebelum diterbitkan.</div>
- <h3 style="margin:20px 0 8px;color:#153d2e">Tulis Berita</h3>
- <form id="contributorNewsForm">
-  <div class="contribForm">
-   <label>Judul berita<input id="contribTitle" required maxlength="180" placeholder="Masukkan judul berita"></label>
-   <label>Kategori<select id="contribCategory" required><option value="">Pilih kategori</option><option>Desa</option><option>Pembangunan</option><option>Pemerintahan</option><option>Pemberdayaan</option><option>Sosial</option><option>Lingkungan</option><option>Budaya</option><option>Lainnya</option></select></label>
-   <label class="wide">URL Foto Utama (opsional)<input id="contribPhoto" type="url" placeholder="https://..."></label>
-   <label class="wide">Isi berita<textarea id="contribBody" required placeholder="Tuliskan isi berita secara lengkap..."></textarea></label>
-  </div>
-  <div class="contribButtons"><button class="contribSave" type="button" id="saveDraftBtn">Simpan Draft</button><button class="contribSend" type="submit" id="sendNewsBtn">Kirim ke Admin Pusat</button></div>
- </form>
- <div id="contribNewsMessage" class="newsMeta" role="status" style="margin-top:12px"></div>
- <h3 style="margin:24px 0 8px;color:#153d2e">Riwayat Berita Saya</h3><div class="contribList" id="myNewsList"><div class="emptyNews">Memuat riwayat berita...</div></div>
- <p class="muted" style="margin-top:14px">Catatan: Foto utama saat ini dimasukkan melalui tautan URL gambar. Pengunggahan foto langsung akan diaktifkan setelah penyimpanan Storage WDB disiapkan.</p>
-</section>
 <footer class="bottom"><span>© 2026 <b>WDB TPP P3MD Kabupaten Bondowoso</b></span><span>Admin Portal • Versi awal</span></footer></main>
 <script>
 const SUPABASE_URL='https://afzbcqnbgxtpffrqorfy.supabase.co';
@@ -71,169 +44,41 @@ const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHA
 const notice=document.getElementById('loginNotice');
 
 async function openDashboard(user){
- if(!user?.id){showNotice('Sesi tidak valid','Silakan masuk kembali.',true);return;}
- // Periksa admin terlebih dahulu. Jika RLS menyembunyikan tabel admin dari kontributor,
- // lanjutkan pemeriksaan profil kontributor dan jangan langsung menggagalkan login.
- const {data:adminData,error:roleError}=await supabaseClient.from('wdb_admins').select('role').eq('user_id',user.id).maybeSingle();
- if(roleError){showNotice('Hak akses belum dapat diperiksa','Login berhasil, tetapi tabel wdb_admins gagal dibaca: '+roleError.message,true);return;}
- if(adminData && adminData.role==='admin_pusat'){
-  document.getElementById('contributorDashboard').classList.add('hidden');
-  document.querySelector('.welcome').classList.add('hidden');document.querySelector('.hero').classList.add('hidden');
-  document.getElementById('loginForm').classList.add('hidden');
-  const panel=document.getElementById('dashboardPanel');panel.classList.remove('hidden');
-  document.querySelector('.layout').style.gridTemplateColumns='1fr';
-  document.getElementById('dashEmail').textContent=user.email||'Pengguna WDB';
-  document.getElementById('roleStatus').textContent='Hak akses terverifikasi: Admin Pusat. Anda dapat mengelola seluruh wilayah WDB.';
+ if(!user?.id){
+  showNotice('Sesi tidak valid','Silakan masuk kembali.',true);
   return;
  }
- const {data:kontributor,error:kontributorError}=await supabaseClient.from('wdb_kontributor').select('nama,status,desa,kecamatan').eq('id',user.id).maybeSingle();
- if(kontributorError){await supabaseClient.auth.signOut();showNotice('Profil kontributor belum dapat dibaca',kontributorError.message+' Periksa kebijakan SELECT untuk akun kontributor.',true);return;}
- if(!kontributor){await supabaseClient.auth.signOut();showNotice('Akses belum terdaftar','Akun ini belum memiliki profil kontributor WDB. Hubungi Admin Pusat.',true);return;}
- const status=String(kontributor.status||'menunggu').toLowerCase();
- if(status!=='disetujui'){
+
+ // Verifikasi peran langsung dari tabel wdb_admins sebelum dashboard dibuka.
+ const {data:adminData,error:roleError}=await supabaseClient
+  .from('wdb_admins')
+  .select('role')
+  .eq('user_id',user.id)
+  .maybeSingle();
+
+ if(roleError){
+  showNotice('Hak akses belum dapat diperiksa',
+   'Login berhasil, tetapi pemeriksaan tabel wdb_admins gagal: '+roleError.message+
+   '. Periksa kebijakan RLS agar pengguna dapat membaca data perannya sendiri.',true);
+  return;
+ }
+
+ if(!adminData || adminData.role!=='admin_pusat'){
   await supabaseClient.auth.signOut();
-  if(status==='ditolak')showNotice('Pendaftaran belum disetujui','Silakan hubungi Admin Pusat untuk informasi lebih lanjut.',true);
-  else showNotice('Pendaftaran sedang diperiksa','Akun kontributor Anda masih menunggu persetujuan Admin Pusat.');
+  showNotice('Akses ditolak',
+   'Akun ini belum terdaftar sebagai Admin Pusat WDB. Hubungi pengelola untuk pengaturan hak akses.',true);
   return;
  }
- document.getElementById('dashboardPanel').classList.add('hidden');
- document.querySelector('.welcome').classList.add('hidden');document.querySelector('.hero').classList.add('hidden');
+
+ document.querySelector('.welcome').classList.add('hidden');
+ document.querySelector('.hero').classList.add('hidden');
  document.getElementById('loginForm').classList.add('hidden');
+ const panel=document.getElementById('dashboardPanel');panel.classList.remove('hidden');
  document.querySelector('.layout').style.gridTemplateColumns='1fr';
- document.getElementById('contributorDashboard').classList.remove('hidden');
- document.getElementById('contributorIdentity').textContent=(kontributor.nama||user.email)+' · '+(kontributor.desa||'-')+', '+(kontributor.kecamatan||'-');
- await loadMyNews(user.id);
+ document.getElementById('dashEmail').textContent=user.email||'Pengguna WDB';
+ document.getElementById('roleStatus').textContent=
+  'Hak akses terverifikasi: Admin Pusat. Anda dapat mengelola seluruh wilayah WDB.';
 }
-
-let cachedNews=[];
-const newsPanel=document.getElementById('newsPanel');
-const newsList=document.getElementById('newsList');
-const newsMessage=document.getElementById('newsMessage');
-const newsDetail=document.getElementById('newsDetail');
-function safeText(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function newsStatusLabel(status){const v=String(status||'menunggu').toLowerCase();if(v==='terbit')return 'Terbit';if(v==='ditolak')return 'Ditolak';return status||'Menunggu pemeriksaan';}
-function renderNews(){
- const filter=document.getElementById('newsStatusFilter').value;
- const q=document.getElementById('newsSearch').value.trim().toLowerCase();
- const rows=cachedNews.filter(n=>{const st=String(n.status||'menunggu').toLowerCase();const matchStatus=filter==='semua'||(filter==='menunggu'&&!['terbit','ditolak'].includes(st))||st===filter;const matchText=[n.judul,n.penulis,n.kategori].some(x=>String(x||'').toLowerCase().includes(q));return matchStatus&&matchText;});
- if(!rows.length){newsList.innerHTML='<div class="emptyNews">Belum ada berita yang sesuai dengan filter.</div>';return;}
- newsList.innerHTML=rows.map(n=>`<article class="newsItem"><div><h4>${safeText(n.judul)}</h4><div class="newsMeta">${safeText(n.kategori||'Tanpa kategori')} · ${safeText(n.penulis||'Penulis tidak dicantumkan')}<br>${n.created_at?new Date(n.created_at).toLocaleString('id-ID'):'Waktu tidak tersedia'} · <span class="statusPill">${safeText(newsStatusLabel(n.status))}</span></div><div class="newsActions"><button class="smallBtn viewBtn" data-news-action="detail" data-news-id="${safeText(n.id)}" type="button">Lihat detail</button>${String(n.status||'menunggu').toLowerCase()!=='terbit'?`<button class="smallBtn approveBtn" data-news-action="approve" data-news-id="${safeText(n.id)}" type="button">Setujui & terbitkan</button>`:''}${String(n.status||'').toLowerCase()!=='ditolak'?`<button class="smallBtn rejectBtn" data-news-action="reject" data-news-id="${safeText(n.id)}" type="button">Tolak</button>`:''}</div></div></article>`).join('');
-}
-async function loadNews(){
- newsMessage.textContent='Mengambil data berita dari Supabase...';newsList.innerHTML='';newsDetail.classList.add('hidden');
- const {data,error}=await supabaseClient.from('wdb_berita').select('id,judul,kategori,penulis,isi,foto_url,status,created_at').order('created_at',{ascending:false});
- if(error){newsMessage.textContent='Gagal memuat berita: '+error.message;return;}
- cachedNews=data||[];newsMessage.textContent=`Berhasil memuat ${cachedNews.length} berita.`;renderNews();
- const total=cachedNews.length,waiting=cachedNews.filter(n=>!['terbit','ditolak'].includes(String(n.status||'menunggu').toLowerCase())).length;
- const statEls=document.querySelectorAll('.stats .stat b');if(statEls[0])statEls[0].textContent=total;if(statEls[1])statEls[1].textContent=waiting;
-}
-function showNewsDetail(id){
- const n=cachedNews.find(x=>String(x.id)===String(id));if(!n)return;
- newsDetail.classList.remove('hidden');newsDetail.innerHTML='';
- const heading=document.createElement('h3');heading.textContent=n.judul||'Tanpa judul';newsDetail.appendChild(heading);
- const meta=document.createElement('p');meta.className='newsMeta';meta.textContent=`${n.kategori||'Tanpa kategori'} · ${n.penulis||'Penulis tidak dicantumkan'} · Status: ${newsStatusLabel(n.status)}`;newsDetail.appendChild(meta);
- if(n.foto_url){try{const u=new URL(n.foto_url);if(['http:','https:'].includes(u.protocol)){const img=document.createElement('img');img.src=u.href;img.alt='Foto berita';img.loading='lazy';newsDetail.appendChild(img);}}catch{}}
- const body=document.createElement('div');body.textContent=n.isi||'Isi berita belum tersedia.';newsDetail.appendChild(body);
-}
-async function updateNewsStatus(id,status){
- const label=status==='terbit'?'menyetujui dan menerbitkan':'menolak';
- if(!confirm(`Anda akan ${label} berita ini. Lanjutkan?`))return;
- newsMessage.textContent='Menyimpan perubahan status...';
- const {error}=await supabaseClient.from('wdb_berita').update({status}).eq('id',id);
- if(error){newsMessage.textContent='Gagal mengubah status: '+error.message;return;}
- newsMessage.textContent=status==='terbit'?'Berita berhasil diterbitkan.':'Berita berhasil ditolak.';
- await loadNews();
-}
-document.getElementById('openNewsMenu').addEventListener('click',()=>{newsPanel.classList.remove('hidden');loadNews();newsPanel.scrollIntoView({behavior:'smooth',block:'start'});});
-document.getElementById('closeNewsMenu').addEventListener('click',()=>newsPanel.classList.add('hidden'));
-document.getElementById('refreshNews').addEventListener('click',loadNews);
-document.getElementById('newsStatusFilter').addEventListener('change',renderNews);
-document.getElementById('newsSearch').addEventListener('input',renderNews);
-newsList.addEventListener('click',e=>{const b=e.target.closest('button[data-news-action]');if(!b)return;const id=b.dataset.newsId,action=b.dataset.newsAction;if(action==='detail')showNewsDetail(id);if(action==='approve')updateNewsStatus(id,'terbit');if(action==='reject')updateNewsStatus(id,'ditolak');});
-
-document.getElementById('showRegisterBtn').onclick=()=>{
- document.getElementById('loginPanel').classList.add('hidden');
- document.getElementById('registerPanel').classList.remove('hidden');
-};
-document.getElementById('backToLoginBtn').onclick=()=>{
- document.getElementById('registerPanel').classList.add('hidden');showLogin();
-};
-document.getElementById('registerBtn').onclick=async()=>{
- const nama=document.getElementById('regNama').value.trim();
- const hp=document.getElementById('regHp').value.trim();
- const desa=document.getElementById('regDesa').value.trim();
- const kecamatan=document.getElementById('regKecamatan').value.trim();
- const email=document.getElementById('regEmail').value.trim();
- const password=document.getElementById('regPassword').value;
- const password2=document.getElementById('regPassword2').value;
- if(!nama||!hp||!desa||!kecamatan||!email||!password){showNotice('Data belum lengkap','Lengkapi semua kolom pendaftaran.',true);return;}
- if(password.length<6||password!==password2){showNotice('Periksa kata sandi','Minimal 6 karakter dan kedua kata sandi harus sama.',true);return;}
- const b=document.getElementById('registerBtn');b.disabled=true;b.textContent='Mengirim...';
- try{
-  const {error}=await supabaseClient.auth.signUp({email,password,options:{data:{nama,no_hp:hp,desa,kecamatan}}});
-  if(error)throw error;
-  showNotice('Pendaftaran dikirim','Periksa email untuk konfirmasi akun jika diminta. Setelah itu tunggu persetujuan Admin Pusat.');
-  document.getElementById('registerPanel').classList.add('hidden');showLogin();
- }catch(e){showNotice('Pendaftaran gagal',e.message||'Periksa data dan koneksi.',true);}
- finally{b.disabled=false;b.textContent='Kirim Pendaftaran →';}
-};
-
-async function loadContributors(){
- const msg=document.getElementById('contributorMessage'),list=document.getElementById('contributorList');
- msg.textContent='Mengambil data kontributor...';list.innerHTML='';
- const {data,error}=await supabaseClient.from('wdb_kontributor').select('id,nama,no_hp,desa,kecamatan,status,created_at').order('created_at',{ascending:false});
- if(error){msg.textContent='Gagal memuat data: '+error.message;return;}
- msg.textContent='Total pendaftar/kontributor: '+(data||[]).length;
- if(!data?.length){list.innerHTML='<div class="emptyNews">Belum ada pendaftaran kontributor.</div>';return;}
- list.innerHTML=data.map(x=>`<article class="newsItem"><div><h4>${safeText(x.nama)}</h4><div class="newsMeta">${safeText(x.no_hp||'-')} · ${safeText(x.desa||'-')} · ${safeText(x.kecamatan||'-')}<br>Status: ${safeText(x.status||'menunggu')}</div><div class="newsActions">${String(x.status).toLowerCase()!=='disetujui'?`<button class="smallBtn approveBtn" data-cid="${safeText(x.id)}" data-status="disetujui">Setujui</button>`:''}<button class="smallBtn rejectBtn" data-cid="${safeText(x.id)}" data-status="ditolak">Tolak</button></div></div></article>`).join('');
-}
-document.getElementById('openContributorMenu').onclick=()=>{
- document.getElementById('contributorPanel').classList.remove('hidden');loadContributors();
- document.getElementById('contributorPanel').scrollIntoView({behavior:'smooth'});
-};
-document.getElementById('closeContributorPanel').onclick=()=>document.getElementById('contributorPanel').classList.add('hidden');
-document.getElementById('contributorList').addEventListener('click',async e=>{
- const b=e.target.closest('button[data-cid]');if(!b)return;
- if(!confirm('Ubah status kontributor menjadi '+b.dataset.status+'?'))return;
- const {error}=await supabaseClient.from('wdb_kontributor').update({status:b.dataset.status}).eq('id',b.dataset.cid);
- if(error){document.getElementById('contributorMessage').textContent='Gagal mengubah status: '+error.message;return;}
- loadContributors();
-});
-
-let currentContributorId=null;
-async function loadMyNews(userId){
- currentContributorId=userId;
- const box=document.getElementById('myNewsList');box.innerHTML='<div class="emptyNews">Memuat riwayat berita...</div>';
- const {data,error}=await supabaseClient.from('wdb_berita').select('id,judul,kategori,status,created_at,isi,foto_url').eq('kontributor_id',userId).order('created_at',{ascending:false});
- if(error){box.innerHTML='<div class="emptyNews">Gagal memuat riwayat: '+safeText(error.message)+'</div>';return;}
- if(!data?.length){box.innerHTML='<div class="emptyNews">Belum ada berita yang Anda kirim.</div>';return;}
- box.innerHTML=data.map(n=>`<article class="contribArticle"><h4>${safeText(n.judul)}</h4><p>${safeText(n.kategori||'-')} · Status: <b>${safeText(n.status||'menunggu')}</b> · ${n.created_at?new Date(n.created_at).toLocaleString('id-ID'):'-'}</p>${String(n.status).toLowerCase()==='ditolak'?`<p>Berita ditolak/dikembalikan. Anda dapat memperbaiki dan mengirim ulang.</p><button class="smallBtn viewBtn" type="button" data-edit-news="${safeText(n.id)}">Edit berita</button>`:''}${String(n.status).toLowerCase()==='draft'?`<button class="smallBtn viewBtn" type="button" data-edit-news="${safeText(n.id)}">Lanjutkan draft</button>`:''}</article>`).join('');
-}
-function resetContributorForm(){document.getElementById('contributorNewsForm').reset();document.getElementById('contributorNewsForm').dataset.editId='';}
-async function saveContributorNews(status){
- const title=document.getElementById('contribTitle').value.trim(),category=document.getElementById('contribCategory').value,body=document.getElementById('contribBody').value.trim(),photo=document.getElementById('contribPhoto').value.trim();
- if(!title||!category||!body){document.getElementById('contribNewsMessage').textContent='Judul, kategori, dan isi berita wajib diisi.';return;}
- const {data:{user}}=await supabaseClient.auth.getUser();if(!user){document.getElementById('contribNewsMessage').textContent='Sesi berakhir. Silakan login kembali.';return;}
- const payload={kontributor_id:user.id,judul:title,kategori:category,penulis:document.getElementById('contributorIdentity').textContent.split(' · ')[0],isi:body,foto_url:photo||null,status};
- const editId=document.getElementById('contributorNewsForm').dataset.editId;
- let result;
- if(editId){result=await supabaseClient.from('wdb_berita').update(payload).eq('id',editId).eq('kontributor_id',user.id);}
- else{result=await supabaseClient.from('wdb_berita').insert(payload);}
- if(result.error){document.getElementById('contribNewsMessage').textContent='Gagal menyimpan berita: '+result.error.message;return;}
- document.getElementById('contribNewsMessage').textContent=status==='draft'?'Draft berhasil disimpan.':'Berita berhasil dikirim ke Admin Pusat untuk diperiksa.';
- resetContributorForm();await loadMyNews(user.id);
-}
-document.getElementById('saveDraftBtn').onclick=()=>saveContributorNews('draft');
-document.getElementById('contributorNewsForm').addEventListener('submit',e=>{e.preventDefault();saveContributorNews('menunggu');});
-document.getElementById('myNewsList').addEventListener('click',async e=>{
- const b=e.target.closest('[data-edit-news]');if(!b)return;
- const {data:{user}}=await supabaseClient.auth.getUser();if(!user)return;
- const {data,error}=await supabaseClient.from('wdb_berita').select('id,judul,kategori,isi,foto_url,status').eq('id',b.dataset.editNews).eq('kontributor_id',user.id).maybeSingle();
- if(error||!data){document.getElementById('contribNewsMessage').textContent='Berita tidak dapat dibuka: '+(error?.message||'data tidak ditemukan');return;}
- document.getElementById('contribTitle').value=data.judul||'';document.getElementById('contribCategory').value=data.kategori||'';document.getElementById('contribBody').value=data.isi||'';document.getElementById('contribPhoto').value=data.foto_url||'';document.getElementById('contributorNewsForm').dataset.editId=data.id;document.getElementById('contribNewsMessage').textContent='Mode edit: perbaiki berita lalu simpan draft atau kirim ulang.';document.getElementById('contributorNewsForm').scrollIntoView({behavior:'smooth'});
-});
-document.getElementById('contributorSignOut').onclick=async()=>{const {error}=await supabaseClient.auth.signOut();if(error){document.getElementById('contribNewsMessage').textContent='Gagal keluar: '+error.message;return;}document.getElementById('contributorDashboard').classList.add('hidden');document.getElementById('loginForm').classList.remove('hidden');document.querySelector('.welcome').classList.remove('hidden');document.querySelector('.hero').classList.remove('hidden');document.querySelector('.layout').style.gridTemplateColumns='1.05fr .95fr';showLogin();showNotice('Anda sudah keluar','Silakan masuk kembali untuk mengelola WDB.');};
-
 async function restoreSession(){
  const hash=new URLSearchParams(location.hash.substring(1));
  if(hash.get('type')==='recovery')return;
@@ -244,7 +89,6 @@ document.getElementById('signOutBtn').onclick=async()=>{
  const {error}=await supabaseClient.auth.signOut();
  if(error){showNotice('Gagal keluar',error.message,true);return;}
  document.getElementById('dashboardPanel').classList.add('hidden');
- document.getElementById('contributorDashboard').classList.add('hidden');
  document.getElementById('loginForm').classList.remove('hidden');
  document.querySelector('.welcome').classList.remove('hidden');
  document.querySelector('.hero').classList.remove('hidden');
@@ -258,7 +102,7 @@ function showLogin(){document.getElementById('recoveryPanel').classList.add('hid
 document.getElementById('togglePassword').onclick=()=>{let x=document.getElementById('password');x.type=x.type==='password'?'text':'password';document.getElementById('togglePassword').textContent=x.type==='password'?'LIHAT':'SEMBUNYIKAN';};
 document.getElementById('toggleNewPassword').onclick=()=>{let x=document.getElementById('newPassword');x.type=x.type==='password'?'text':'password';document.getElementById('toggleNewPassword').textContent=x.type==='password'?'LIHAT':'SEMBUNYIKAN';};
 document.getElementById('forgotBtn').onclick=async()=>{const email=document.getElementById('email').value.trim();if(!email){showNotice('Email diperlukan','Isi alamat email akun Anda terlebih dahulu.',true);document.getElementById('email').focus();return;}const b=document.getElementById('forgotBtn');b.disabled=true;b.textContent='Mengirim tautan...';try{const {error}=await supabaseClient.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});if(error)throw error;showNotice('Email reset dikirim','Periksa Kotak Masuk atau Spam. Buka tautan Reset Password dari perangkat/browser ini, lalu buat kata sandi baru.');}catch(e){showNotice('Gagal mengirim tautan',e.message||'Periksa koneksi dan konfigurasi URL Supabase.',true);}finally{b.disabled=false;b.textContent='Lupa kata sandi? Kirim tautan reset ke email';}};
-document.getElementById('loginForm').addEventListener('submit',async e=>{e.preventDefault();const email=document.getElementById('email').value.trim(),password=document.getElementById('password').value,b=document.getElementById('loginBtn');if(!email||!password){showNotice('Data login belum lengkap','Isi email dan kata sandi terlebih dahulu.',true);(!email?document.getElementById('email'):document.getElementById('password')).focus();return;}b.disabled=true;b.textContent='Menghubungkan...';try{const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});if(error)throw error;await openDashboard(data.user);}catch(err){let m=err.message||'Login gagal.';if(m.toLowerCase().includes('invalid login credentials'))m='Email atau kata sandi salah, atau akun belum terdaftar.';showNotice('Belum berhasil masuk',m,true);}finally{b.disabled=false;b.textContent='Masuk ke Dashboard →';}});
+document.getElementById('loginForm').addEventListener('submit',async e=>{e.preventDefault();const email=document.getElementById('email').value.trim(),password=document.getElementById('password').value,b=document.getElementById('loginBtn');b.disabled=true;b.textContent='Menghubungkan...';try{const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});if(error)throw error;await openDashboard(data.user);}catch(err){let m=err.message||'Login gagal.';if(m.toLowerCase().includes('invalid login credentials'))m='Email atau kata sandi salah, atau akun belum terdaftar.';showNotice('Belum berhasil masuk',m,true);}finally{b.disabled=false;b.textContent='Masuk ke Dashboard →';}});
 document.getElementById('savePasswordBtn').onclick=async()=>{const p=document.getElementById('newPassword').value,c=document.getElementById('confirmPassword').value,b=document.getElementById('savePasswordBtn');if(p.length<6){showNotice('Kata sandi terlalu pendek','Gunakan minimal 6 karakter.',true);return;}if(p!==c){showNotice('Kata sandi tidak sama','Ulangi kata sandi dengan benar.',true);return;}b.disabled=true;b.textContent='Menyimpan...';try{const {error}=await supabaseClient.auth.updateUser({password:p});if(error)throw error;showNotice('Kata sandi berhasil dibuat','Sekarang kembali ke halaman masuk dan login menggunakan kata sandi baru.');showLogin();document.getElementById('password').value='';}catch(err){showNotice('Gagal menyimpan kata sandi',err.message||'Tautan mungkin kedaluwarsa. Minta tautan reset baru.',true);}finally{b.disabled=false;b.textContent='Simpan Kata Sandi Baru';}};
 document.getElementById('backLoginBtn').onclick=showLogin;
 supabaseClient.auth.onAuthStateChange((event,session)=>{if(event==='PASSWORD_RECOVERY')showRecovery();});
