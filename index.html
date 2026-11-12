@@ -119,6 +119,7 @@
   <button type="button" data-contributor-menu="gallery">5. Isi Galeri Foto</button>
  </nav>
  <div class="contributor-menu-message" id="contributorMenuMessage" role="status"></div>
+ <div id="contributorNewsSection">
  <h3 id="contributorNewsHeading" style="margin:20px 0 8px;color:#153d2e">Tulis Berita</h3>
  <form id="contributorNewsForm">
   <input type="hidden" id="contribPhoto" value="">
@@ -154,16 +155,11 @@
  <div id="contribNewsMessage" class="newsMeta" role="status" style="margin-top:12px"></div>
  <h3 style="margin:24px 0 8px;color:#153d2e">Riwayat Berita Saya</h3><div class="contribList" id="myNewsList"><div class="emptyNews">Memuat riwayat berita...</div></div>
  <p class="muted" style="margin-top:14px">Catatan: pilihan foto/video saat ini untuk tampilan dan pratinjau lokal. Agar media ikut tersimpan dan tampil di website, perlu dihubungkan ke Supabase Storage WDB.</p>
+ </div>
 </section>
 <footer class="bottom"><span>© 2026 <b>WDB TPP P3MD Kabupaten Bondowoso</b></span><span>Admin Portal • Versi awal</span></footer></main>
 <script>
-// Gunakan formulir TPP, Iklan, Galeri, dan Pengumuman yang sama pada ruang Kontributor.
-// Elemen dipindahkan, bukan dibuat ulang, sehingga fungsi simpan/edit/hapus yang sudah ada tetap dipakai.
-['teamPanel','adsPanel','galleryPanel','announcementPanel'].forEach(id=>{
- const panel=document.getElementById(id);
- if(panel) document.body.appendChild(panel);
-});
-
+// Panel konten tetap di dalam dashboard dan dipindahkan ke ruang kontributor hanya saat dipilih.
 const SUPABASE_URL='https://afzbcqnbgxtpffrqorfy.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_bLIv3hwfommmCUo3PIacQw_4_M1Z2zq';
 const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
@@ -312,25 +308,32 @@ document.getElementById('contributorList').addEventListener('click',async e=>{
  loadContributors();
 });
 
-// Navigasi menu kontributor. Pengisian konten non-berita tetap mengikuti hak akses Admin Pusat.
+// Navigasi menu kontributor: panel terpilih tampil di dalam Ruang Kerja Kontributor.
+function showContributorMenu(key){
+ const newsSection=document.getElementById('contributorNewsSection');
+ const msg=document.getElementById('contributorMenuMessage');
+ hideContentPanels();
+ msg.style.display='none';
+ if(key==='news'){
+  newsSection.classList.remove('hidden');
+  document.getElementById('contributorNewsHeading').textContent='Tulis Berita';
+  newsSection.scrollIntoView({behavior:'smooth',block:'start'});
+  return;
+ }
+ const panelKey={team:'team',ads:'ads',announcement:'announcement',gallery:'gallery'}[key];
+ if(!panelKey)return;
+ newsSection.classList.add('hidden');
+ const panel=document.getElementById(contentModules[panelKey].panel);
+ document.getElementById('contributorDashboard').appendChild(panel);
+ panel.classList.remove('hidden');
+ loadContent(panelKey);
+ panel.scrollIntoView({behavior:'smooth',block:'start'});
+}
 document.querySelectorAll('[data-contributor-menu]').forEach(button=>{
  button.addEventListener('click',()=>{
   document.querySelectorAll('[data-contributor-menu]').forEach(x=>x.classList.remove('active'));
   button.classList.add('active');
-  const key=button.dataset.contributorMenu;
-  const msg=document.getElementById('contributorMenuMessage');
-  if(key==='news'){
-   msg.style.display='none';
-   document.getElementById('contributorNewsHeading').textContent='Tulis Berita';
-   document.getElementById('contributorNewsForm').scrollIntoView({behavior:'smooth',block:'start'});
-   return;
-  }
-  msg.style.display='none';
-  const panelKey={team:'team',ads:'ads',announcement:'announcement',gallery:'gallery'}[key];
-  if(panelKey){
-   openContentPanel(panelKey);
-   document.getElementById(contentModules[panelKey].panel).scrollIntoView({behavior:'smooth',block:'start'});
-  }
+  showContributorMenu(button.dataset.contributorMenu);
  });
 });
 
@@ -412,7 +415,15 @@ const contentModules={
 };
 function contentMsg(key,msg,isError=false){const el=document.getElementById(contentModules[key].message);el.textContent=msg;el.style.color=isError?'#a3332b':'#52665b';}
 function hideContentPanels(){Object.values(contentModules).forEach(m=>document.getElementById(m.panel).classList.add('hidden'));}
-async function openContentPanel(key){hideContentPanels();const m=contentModules[key];m && document.getElementById(m.panel).classList.remove('hidden');if(m){await loadContent(key);document.getElementById(m.panel).scrollIntoView({behavior:'smooth',block:'start'});}}
+async function openContentPanel(key){
+ hideContentPanels();
+ const m=contentModules[key];if(!m)return;
+ const panel=document.getElementById(m.panel);
+ document.getElementById('dashboardPanel').appendChild(panel);
+ panel.classList.remove('hidden');
+ await loadContent(key);
+ panel.scrollIntoView({behavior:'smooth',block:'start'});
+}
 document.getElementById('openAdsMenu').onclick=()=>openContentPanel('ads');
 document.getElementById('openTeamMenu').onclick=()=>openContentPanel('team');
 document.getElementById('openGalleryMenu').onclick=()=>openContentPanel('gallery');
