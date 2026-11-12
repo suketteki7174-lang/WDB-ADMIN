@@ -88,6 +88,7 @@
 .adsContributorHistory h4{margin:0 0 10px;color:var(--ink)}
 .adsContributorHistory .contentRow{align-items:flex-start}
 .adsContributorHistory .contentRow img{width:90px;height:70px;object-fit:cover}
+.adsContributorHistory [data-ads-own-delete]{display:inline-block!important;visibility:visible!important;margin-top:9px;background:#fff0ef;color:#a3332b;border:1px solid #efc9c5;border-radius:8px;padding:8px 12px;font-size:11px;font-weight:800;cursor:pointer}
 /* Admin Pusat hanya memeriksa antrean iklan; formulir hanya untuk Kontributor. */
 .contentPanel.adminReviewMode #adsForm{display:none!important}
 .contentPanel.contributorMode #adsReviewQueue{display:none!important}
@@ -544,9 +545,27 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-review-act
 
 async function deleteOwnAdSubmission(id){
  const {data:{user}}=await supabaseClient.auth.getUser();if(!user)return;
- const {data:row,error:readErr}=await supabaseClient.from('wdb_pengajuan_konten').select('id,status,kontributor_id').eq('id',id).single();
+ const {data:row,error:readErr}=await supabaseClient.from('wdb_pengajuan_konten')
+  .select('id,jenis,status,kontributor_id,target_id,payload')
+  .eq('id',id).single();
  if(readErr||!row){alert('Pengajuan tidak ditemukan: '+(readErr?.message||''));return;}
- if(row.kontributor_id!==user.id||row.status==='disetujui'){alert('Pengajuan ini tidak dapat dihapus dari akun Kontributor.');return;}
+ if(row.kontributor_id!==user.id||row.jenis!=='ads'){alert('Pengajuan ini bukan milik akun Anda.');return;}
+ if(row.status==='disetujui'){
+  if(!row.target_id){alert('ID iklan tayang belum tercatat. Hubungi Admin Pusat untuk menghapus iklan ini.');return;}
+  const {data:pending,error:pendingErr}=await supabaseClient.from('wdb_pengajuan_konten')
+   .select('id').eq('jenis','ads').eq('aksi','hapus').eq('target_id',String(row.target_id)).eq('status','menunggu').limit(1);
+  if(pendingErr){alert('Tidak dapat memeriksa permohonan penghapusan: '+pendingErr.message);return;}
+  if(pending?.length){alert('Permohonan penghapusan iklan ini sudah menunggu pemeriksaan Admin Pusat.');return;}
+  if(!confirm('Iklan ini sudah tayang. Kirim permohonan penghapusan kepada Admin Pusat?'))return;
+  const {error}=await supabaseClient.from('wdb_pengajuan_konten').insert({
+   jenis:'ads',aksi:'hapus',target_id:String(row.target_id),
+   payload:{nama:(row.payload||{}).nama||'Iklan'},
+   kontributor_id:user.id,status:'menunggu'
+  });
+  if(error){alert('Permohonan penghapusan gagal dikirim: '+error.message);return;}
+  alert('Permohonan penghapusan iklan berhasil dikirim. Iklan akan dihapus setelah disetujui Admin Pusat.');
+  await loadContributorAdsHistory();return;
+ }
  if(!confirm('Hapus pengajuan iklan ini?'))return;
  const {error}=await supabaseClient.from('wdb_pengajuan_konten').delete().eq('id',id);
  if(error){alert('Gagal menghapus pengajuan: '+error.message);return;}
@@ -721,7 +740,7 @@ async function loadContributorAdsHistory(){
   const p=r.payload||{},st=String(r.status||'menunggu');
   const image=p.gambar_url?'<img src="'+safeText(p.gambar_url)+'" alt="Iklan" onerror="this.style.display=\'none\'">':'';
   const badge=st==='disetujui'?'Disetujui — iklan tayang':st==='ditolak'?'Ditolak':'Menunggu pemeriksaan';
-  return '<article class="contentRow">'+image+'<div class="info"><b>'+safeText(p.nama||'Iklan')+'</b><small>'+safeText(badge)+' · '+(r.dibuat_pada?new Date(r.dibuat_pada).toLocaleString('id-ID'):'-')+'</small>'+(r.catatan_admin?'<small>Catatan Admin: '+safeText(r.catatan_admin)+'</small>':'')+(st!=='disetujui'?'<button type="button" class="smallBtn rejectBtn" data-ads-own-delete="'+r.id+'">Hapus pengajuan</button>':'<small>Iklan sudah tayang. Untuk menghapus iklan tayang, ajukan kepada Admin Pusat.</small>')+'</div></article>';
+  return '<article class="contentRow">'+image+'<div class="info"><b>'+safeText(p.nama||'Iklan')+'</b><small>'+safeText(badge)+' · '+(r.dibuat_pada?new Date(r.dibuat_pada).toLocaleString('id-ID'):'-')+'</small>'+(r.catatan_admin?'<small>Catatan Admin: '+safeText(r.catatan_admin)+'</small>':'')+'<button type="button" class="smallBtn rejectBtn" data-ads-own-delete="'+r.id+'">'+(st==='disetujui'?'Ajukan Hapus Iklan':'Hapus Pengajuan')+'</button>'+'</div></article>';
  }).join('');
 }
 async function saveContent(key){const m=contentModules[key],form=document.getElementById(key==='ads'?'adsForm':key==='team'?'teamForm':key==='announcement'?'announcementForm':'galleryForm'),id=form.querySelector('input[type=hidden]').value;let payload=formPayload(key);if(key==='team'||key==='ads'||key==='announcement'){try{contentMsg(key,'Mengunggah foto/video...');const config=key==='team'?['teamFotoFile','teamFoto','tpp','teamFotoPreview']:key==='ads'?['adsGambarFile','adsGambar','iklan','adsGambarPreview']:['announcementMediaFile','announcementMediaUrl','pengumuman','announcementMediaPreview'];const url=await uploadOneMedia(...config);if(key==='team')payload.foto_url=url||null;else if(key==='ads')payload.gambar_url=url||null;else payload.media_url=url||null;}catch(err){contentMsg(key,err.message,true);return;}}if(key!=='ads'&&!payload.nama&&!payload.judul){contentMsg(key,'Judul/nama wajib diisi.',true);return;}if(key==='ads'&&!payload.nama)payload.nama='Iklan';if(key==='announcement'&&!payload.isi){contentMsg(key,'Isi pengumuman wajib diisi.',true);return;}if(key==='ads'&&!payload.gambar_url){contentMsg(key,'URL gambar iklan wajib diisi.',true);return;}if(key==='gallery'){try{contentMsg(key,'Mengunggah foto...');payload.media_urls=await uploadGalleryPhotos();payload.media_keterangan=JSON.parse(document.getElementById('galleryCaptions').value||'[]');}catch(err){contentMsg(key,err.message,true);return;}if(!payload.media_urls.length){contentMsg(key,'Pilih minimal satu foto dokumentasi.',true);return;}}const {data:{user}}=await supabaseClient.auth.getUser();if(!user){contentMsg(key,'Sesi login tidak ditemukan.',true);return;}const {error}=await supabaseClient.from('wdb_pengajuan_konten').insert({jenis:key,aksi:id?'ubah':'tambah',target_id:id||null,payload,kontributor_id:user.id,status:'menunggu'});if(error){contentMsg(key,'Pengajuan gagal dikirim: '+error.message,true);return;}form.reset();form.querySelector('input[type=hidden]').value='';document.getElementById('galleryPreview').innerHTML='';document.getElementById('galleryMainFile').value='';document.getElementById('galleryExtraFiles').innerHTML='';addGalleryMediaRow();['teamFotoPreview','adsGambarPreview','announcementMediaPreview'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='';});['teamFotoFile','adsGambarFile','announcementMediaFile'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});contentMsg(key,'Pengajuan berhasil dikirim dan menunggu persetujuan Admin Pusat.');if(key==='ads')await loadContributorAdsHistory();else await loadContent(key);}
