@@ -147,7 +147,7 @@
    <div class="contribMediaSubhead">2. THUMBNAIL FOTO / VIDEO TAMBAHAN</div>
    <div id="contribExtraFiles" class="contribExtraFiles"></div>
    <button type="button" class="contribAddMedia" id="addContribMedia">＋ Tambah Foto/Video</button>
-   <div class="contribMediaHint">Setiap foto/video tambahan dapat diberi keterangan masing-masing.</div>
+   <div class="contribMediaHint">Foto utama adalah Foto 1. Thumbnail tambahan dimulai dari Foto 2, Foto 3, Foto 4, dan seterusnya; setiap item memiliki keterangan sendiri.</div>
    <div id="contribMediaPreview" class="contribMediaPreview"></div>
   </div>
   <div class="contribButtons"><button class="contribSave" type="button" id="saveDraftBtn">Simpan Draft</button><button class="contribSend" type="submit" id="sendNewsBtn">Kirim ke Admin Pusat</button></div>
@@ -368,26 +368,37 @@ function refreshContribMediaPreview(){
   const url=URL.createObjectURL(file);contribMediaUrls.push(url);
   const item=document.createElement('div');item.className='contribPreviewItem';
   const media=file.type.startsWith('video/')?document.createElement('video'):document.createElement('img');
-  media.src=url;if(media.tagName==='VIDEO'){media.controls=true;media.muted=true;}else media.alt='Thumbnail '+(i+1);
+  media.src=url;if(media.tagName==='VIDEO'){media.controls=true;media.muted=true;}else media.alt='Foto '+(i+2);
   item.appendChild(media);
-  const cap=document.createElement('div');cap.textContent=caption.value.trim()||('Thumbnail '+(i+1));item.appendChild(cap);
+  const cap=document.createElement('div');cap.textContent=(file.type.startsWith('video/')?'Video ':'Foto ')+(i+2)+(caption.value.trim()?' — '+caption.value.trim():'');item.appendChild(cap);
   contribMediaPreview.appendChild(item);
  });
 }
 contribMainFile.addEventListener('change',refreshContribMediaPreview);
+function renumberContributorMediaRows(){
+ contribExtraFiles.querySelectorAll('.contribExtraRow').forEach((row,i)=>{
+  const number=i+2;
+  const label=row.querySelector('.contribMediaRowTitle');
+  const input=row.querySelector('input[type=file]');
+  const captionLabel=row.querySelector('.contribMediaCaptionLabel');
+  if(label)label.textContent='FOTO / VIDEO '+number+' (THUMBNAIL)';
+  if(input)input.setAttribute('aria-label','Pilih foto atau video thumbnail '+number);
+  if(captionLabel)captionLabel.textContent='Keterangan Foto/Video '+number;
+ });
+}
 function addContributorMediaRow(){
  const row=document.createElement('div');row.className='contribExtraRow';
  const fields=document.createElement('div');fields.style.cssText='display:grid;gap:7px;min-width:0';
- const label=document.createElement('label');label.textContent='Pilih Foto/Video Thumbnail';
+ const label=document.createElement('label');label.className='contribMediaRowTitle';
  const input=document.createElement('input');input.type='file';input.accept='image/*,video/*';input.setAttribute('aria-label','Pilih foto atau video thumbnail');
- const captionLabel=document.createElement('label');captionLabel.textContent='Keterangan foto/video';
+ const captionLabel=document.createElement('label');captionLabel.className='contribMediaCaptionLabel';
  const caption=document.createElement('input');caption.type='text';caption.placeholder='Tuliskan keterangan untuk foto/video ini';caption.maxLength=300;
  caption.addEventListener('input',refreshContribMediaPreview);
  input.addEventListener('change',refreshContribMediaPreview);
  fields.append(label,input,captionLabel,caption);
  const remove=document.createElement('button');remove.type='button';remove.textContent='Hapus';
- remove.addEventListener('click',()=>{row.remove();refreshContribMediaPreview();});
- row.append(fields,remove);contribExtraFiles.appendChild(row);
+ remove.addEventListener('click',()=>{row.remove();renumberContributorMediaRows();refreshContribMediaPreview();});
+ row.append(fields,remove);contribExtraFiles.appendChild(row);renumberContributorMediaRows();
 }
 document.getElementById('addContribMedia').addEventListener('click',addContributorMediaRow);
 // Tampilkan satu baris thumbnail sejak awal; tombol menambahkan baris berikutnya.
