@@ -70,119 +70,6 @@
 .contributor-menu-message{display:none;margin:-5px 0 16px;padding:10px 12px;border:1px solid #f1e3bd;border-radius:9px;background:#fff8e8;color:#765c22;font-size:11px;line-height:1.6}
 @media(max-width:900px){.contributor-main-menu{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:600px){.contributor-main-menu{grid-template-columns:repeat(2,minmax(0,1fr))}.contributor-main-menu button{font-size:11px;padding:10px 5px}}
-/* Formulir Data TPP pada ruang kerja kontributor */
-.contribTeamPanel{margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
-.contribTeamPanel h3{margin:0 0 5px;color:#153d2e;font-size:16px}
-.contribTeamPanel .teamIntro{margin:0 0 12px;color:var(--muted);font-size:12px}
-.contribTeamForm{display:grid;grid-template-columns:1fr 1fr;gap:11px 12px}
-.contribTeamForm label{margin:0;font-size:12px}
-.contribTeamForm input,.contribTeamForm select{display:block;width:100%;height:41px;margin-top:6px;padding:9px 11px;border:1px solid #d5e1d9;border-radius:8px;background:#fff;color:#18352b;font:inherit;font-size:13px}
-.contribTeamForm .wide{grid-column:1/-1}
-.contribTeamActions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:13px}
-.contribTeamActions button{border:0;border-radius:8px;padding:11px 17px;background:#064e3b;color:white;font-weight:750;cursor:pointer}
-.contribTeamHint{font-size:11px;color:var(--muted);line-height:1.6}
-.contribTeamSaved{margin-top:17px;padding:15px;border:1px solid #d8e8dd;border-radius:13px;background:#f8fcf9}
-.contribTeamSaved h4{margin:0 0 12px;color:#176344;font-size:15px}
-.contribTeamList{display:grid;gap:8px}
-.contribTeamItem{padding:11px;border:1px solid #e5ece8;border-radius:9px;background:white;font-size:12px}
-.contribTeamItem b{display:block;margin-bottom:4px;color:#18352b}
-.contribTeamItem span{color:#718078}
-@media(max-width:600px){.contribTeamForm{grid-template-columns:1fr}.contribTeamForm .wide{grid-column:auto}}
-
-/* Form Isi Iklan Kontributor */
-.contribAdsPanel{margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
-.contribAdsPanel h3{margin:0 0 5px;color:#153d2e;font-size:16px}
-.contribAdsIntro{margin:0 0 12px;color:var(--muted);font-size:12px}
-.contribAdsForm{display:grid;grid-template-columns:1fr 1fr;gap:11px 12px;max-width:760px}
-.contribAdsForm label{margin:0;font-size:12px}
-.contribAdsForm input{display:block;width:100%;height:41px;margin-top:6px;padding:9px 11px;border:1px solid #d5e1d9;border-radius:8px;background:#fff;color:#18352b;font:inherit;font-size:13px}
-.contribAdsForm .wide{grid-column:1/-1}
-.contribAdsActions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:13px}
-.contribAdsActions button{border:0;border-radius:8px;padding:11px 18px;background:#064e3b;color:#fff;font-weight:750;cursor:pointer}
-.contribAdsHint{font-size:11px;color:var(--muted);line-height:1.6}
-.contribAdsSaved{margin-top:17px;padding:15px;border:1px solid #d8e8dd;border-radius:13px;background:#f8fcf9}
-.contribAdsSaved h4{margin:0 0 12px;color:#176344;font-size:15px}
-.contribAdsList{display:grid;gap:9px}
-.contribAdsItem{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center;padding:10px;border:1px solid #e5ece8;border-radius:10px;background:#fff;font-size:12px}
-.contribAdsItem img{width:110px;height:70px;object-fit:cover;border-radius:7px;background:#edf3ef}
-.contribAdsItem b{display:block;color:#18352b;margin-bottom:4px}
-.contribAdsItem span{color:var(--muted);overflow-wrap:anywhere}
-.contribAdsPreview{display:none;max-width:220px;max-height:130px;margin-top:9px;border:1px solid #dce6e0;border-radius:8px;object-fit:contain}
-@media(max-width:600px){.contribAdsForm{grid-template-columns:1fr}.contribAdsForm .wide{grid-column:auto}.contribAdsItem{grid-template-columns:84px 1fr}.contribAdsItem img{width:84px;height:64px}}
-
-
-/* Form Isi Pengumuman Kontributor */
-.contribAnnouncementPanel{margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
-.contribAnnouncementPanel h3{margin:0 0 5px;color:#153d2e;font-size:16px}
-.contribAnnouncementIntro{margin:0 0 12px;color:var(--muted);font-size:12px}
-#contributorAnnouncementForm{max-width:760px;display:grid;gap:0}
-#contributorAnnouncementForm label{display:block;margin:0 0 12px;font-size:12px;font-weight:750;color:#304c40}
-#contributorAnnouncementForm input,#contributorAnnouncementForm textarea{display:block;width:100%;margin-top:7px;border:1px solid #d5e1d9;border-radius:8px;padding:11px 12px;background:#fff;color:#18352b;font:inherit;font-size:13px}
-#contributorAnnouncementForm input{height:40px}
-#contributorAnnouncementForm textarea{min-height:102px;resize:vertical}
-.contribAnnouncementActions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:1px}
-.contribAnnouncementActions button{border:0;border-radius:8px;padding:11px 17px;background:#064e3b;color:#fff;font-weight:750;cursor:pointer}
-.contribAnnouncementActions button:disabled{opacity:.65;cursor:wait}
-.contribAnnouncementActions span{font-size:11px;color:var(--muted)}
-@media(max-width:600px){#contributorAnnouncementForm{max-width:100%}.contribAnnouncementActions{align-items:flex-start;flex-direction:column}}
-
-/* Form Galeri Foto Kontributor */
-.contribGalleryPanel{margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
-.contribGalleryPanel h3{margin:0 0 5px;color:#153d2e;font-size:16px}
-.contribGalleryIntro{margin:0 0 12px;color:var(--muted);font-size:12px}
-#contributorGalleryForm{max-width:820px;display:grid;gap:0}
-#contributorGalleryForm label{display:block;margin:0 0 12px;font-size:12px;font-weight:750;color:#304c40}
-#contributorGalleryForm input,#contributorGalleryForm select,#contributorGalleryForm textarea{display:block;width:100%;margin-top:7px;border:1px solid #d5e1d9;border-radius:7px;padding:10px 12px;background:#fff;color:#18352b;font:inherit;font-size:13px}
-#contributorGalleryForm input,#contributorGalleryForm select{height:40px}
-#contributorGalleryForm textarea{min-height:66px;resize:vertical}
-.contribGalleryFields{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
-.contribGalleryFields .wide{grid-column:1/-1}
-.contribGalleryMediaTitle{font-size:12px;color:#18352b;margin:4px 0 9px}
-.contribGalleryMainMedia{border:1px solid #08734f;background:#eef7f1;border-radius:8px;padding:11px 12px;display:flex;flex-direction:column;gap:5px;color:#07543c;font-size:12px;margin-bottom:20px}
-.contribGalleryMainMedia span{font-size:11px;color:#718078}
-.contribGallerySubhead{padding:9px 12px;background:#eef2ef;border-left:3px solid var(--gold);font-size:12px;font-weight:850;color:#07543c;margin-bottom:16px}
-.contribGalleryFileRow{display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:center;border:1px solid #d5e1d9;border-radius:8px;padding:8px 10px;margin-bottom:10px;background:#fff}
-.contribGalleryFileRow label{margin:0!important;font-size:11px!important}
-.contribGalleryFileRow input{margin:0!important;height:auto!important;padding:6px!important}
-.contribGalleryAdd{width:100%;text-align:left;border:1px solid #08734f;border-radius:8px;background:#f0f7f2;color:#07543c;padding:10px 13px;font-weight:750;cursor:pointer;margin:8px 0 16px}
-.contribGalleryHint{padding:10px 12px;border:1px dashed #b8cdbf;border-radius:8px;color:#60766a;font-size:11px;margin-bottom:18px}
-.contribGalleryPreview{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:9px;margin:10px 0 14px}
-.contribGalleryPreview figure{margin:0;border:1px solid var(--line);border-radius:8px;padding:6px;background:#fff}
-.contribGalleryPreview img{width:100%;height:82px;object-fit:cover;border-radius:5px}
-.contribGalleryPreview figcaption{font-size:10px;color:var(--muted);margin-top:4px;overflow-wrap:anywhere}
-.contribGalleryActions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:1px}
-.contribGalleryActions button{border:0;border-radius:8px;padding:11px 17px;background:#064e3b;color:#fff;font-weight:750;cursor:pointer}
-.contribGalleryActions button:disabled{opacity:.65;cursor:wait}
-.contribGalleryActions span{font-size:11px;color:var(--muted)}
-.contribGallerySaved{margin-top:14px;padding:14px;border:1px solid #d8e8dd;border-radius:13px;background:#f8fcf9}
-.contribGallerySaved h4{margin:0 0 12px;color:#176344;font-size:15px}
-.contribGalleryList{display:grid;gap:9px}
-.contribGalleryItem{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center;padding:10px;border:1px solid #e5ece8;border-radius:10px;background:#fff;font-size:12px}
-.contribGalleryItem img{width:110px;height:76px;object-fit:cover;border-radius:7px;background:#edf3ef}
-.contribGalleryItem b{display:block;color:#18352b;margin-bottom:4px}
-.contribGalleryItem span{color:var(--muted);line-height:1.5}
-@media(max-width:600px){.contribGalleryFields{grid-template-columns:1fr}.contribGalleryFields .wide{grid-column:auto}.contribGalleryFileRow{grid-template-columns:1fr}.contribGalleryItem{grid-template-columns:84px 1fr}.contribGalleryItem img{width:84px;height:64px}}
-
-
-/* Revisi header Ruang Kerja Kontributor: tanpa identitas akun, nuansa hijau */
-.contributorDash .contribTop{
-  background:linear-gradient(135deg,#07543c 0%,#08734f 58%,#0b8058 100%);
-  border:1px solid #0b6849;
-  border-radius:14px;
-  padding:16px 18px;
-  margin:-2px -2px 16px;
-  color:#fff;
-  box-shadow:0 8px 20px rgba(7,84,60,.12);
-}
-.contributorDash .contribTop h2{color:#fff!important;margin:0!important}
-.contributorDash #contributorIdentity{display:none!important}
-.contributorDash .contribTop .contribExit{
-  background:#fff!important;
-  color:#07543c!important;
-  border:1px solid rgba(255,255,255,.75)!important;
-}
-.contributorDash .contribTop .contribExit:hover{background:#edf7f0!important}
-
 </style></head><body>
 <header class="top"><div class="brand"><div class="mark">WDB</div><div><b>WARTA DESA BONDOWOSO</b><small>PORTAL PENGELOLAAN ADMIN</small></div></div><a class="toplink" href="https://suketteki7174-lang.github.io/WDB-TPP/">← Kembali ke WDB Publik</a></header>
 <main><section class="hero"><div class="eyebrow"><i class="dot"></i> ADMINISTRATION PORTAL</div><h1>Ruang Pengelolaan WDB</h1><p>Kelola berita, kontributor, dan publikasi informasi desa dalam satu tempat.</p></section>
@@ -231,15 +118,14 @@
   <button type="button" data-contributor-menu="announcement">4. Isi Pengumuman</button>
   <button type="button" data-contributor-menu="gallery">5. Isi Galeri Foto</button>
  </nav>
- <div class="contributor-menu-message hidden" id="contributorMenuMessage" role="status"></div>
- <div id="contributorNewsWorkspace" class="hidden">
+ <div class="contributor-menu-message" id="contributorMenuMessage" role="status"></div>
  <h3 id="contributorNewsHeading" style="margin:20px 0 8px;color:#153d2e">Tulis Berita</h3>
  <form id="contributorNewsForm">
   <input type="hidden" id="contribPhoto" value="">
   <div class="contribForm contribNewsFormGrid">
    <label class="wide">Judul berita<input id="contribTitle" required maxlength="180" placeholder="Masukkan judul berita"></label>
-   <label>Kategori<select id="contribCategory" required><option value="">Pilih kategori</option><option>Berita Nasional</option><option>Berita Desa</option><option>Perencanaan</option><option>Pelaksanaan</option><option>Wisata Desa</option><option>Produk Desa</option><option>BUMDes</option><option>Kopdes</option><option>Hobi</option></select></label>
-   <label>Penulis<input id="contribAuthor" type="text" maxlength="120" placeholder="Masukkan nama penulis"></label>
+   <label>Kategori<select id="contribCategory" required><option value="">Pilih kategori</option><option>Desa</option><option>Pembangunan</option><option>Pemerintahan</option><option>Pemberdayaan</option><option>Sosial</option><option>Lingkungan</option><option>Budaya</option><option>Lainnya</option></select></label>
+   <label>Penulis<input id="contribAuthor" type="text" maxlength="120" placeholder="Nama penulis"></label>
    <label class="wide">Isi berita<textarea id="contribBody" required placeholder="Tulis isi berita di sini..."></textarea></label>
   </div>
   <div class="contribMediaArea">
@@ -256,80 +142,7 @@
  </form>
  <div id="contribNewsMessage" class="newsMeta" role="status" style="margin-top:12px"></div>
  <h3 style="margin:24px 0 8px;color:#153d2e">Riwayat Berita Saya</h3><div class="contribList" id="myNewsList"><div class="emptyNews">Memuat riwayat berita...</div></div>
- <p class="muted" style="margin-top:14px">Foto utama dan seluruh foto/video tambahan akan diunggah ke penyimpanan WDB dan ditautkan ke berita.</p>
- </div>
- <section class="contribTeamPanel hidden" id="contributorTeamWorkspace">
-  <h3>FORMULIR DATA TIM TPP</h3>
-  <p class="teamIntro">Isi profil anggota tim tingkat kabupaten maupun kecamatan se-Kabupaten Bondowoso.</p>
-  <form id="contributorTeamForm">
-   <div class="contribTeamForm">
-    <label>Nama lengkap<input id="contribTeamNama" required maxlength="180" placeholder="Nama anggota TPP"></label>
-    <label>Jabatan<select id="contribTeamJabatan" required><option value="Pendamping Desa">Pendamping Desa</option><option value="Pendamping Lokal Desa">Pendamping Lokal Desa</option><option value="Tenaga Ahli Pemberdayaan Masyarakat">Tenaga Ahli Pemberdayaan Masyarakat</option><option value="Koordinator TPP Kabupaten">Koordinator TPP Kabupaten</option></select></label>
-    <label>Wilayah tugas<select id="contribTeamWilayah" required><option value="Kabupaten Bondowoso">Kabupaten Bondowoso</option><option value="Kecamatan">Kecamatan</option><option value="Desa">Desa</option></select></label>
-    <label>Kontak / keterangan<input id="contribTeamKontak" maxlength="240" placeholder="Opsional"></label>
-    <label class="wide">Foto anggota tim<input id="contribTeamFoto" type="file" accept="image/*"></label>
-   </div>
-   <div class="contribTeamActions"><button type="submit" id="saveContributorTeamBtn">Simpan Data Tim TPP</button><span class="contribTeamHint">Data akan ditampilkan pada bagian Tim TPP.</span></div>
-  </form>
-  <div id="contributorTeamMessage" class="newsMeta" role="status" style="margin-top:10px"></div>
-  <div class="contribTeamSaved"><h4>Daftar Data Tim TPP Tersimpan</h4><div class="contribTeamList" id="contributorTeamList"><div class="emptyNews">Memuat data tim TPP...</div></div></div>
-  <p class="contribTeamHint" style="margin-top:10px">Catatan: foto yang dipilih dapat ditampilkan sebagai pilihan lokal, tetapi belum diunggah ke server. Penyimpanan foto memerlukan pengaturan Supabase Storage.</p>
- </section>
- <section class="contribAdsPanel hidden" id="contributorAdsWorkspace">
-  <h3>FORMULIR IKLAN / MITRA</h3>
-  <p class="contribAdsIntro">Unggah gambar iklan. Nama iklan dan tautan tujuan boleh dikosongkan.</p>
-  <form id="contributorAdsForm">
-   <div class="contribAdsForm">
-    <label>Nama iklan / mitra (opsional)<input id="contribAdsNama" maxlength="180" placeholder="Boleh dikosongkan"></label>
-    <label>Tautan tujuan (opsional)<input id="contribAdsTautan" type="url" placeholder="https://..."></label>
-    <label class="wide">Gambar iklan (wajib)<input id="contribAdsFile" type="file" accept="image/*" required></label>
-   </div>
-   <img id="contribAdsPreview" class="contribAdsPreview" alt="Pratinjau gambar iklan">
-   <div class="contribAdsActions"><button type="submit" id="saveContributorAdsBtn">Simpan Iklan</button><span class="contribAdsHint">Iklan akan ditampilkan pada slider iklan.</span></div>
-  </form>
-  <div id="contributorAdsMessage" class="newsMeta" role="status" style="margin-top:10px"></div>
-  <div class="contribAdsSaved"><h4>Daftar Iklan Tersimpan</h4><div id="contributorAdsList" class="contribAdsList"><div class="emptyNews">Belum ada iklan tersimpan.</div></div></div>
-  <p class="contribAdsHint" style="margin-top:10px">Catatan: versi uji ini menyimpan iklan di browser perangkat ini. Agar iklan tampil di WDB publik dan dapat dilihat Admin Pusat, tahap berikutnya perlu menghubungkan unggahan gambar ke Supabase Storage dan data ke tabel wdb_iklan.</p>
- </section>
-
- <section class="contribGalleryPanel hidden" id="contributorGalleryWorkspace">
-  <h3>FORMULIR GALERI FOTO</h3>
-  <p class="contribGalleryIntro">Unggah dokumentasi kegiatan desa. Foto akan tampil pada menu Galeri Foto.</p>
-  <form id="contributorGalleryForm">
-   <div class="contribGalleryFields">
-    <label class="wide">Judul kegiatan<input id="contribGalleryTitle" required maxlength="180" placeholder="Contoh: Pembangunan Jalan Desa"></label>
-    <label>Kategori kegiatan<select id="contribGalleryCategory" required>
-     <option value="Pembangunan">Pembangunan</option><option value="Pemberdayaan">Pemberdayaan</option><option value="Pemerintahan">Pemerintahan</option><option value="Pembinaan Kemasyarakatan">Pembinaan Kemasyarakatan</option><option value="Penanggulangan Bencana">Penanggulangan Bencana</option><option value="Kegiatan Sosial">Kegiatan Sosial</option><option value="Wisata Desa">Wisata Desa</option><option value="Lainnya">Lainnya</option>
-    </select></label>
-    <label>Nama desa / lokasi<input id="contribGalleryLocation" maxlength="180" placeholder="Contoh: Desa Bendelan"></label>
-    <label class="wide">Keterangan foto<textarea id="contribGalleryDescription" placeholder="Tuliskan keterangan kegiatan (opsional)"></textarea></label>
-   </div>
-   <div class="contribGalleryMediaTitle">Foto / Video Galeri</div>
-   <div class="contribGalleryMainMedia"><strong>1. FOTO UTAMA GALERI</strong><span id="contribGalleryMainName">Belum dipilih — pilih foto melalui tombol Pilih Foto pertama</span></div>
-   <div class="contribGallerySubhead">2. THUMBNAIL FOTO TAMBAHAN</div>
-   <div class="contribGalleryFileRow"><label for="contribGalleryMainFile">Pilih Foto Galeri</label><input id="contribGalleryMainFile" type="file" accept="image/*" required></div>
-   <div id="contribGalleryExtraFiles"></div>
-   <button type="button" class="contribGalleryAdd" id="addContributorGalleryPhoto">＋ Tambah Foto</button>
-   <div class="contribGalleryHint">Tambahkan foto satu per satu. Contoh: Foto 1, Foto 2, Foto 3, dan seterusnya.</div>
-   <div id="contribGalleryPreview" class="contribGalleryPreview"></div>
-   <div class="contribGalleryActions"><button type="submit" id="saveContributorGalleryBtn">Simpan ke Galeri</button><span>Pilih satu atau beberapa foto untuk ditampilkan di galeri.</span></div>
-  </form>
-  <div id="contributorGalleryMessage" class="newsMeta" role="status" style="margin-top:10px"></div>
-  <div class="contribGallerySaved"><h4>Foto Galeri Tersimpan</h4><div id="contributorGalleryList" class="contribGalleryList"><div class="emptyNews">Belum ada foto galeri tersimpan.</div></div></div>
-  <p class="contribGalleryIntro" style="margin-top:10px">Catatan: versi uji ini menyimpan foto di browser perangkat ini. Agar foto tampil di WDB publik dan dapat dilihat Admin Pusat, tahap berikutnya perlu menghubungkan unggahan foto ke Supabase Storage dan data galeri ke tabel WDB.</p>
- </section>
-
- <section class="contribAnnouncementPanel hidden" id="contributorAnnouncementWorkspace">
-  <h3>FORMULIR PENGUMUMAN</h3>
-  <p class="contribAnnouncementIntro">Pengumuman yang disimpan akan langsung tampil pada bagian INFO TERKINI di halaman depan.</p>
-  <form id="contributorAnnouncementForm">
-   <label>Judul pengumuman<input id="contribAnnouncementTitle" required maxlength="200" placeholder="Contoh: Jadwal kegiatan pendampingan desa"></label>
-   <label>Isi pengumuman<textarea id="contribAnnouncementBody" required placeholder="Tulis informasi pengumuman..."></textarea></label>
-   <label>Tanggal pengumuman<input id="contribAnnouncementDate" type="date" required></label>
-   <div class="contribAnnouncementActions"><button type="submit" id="publishContributorAnnouncementBtn">Terbitkan ke Info Terkini</button><span>Pengumuman tampil di bagian INFO TERKINI.</span></div>
-  </form>
-  <div id="contributorAnnouncementMessage" class="newsMeta" role="status" style="margin-top:12px"></div>
- </section>
+ <p class="muted" style="margin-top:14px">Catatan: pilihan foto/video saat ini untuk tampilan dan pratinjau lokal. Agar media ikut tersimpan dan tampil di website, perlu dihubungkan ke Supabase Storage WDB.</p>
 </section>
 <footer class="bottom"><span>© 2026 <b>WDB TPP P3MD Kabupaten Bondowoso</b></span><span>Admin Portal • Versi awal</span></footer></main>
 <script>
@@ -370,7 +183,7 @@ async function openDashboard(user){
  document.querySelector('.layout').style.gridTemplateColumns='1fr';
  document.getElementById('contributorDashboard').classList.remove('hidden');
  document.getElementById('contributorIdentity').textContent=(kontributor.nama||user.email)+' · '+(kontributor.desa||'-')+', '+(kontributor.kecamatan||'-');
- document.getElementById('contribAuthor').value="";
+ document.getElementById('contribAuthor').value=kontributor.nama||user.email||'';
  await loadMyNews(user.id);
 }
 
@@ -386,7 +199,7 @@ function renderNews(){
  const q=document.getElementById('newsSearch').value.trim().toLowerCase();
  const rows=cachedNews.filter(n=>{const st=String(n.status||'menunggu').toLowerCase();const matchStatus=filter==='semua'||(filter==='menunggu'&&!['terbit','ditolak'].includes(st))||st===filter;const matchText=[n.judul,n.penulis,n.kategori].some(x=>String(x||'').toLowerCase().includes(q));return matchStatus&&matchText;});
  if(!rows.length){newsList.innerHTML='<div class="emptyNews">Belum ada berita yang sesuai dengan filter.</div>';return;}
- newsList.innerHTML=rows.map(n=>`<article class="newsItem"><div><h4>${safeText(n.judul)}</h4><div class="newsMeta">${safeText(n.kategori||'Tanpa kategori')} · ${safeText(n.penulis||'Penulis tidak dicantumkan')}<br>${n.created_at?new Date(n.created_at).toLocaleString('id-ID'):'Waktu tidak tersedia'} · <span class="statusPill">${safeText(newsStatusLabel(n.status))}</span></div><div class="newsActions"><button class="smallBtn viewBtn" data-news-action="detail" data-news-id="${safeText(n.id)}" type="button">Lihat detail</button>${String(n.status||'menunggu').toLowerCase()!=='terbit'?`<button class="smallBtn approveBtn" data-news-action="approve" data-news-id="${safeText(n.id)}" type="button">Setujui & terbitkan</button>`:''}${String(n.status||'').toLowerCase()!=='ditolak'?`<button class="smallBtn rejectBtn" data-news-action="reject" data-news-id="${safeText(n.id)}" type="button">Tolak</button>`:''}</div></div></article>`).join('');
+ newsList.innerHTML=rows.map(n=>`<article class="newsItem"><div><h4>${safeText(n.judul)}</h4><div class="newsMeta">${safeText(n.kategori||'Tanpa kategori')} · ${safeText(n.penulis||'Penulis tidak dicantumkan')}<br>${n.created_at?new Date(n.created_at).toLocaleString('id-ID'):'Waktu tidak tersedia'} · <span class="statusPill">${safeText(newsStatusLabel(n.status))}</span></div><div class="newsActions"><button class="smallBtn viewBtn" data-news-action="detail" data-news-id="${safeText(n.id)}" type="button">Lihat detail</button>${String(n.status||'menunggu').toLowerCase()!=='terbit'?`<button class="smallBtn approveBtn" data-news-action="approve" data-news-id="${safeText(n.id)}" type="button">Setujui & terbitkan</button>`:''}${String(n.status||'').toLowerCase()!=='ditolak'?`<button class="smallBtn rejectBtn" data-news-action="reject" data-news-id="${safeText(n.id)}" type="button">Tolak</button>`:''}<button class="smallBtn rejectBtn" data-news-action="delete" data-news-id="${safeText(n.id)}" type="button">Hapus</button></div></div></article>`).join('');
 }
 async function loadNews(){
  newsMessage.textContent='Mengambil data berita dari Supabase...';newsList.innerHTML='';newsDetail.classList.add('hidden');
@@ -418,7 +231,18 @@ document.getElementById('closeNewsMenu').addEventListener('click',()=>newsPanel.
 document.getElementById('refreshNews').addEventListener('click',loadNews);
 document.getElementById('newsStatusFilter').addEventListener('change',renderNews);
 document.getElementById('newsSearch').addEventListener('input',renderNews);
-newsList.addEventListener('click',e=>{const b=e.target.closest('button[data-news-action]');if(!b)return;const id=b.dataset.newsId,action=b.dataset.newsAction;if(action==='detail')showNewsDetail(id);if(action==='approve')updateNewsStatus(id,'terbit');if(action==='reject')updateNewsStatus(id,'ditolak');});
+async function deleteAdminNews(id){
+ const item=cachedNews.find(n=>String(n.id)===String(id));
+ if(!item)return;
+ if(!confirm(`Hapus berita \"${item.judul||'Tanpa judul'}\" dari WDB? Berita yang dihapus tidak dapat dipulihkan.`))return;
+ newsMessage.textContent='Menghapus berita...';
+ const {error}=await supabaseClient.from('wdb_berita').delete().eq('id',id);
+ if(error){newsMessage.textContent='Gagal menghapus berita: '+error.message;return;}
+ newsMessage.textContent='Berita berhasil dihapus dari WDB.';
+ newsDetail.classList.add('hidden');
+ await loadNews();
+}
+newsList.addEventListener('click',e=>{const b=e.target.closest('button[data-news-action]');if(!b)return;const id=b.dataset.newsId,action=b.dataset.newsAction;if(action==='detail')showNewsDetail(id);if(action==='approve')updateNewsStatus(id,'terbit');if(action==='reject')updateNewsStatus(id,'ditolak');if(action==='delete')deleteAdminNews(id);});
 
 document.getElementById('showRegisterBtn').onclick=()=>{
  document.getElementById('loginPanel').classList.add('hidden');
@@ -469,182 +293,24 @@ document.getElementById('contributorList').addEventListener('click',async e=>{
  loadContributors();
 });
 
-// Navigasi menu kontributor: tampilkan hanya formulir dari menu yang dipilih.
+// Navigasi menu kontributor. Pengisian konten non-berita tetap mengikuti hak akses Admin Pusat.
 document.querySelectorAll('[data-contributor-menu]').forEach(button=>{
  button.addEventListener('click',()=>{
   document.querySelectorAll('[data-contributor-menu]').forEach(x=>x.classList.remove('active'));
   button.classList.add('active');
   const key=button.dataset.contributorMenu;
   const msg=document.getElementById('contributorMenuMessage');
-  const workspaces={
-   news:document.getElementById('contributorNewsWorkspace'),
-   team:document.getElementById('contributorTeamWorkspace'),
-   ads:document.getElementById('contributorAdsWorkspace'),
-   announcement:document.getElementById('contributorAnnouncementWorkspace'),
-   gallery:document.getElementById('contributorGalleryWorkspace')
-  };
-  Object.values(workspaces).forEach(el=>el.classList.add('hidden'));
-  msg.classList.add('hidden');
   if(key==='news'){
-   workspaces.news.classList.remove('hidden');
+   msg.style.display='none';
    document.getElementById('contributorNewsHeading').textContent='Tulis Berita';
-   workspaces.news.scrollIntoView({behavior:'smooth',block:'start'});return;
+   document.getElementById('contributorNewsForm').scrollIntoView({behavior:'smooth',block:'start'});
+   return;
   }
-  if(key==='team'){
-   workspaces.team.classList.remove('hidden');
-   loadContributorTeam();
-   workspaces.team.scrollIntoView({behavior:'smooth',block:'start'});return;
-  }
-  if(key==='ads'){
-   workspaces.ads.classList.remove('hidden');
-   renderContributorAds();
-   workspaces.ads.scrollIntoView({behavior:'smooth',block:'start'});return;
-  }
-  if(key==='announcement'){
-   workspaces.announcement.classList.remove('hidden');
-   const dateInput=document.getElementById('contribAnnouncementDate');
-   if(!dateInput.value){const now=new Date();dateInput.value=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');}
-   workspaces.announcement.scrollIntoView({behavior:'smooth',block:'start'});return;
-  }
-  if(key==='gallery'){
-   workspaces.gallery.classList.remove('hidden');
-   renderContributorGallery();
-   workspaces.gallery.scrollIntoView({behavior:'smooth',block:'start'});return;
-  }
-  const labels={gallery:'Isi Galeri Foto'};
-  msg.textContent='Formulir "'+(labels[key]||'')+'" akan disiapkan pada tahap berikutnya.';
-  msg.classList.remove('hidden');msg.scrollIntoView({behavior:'smooth',block:'nearest'});
+  const labels={team:'Isi Data TPP',ads:'Isi Iklan',announcement:'Isi Pengumuman',gallery:'Isi Galeri Foto'};
+  msg.textContent='Menu "'+labels[key]+'" sudah tersedia pada tampilan Kontributor. Untuk menjaga hak akses dan keamanan data WDB, pengisian menu ini perlu diaktifkan oleh Admin Pusat terlebih dahulu. Saat ini Kontributor dapat mengirim berita melalui menu Isi Berita.';
+  msg.style.display='block';
+  msg.scrollIntoView({behavior:'smooth',block:'nearest'});
  });
-});
-
-// Data TPP menggunakan tabel yang sama dengan daftar Tim TPP pada Admin Pusat.
-async function loadContributorTeam(){
- const box=document.getElementById('contributorTeamList');
- box.innerHTML='<div class="emptyNews">Memuat data tim TPP...</div>';
- const {data,error}=await supabaseClient.from('wdb_tim_tpp').select('id,nama,jabatan,wilayah,informasi,foto_url,urutan').order('urutan',{ascending:true});
- if(error){box.innerHTML='<div class="emptyNews">Data belum dapat dibaca: '+safeText(error.message)+'</div>';return;}
- if(!data?.length){box.innerHTML='<div class="emptyNews">Belum ada data tim TPP tersimpan.</div>';return;}
- box.innerHTML=data.map(x=>`<div class="contribTeamItem"><b>${safeText(x.nama||'Tanpa nama')}</b><span>${safeText(x.jabatan||'-')} · ${safeText(x.wilayah||'-')}${x.informasi?' · '+safeText(x.informasi):''}</span></div>`).join('');
-}
-document.getElementById('contributorTeamForm').addEventListener('submit',async e=>{
- e.preventDefault();
- const btn=document.getElementById('saveContributorTeamBtn'),msg=document.getElementById('contributorTeamMessage');
- const {data:{user}}=await supabaseClient.auth.getUser();
- if(!user){msg.textContent='Sesi login berakhir. Silakan masuk kembali.';return;}
- const nama=document.getElementById('contribTeamNama').value.trim();
- const jabatan=document.getElementById('contribTeamJabatan').value;
- const wilayah=document.getElementById('contribTeamWilayah').value;
- const kontak=document.getElementById('contribTeamKontak').value.trim();
- if(!nama){msg.textContent='Nama lengkap wajib diisi.';return;}
- btn.disabled=true;btn.textContent='Menyimpan...';msg.textContent='Menyimpan data Tim TPP...';
- const payload={nama,jabatan,wilayah,informasi:kontak||null,foto_url:null,urutan:0};
- const {error}=await supabaseClient.from('wdb_tim_tpp').insert(payload);
- if(error){msg.textContent='Gagal menyimpan data: '+error.message+' Pastikan kebijakan INSERT tabel wdb_tim_tpp mengizinkan kontributor.';msg.style.color='#a3332b';}
- else{msg.textContent='Data Tim TPP berhasil disimpan.';msg.style.color='#176344';document.getElementById('contributorTeamForm').reset();await loadContributorTeam();}
- btn.disabled=false;btn.textContent='Simpan Data Tim TPP';
-});
-
-// Prototipe penyimpanan iklan lokal. Sinkronisasi ke Supabase Storage dilakukan pada tahap integrasi berikutnya.
-const CONTRIBUTOR_ADS_KEY='wdb_contributor_ads_local_v1';
-let contributorAdPreviewUrl=null;
-function getContributorAds(){try{return JSON.parse(localStorage.getItem(CONTRIBUTOR_ADS_KEY)||'[]')}catch{return []}}
-function renderContributorAds(){
- const box=document.getElementById('contributorAdsList');if(!box)return;
- const rows=getContributorAds();
- if(!rows.length){box.innerHTML='<div class="emptyNews">Belum ada iklan tersimpan.</div>';return;}
- box.innerHTML=rows.slice().reverse().map((x,i)=>`<article class="contribAdsItem"><img src="${x.image}" alt="Gambar iklan"><div><b>${safeText(x.nama||'Iklan tanpa nama')}</b><span>${safeText(x.tautan||'Tanpa tautan tujuan')}<br>Disimpan di browser ini</span></div></article>`).join('');
-}
-document.getElementById('contribAdsFile').addEventListener('change',e=>{
- const file=e.target.files?.[0],preview=document.getElementById('contribAdsPreview');
- if(contributorAdPreviewUrl)URL.revokeObjectURL(contributorAdPreviewUrl);
- if(!file){preview.removeAttribute('src');preview.style.display='none';return;}
- if(!file.type.startsWith('image/')){e.target.value='';preview.style.display='none';document.getElementById('contributorAdsMessage').textContent='Pilih file gambar (JPG, PNG, WEBP, dan sejenisnya).';return;}
- contributorAdPreviewUrl=URL.createObjectURL(file);preview.src=contributorAdPreviewUrl;preview.style.display='block';
-});
-document.getElementById('contributorAdsForm').addEventListener('submit',e=>{
- e.preventDefault();const file=document.getElementById('contribAdsFile').files?.[0],msg=document.getElementById('contributorAdsMessage'),btn=document.getElementById('saveContributorAdsBtn');
- if(!file){msg.textContent='Gambar iklan wajib dipilih.';return;}
- if(file.size>1200000){msg.textContent='Ukuran gambar maksimal 1,2 MB untuk penyimpanan uji di browser. Kompres gambar lalu coba lagi.';return;}
- btn.disabled=true;btn.textContent='Menyimpan...';
- const reader=new FileReader();reader.onload=()=>{
-  try{const rows=getContributorAds();rows.push({nama:document.getElementById('contribAdsNama').value.trim(),tautan:document.getElementById('contribAdsTautan').value.trim(),image:reader.result,created_at:new Date().toISOString()});localStorage.setItem(CONTRIBUTOR_ADS_KEY,JSON.stringify(rows));msg.textContent='Iklan berhasil disimpan di browser ini.';msg.style.color='#176344';document.getElementById('contributorAdsForm').reset();const preview=document.getElementById('contribAdsPreview');preview.removeAttribute('src');preview.style.display='none';if(contributorAdPreviewUrl)URL.revokeObjectURL(contributorAdPreviewUrl);contributorAdPreviewUrl=null;renderContributorAds();}
-  catch(err){msg.textContent='Gagal menyimpan iklan di browser: '+err.message;msg.style.color='#a3332b';}
-  btn.disabled=false;btn.textContent='Simpan Iklan';
- };reader.onerror=()=>{msg.textContent='File gambar tidak dapat dibaca.';btn.disabled=false;btn.textContent='Simpan Iklan';};reader.readAsDataURL(file);
-});
-
-// Pengumuman kontributor disimpan ke tabel yang sama dengan modul Info Terkini Admin Pusat.
-document.getElementById('contributorAnnouncementForm').addEventListener('submit',async e=>{
- e.preventDefault();
- const btn=document.getElementById('publishContributorAnnouncementBtn');
- const msg=document.getElementById('contributorAnnouncementMessage');
- const judul=document.getElementById('contribAnnouncementTitle').value.trim();
- const isi=document.getElementById('contribAnnouncementBody').value.trim();
- const tanggal=document.getElementById('contribAnnouncementDate').value;
- if(!judul||!isi||!tanggal){msg.textContent='Judul, isi, dan tanggal pengumuman wajib diisi.';msg.style.color='#a3332b';return;}
- btn.disabled=true;btn.textContent='Menerbitkan...';msg.textContent='Menyimpan pengumuman ke Info Terkini...';msg.style.color='';
- const payload={judul,isi,tanggal:new Date(tanggal+'T00:00:00').toISOString(),aktif:true};
- const {error}=await supabaseClient.from('wdb_pengumuman').insert(payload);
- if(error){msg.textContent='Gagal menerbitkan pengumuman: '+error.message+' Pastikan kebijakan INSERT tabel wdb_pengumuman mengizinkan akun kontributor.';msg.style.color='#a3332b';}
- else{
-  msg.textContent='Pengumuman berhasil diterbitkan ke Info Terkini.';msg.style.color='#176344';
-  document.getElementById('contributorAnnouncementForm').reset();
-  const dateInput=document.getElementById('contribAnnouncementDate');
-  const now=new Date();dateInput.value=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');
- }
- btn.disabled=false;btn.textContent='Terbitkan ke Info Terkini';
-});
-
-
-// Galeri kontributor: penyimpanan uji lokal di browser, termasuk foto utama dan foto tambahan.
-const CONTRIBUTOR_GALLERY_KEY='wdb_contributor_gallery_local_v1';
-let contributorGalleryMainUrl=null;
-let contributorGalleryExtraUrls=[];
-function getContributorGallery(){try{return JSON.parse(localStorage.getItem(CONTRIBUTOR_GALLERY_KEY)||'[]')}catch{return []}}
-function renderContributorGallery(){
- const box=document.getElementById('contributorGalleryList');if(!box)return;
- const rows=getContributorGallery();
- if(!rows.length){box.innerHTML='<div class="emptyNews">Belum ada foto galeri tersimpan.</div>';return;}
- box.innerHTML=rows.slice().reverse().map(x=>`<article class="contribGalleryItem"><img src="${x.cover}" alt="Foto galeri"><div><b>${safeText(x.judul)}</b><span>${safeText(x.kategori||'-')} · ${safeText(x.lokasi||'-')}<br>${(x.photos||[]).length} foto · Disimpan di browser ini</span></div></article>`).join('');
-}
-function updateContributorGalleryPreview(){
- const preview=document.getElementById('contribGalleryPreview');if(!preview)return;
- const files=[];
- const main=document.getElementById('contribGalleryMainFile').files?.[0];if(main)files.push({file:main,label:'Foto utama'});
- document.querySelectorAll('.contrib-gallery-extra-file').forEach((input,i)=>{const f=input.files?.[0];if(f)files.push({file:f,label:'Foto tambahan '+(i+1)});});
- preview.innerHTML=files.map(x=>`<figure><img src="${URL.createObjectURL(x.file)}" alt=""><figcaption>${safeText(x.label)} · ${safeText(x.file.name)}</figcaption></figure>`).join('');
- const name=document.getElementById('contribGalleryMainName');
- name.textContent=main?main.name:'Belum dipilih — pilih foto melalui tombol Pilih Foto pertama';
-}
-document.getElementById('contribGalleryMainFile').addEventListener('change',updateContributorGalleryPreview);
-document.getElementById('addContributorGalleryPhoto').addEventListener('click',()=>{
- const wrap=document.getElementById('contribGalleryExtraFiles');
- const row=document.createElement('div');row.className='contribGalleryFileRow';
- const label=document.createElement('label');label.textContent='Pilih Foto Tambahan';
- const input=document.createElement('input');input.type='file';input.accept='image/*';input.className='contrib-gallery-extra-file';input.addEventListener('change',updateContributorGalleryPreview);
- label.appendChild(input);row.appendChild(label);wrap.appendChild(row);
-});
-document.getElementById('contributorGalleryForm').addEventListener('submit',async e=>{
- e.preventDefault();
- const btn=document.getElementById('saveContributorGalleryBtn'),msg=document.getElementById('contributorGalleryMessage');
- const main=document.getElementById('contribGalleryMainFile').files?.[0];
- const extras=[...document.querySelectorAll('.contrib-gallery-extra-file')].map(x=>x.files?.[0]).filter(Boolean);
- if(!main){msg.textContent='Silakan pilih foto utama galeri terlebih dahulu.';msg.style.color='#a3332b';return;}
- const all=[main,...extras];
- if(all.some(f=>!f.type.startsWith('image/'))){msg.textContent='Pilih file gambar JPG, PNG, atau WEBP.';msg.style.color='#a3332b';return;}
- const total=all.reduce((s,f)=>s+f.size,0);
- if(total>2500000){msg.textContent='Total ukuran foto maksimal 2,5 MB untuk penyimpanan uji browser. Kompres foto lalu coba lagi.';msg.style.color='#a3332b';return;}
- btn.disabled=true;btn.textContent='Menyimpan...';msg.textContent='Menyimpan foto galeri di browser...';msg.style.color='';
- try{
-  const dataUrls=await Promise.all(all.map(file=>new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=()=>reject(new Error('File foto tidak dapat dibaca.'));r.readAsDataURL(file)})));
-  const rows=getContributorGallery();
-  rows.push({judul:document.getElementById('contribGalleryTitle').value.trim(),kategori:document.getElementById('contribGalleryCategory').value,lokasi:document.getElementById('contribGalleryLocation').value.trim(),keterangan:document.getElementById('contribGalleryDescription').value.trim(),cover:dataUrls[0],photos:dataUrls,created_at:new Date().toISOString()});
-  localStorage.setItem(CONTRIBUTOR_GALLERY_KEY,JSON.stringify(rows));
-  msg.textContent='Foto galeri berhasil disimpan di browser ini.';msg.style.color='#176344';
-  document.getElementById('contributorGalleryForm').reset();document.getElementById('contribGalleryExtraFiles').innerHTML='';document.getElementById('contribGalleryPreview').innerHTML='';document.getElementById('contribGalleryMainName').textContent='Belum dipilih — pilih foto melalui tombol Pilih Foto pertama';
-  renderContributorGallery();
- }catch(err){msg.textContent='Gagal menyimpan foto galeri: '+err.message;msg.style.color='#a3332b';}
- btn.disabled=false;btn.textContent='Simpan ke Galeri';
 });
 
 let currentContributorId=null;
@@ -654,7 +320,7 @@ async function loadMyNews(userId){
  const {data,error}=await supabaseClient.from('wdb_berita').select('id,judul,kategori,status,created_at,isi,foto_url').eq('kontributor_id',userId).order('created_at',{ascending:false});
  if(error){box.innerHTML='<div class="emptyNews">Gagal memuat riwayat: '+safeText(error.message)+'</div>';return;}
  if(!data?.length){box.innerHTML='<div class="emptyNews">Belum ada berita yang Anda kirim.</div>';return;}
- box.innerHTML=data.map(n=>`<article class="contribArticle"><h4>${safeText(n.judul)}</h4><p>${safeText(n.kategori||'-')} · Status: <b>${safeText(n.status||'menunggu')}</b> · ${n.created_at?new Date(n.created_at).toLocaleString('id-ID'):'-'}</p>${String(n.status).toLowerCase()==='ditolak'?`<p>Berita ditolak/dikembalikan. Anda dapat memperbaiki dan mengirim ulang.</p><button class="smallBtn viewBtn" type="button" data-edit-news="${safeText(n.id)}">Edit berita</button>`:''}${String(n.status).toLowerCase()==='draft'?`<button class="smallBtn viewBtn" type="button" data-edit-news="${safeText(n.id)}">Lanjutkan draft</button>`:''}</article>`).join('');
+ box.innerHTML=data.map(n=>{const st=String(n.status||'menunggu').toLowerCase();return `<article class="contribArticle"><h4>${safeText(n.judul)}</h4><p>${safeText(n.kategori||'-')} · Status: <b>${safeText(n.status||'menunggu')}</b> · ${n.created_at?new Date(n.created_at).toLocaleString('id-ID'):'-'}</p>${st==='ditolak'?`<p>Berita ditolak/dikembalikan. Anda dapat memperbaiki dan mengirim ulang.</p><button class="smallBtn viewBtn" type="button" data-edit-news="${safeText(n.id)}">Edit berita</button>`:''}${st==='draft'?`<button class="smallBtn viewBtn" type="button" data-edit-news="${safeText(n.id)}">Lanjutkan draft</button>`:''}${st!=='terbit'?` <button class="smallBtn rejectBtn" type="button" data-delete-news="${safeText(n.id)}">Hapus berita</button>`:''}</article>`;}).join('');
 }
 
 const contribMainFile=document.getElementById('contribMainFile');
@@ -675,78 +341,40 @@ document.getElementById('addContribMedia').addEventListener('click',()=>{
 });
 
 function resetContributorForm(){document.getElementById('contributorNewsForm').reset();document.getElementById('contributorNewsForm').dataset.editId='';contribExtraFiles.innerHTML='';refreshContribMediaPreview();}
-async function uploadContributorMainPhoto(file,userId){
- if(!file)return document.getElementById('contribPhoto').value.trim()||null;
- if(!file.type.startsWith('image/'))throw new Error('Foto utama harus berupa gambar JPG, PNG, atau WEBP.');
- if(file.size>8*1024*1024)throw new Error('Ukuran foto utama maksimal 8 MB.');
- const cleanName=file.name.normalize('NFKD').replace(/[^a-zA-Z0-9._-]+/g,'-').replace(/-+/g,'-').slice(-100)||'foto-berita';
- const path=`${userId}/berita/${Date.now()}-${cleanName}`;
- const {data,error}=await supabaseClient.storage.from('wdb-media').upload(path,file,{cacheControl:'3600',upsert:false,contentType:file.type});
- if(error)throw new Error('Upload foto ke Supabase gagal: '+error.message);
- const {data:publicData}=supabaseClient.storage.from('wdb-media').getPublicUrl(data.path);
- if(!publicData?.publicUrl)throw new Error('Foto berhasil diunggah, tetapi URL publik tidak berhasil dibuat.');
- document.getElementById('contribPhoto').value=publicData.publicUrl;
- return publicData.publicUrl;
-}
-async function uploadContributorExtraMedia(userId){
- const uploaded=[];
- const inputs=[...contribExtraFiles.querySelectorAll('input[type=file]')];
- for(let i=0;i<inputs.length;i++){
-  const file=inputs[i].files?.[0];if(!file)continue;
-  const isImage=file.type.startsWith('image/'),isVideo=file.type.startsWith('video/');
-  if(!isImage&&!isVideo)throw new Error(`Media tambahan ke-${i+1} harus berupa foto atau video.`);
-  const limit=isVideo?50*1024*1024:8*1024*1024;
-  if(file.size>limit)throw new Error(`Ukuran ${isVideo?'video':'foto'} tambahan ke-${i+1} maksimal ${isVideo?'50':'8'} MB.`);
-  const cleanName=file.name.normalize('NFKD').replace(/[^a-zA-Z0-9._-]+/g,'-').replace(/-+/g,'-').slice(-100)||'media-berita';
-  const path=`${userId}/berita/${Date.now()}-${i+1}-${cleanName}`;
-  const {data,error}=await supabaseClient.storage.from('wdb-media').upload(path,file,{cacheControl:'3600',upsert:false,contentType:file.type});
-  if(error)throw new Error(`Gagal mengunggah media tambahan "${file.name}": ${error.message}`);
-  const {data:publicData}=supabaseClient.storage.from('wdb-media').getPublicUrl(data.path);
-  if(!publicData?.publicUrl)throw new Error(`URL publik media "${file.name}" tidak berhasil dibuat.`);
-  uploaded.push({type:isVideo?'video':'image',src:publicData.publicUrl,name:file.name});
- }
- return uploaded;
-}
 async function saveContributorNews(status){
- const msg=document.getElementById('contribNewsMessage');
- const title=document.getElementById('contribTitle').value.trim(),category=document.getElementById('contribCategory').value,body=document.getElementById('contribBody').value.trim();
- if(!title||!category||!body){msg.textContent='Judul, kategori, dan isi berita wajib diisi.';return;}
- const {data:{user}}=await supabaseClient.auth.getUser();if(!user){msg.textContent='Sesi berakhir. Silakan login kembali.';return;}
- const sendBtn=document.getElementById(status==='draft'?'saveDraftBtn':'sendNewsBtn');
- sendBtn.disabled=true;const oldLabel=sendBtn.textContent;sendBtn.textContent='Mengunggah dan menyimpan...';msg.textContent='Mengunggah foto dan video ke penyimpanan WDB...';msg.style.color='';
- try{
-  const selectedMain=contribMainFile.files?.[0]||null;
-  const photo=await uploadContributorMainPhoto(selectedMain,user.id);
-  const newMedia=await uploadContributorExtraMedia(user.id);
-  const editId=document.getElementById('contributorNewsForm').dataset.editId;
-  let existingMedia=[];
-  if(editId){
-   const {data:oldData,error:oldError}=await supabaseClient.from('wdb_berita').select('media_urls').eq('id',editId).eq('kontributor_id',user.id).maybeSingle();
-   if(oldError)throw new Error('Gagal membaca media berita lama: '+oldError.message);
-   const raw=oldData?.media_urls;
-   existingMedia=Array.isArray(raw)?raw:(typeof raw==='string'?(()=>{try{return JSON.parse(raw)||[]}catch{return []}})():[]);
-  }
-  const mediaUrls=[...existingMedia,...newMedia];
-  const payload={kontributor_id:user.id,judul:title,kategori:category,penulis:document.getElementById('contribAuthor').value.trim(),isi:body,foto_url:photo,media_urls:mediaUrls,status};
-  let result;
-  if(editId){result=await supabaseClient.from('wdb_berita').update(payload).eq('id',editId).eq('kontributor_id',user.id);}
-  else{result=await supabaseClient.from('wdb_berita').insert(payload);}
-  if(result.error)throw new Error('Gagal menyimpan berita: '+result.error.message);
-  msg.textContent=(status==='draft'?'Draft berhasil disimpan.':'Berita berhasil dikirim ke Admin Pusat untuk diperiksa.')+` Foto utama: ${photo?'tersimpan':'tidak dipilih'}. Media tambahan tersimpan: ${newMedia.length}.`;
-  msg.style.color='#176344';
-  resetContributorForm();await loadMyNews(user.id);
- }catch(err){msg.textContent=err.message||'Terjadi kesalahan saat mengunggah media atau menyimpan berita.';msg.style.color='#a3332b';}
- finally{sendBtn.disabled=false;sendBtn.textContent=oldLabel;}
+ const title=document.getElementById('contribTitle').value.trim(),category=document.getElementById('contribCategory').value,body=document.getElementById('contribBody').value.trim(),photo=document.getElementById('contribPhoto').value.trim();
+ if(!title||!category||!body){document.getElementById('contribNewsMessage').textContent='Judul, kategori, dan isi berita wajib diisi.';return;}
+ const {data:{user}}=await supabaseClient.auth.getUser();if(!user){document.getElementById('contribNewsMessage').textContent='Sesi berakhir. Silakan login kembali.';return;}
+ const payload={kontributor_id:user.id,judul:title,kategori:category,penulis:document.getElementById('contribAuthor').value.trim()||document.getElementById('contributorIdentity').textContent.split(' · ')[0],isi:body,foto_url:photo||null,status};
+ const editId=document.getElementById('contributorNewsForm').dataset.editId;
+ let result;
+ if(editId){result=await supabaseClient.from('wdb_berita').update(payload).eq('id',editId).eq('kontributor_id',user.id);}
+ else{result=await supabaseClient.from('wdb_berita').insert(payload);}
+ if(result.error){document.getElementById('contribNewsMessage').textContent='Gagal menyimpan berita: '+result.error.message;return;}
+ document.getElementById('contribNewsMessage').textContent=status==='draft'?'Draft berhasil disimpan.':'Berita berhasil dikirim ke Admin Pusat untuk diperiksa.';
+ resetContributorForm();await loadMyNews(user.id);
 }
-
 document.getElementById('saveDraftBtn').onclick=()=>saveContributorNews('draft');
 document.getElementById('contributorNewsForm').addEventListener('submit',e=>{e.preventDefault();saveContributorNews('menunggu');});
 document.getElementById('myNewsList').addEventListener('click',async e=>{
+ const del=e.target.closest('[data-delete-news]');
+ if(del){
+  const {data:{user}}=await supabaseClient.auth.getUser();if(!user)return;
+  const id=del.dataset.deleteNews;
+  const {data:item,error:findError}=await supabaseClient.from('wdb_berita').select('id,judul,status').eq('id',id).eq('kontributor_id',user.id).maybeSingle();
+  if(findError||!item){document.getElementById('contribNewsMessage').textContent='Berita tidak ditemukan atau bukan milik akun Anda.';return;}
+  if(!['draft','menunggu','ditolak'].includes(String(item.status||'').toLowerCase())){document.getElementById('contribNewsMessage').textContent='Berita yang sudah terbit hanya dapat dihapus oleh Admin Pusat.';return;}
+  if(!confirm(`Hapus berita \"${item.judul||'Tanpa judul'}\" dari riwayat Anda?`))return;
+  const {error}=await supabaseClient.from('wdb_berita').delete().eq('id',id).eq('kontributor_id',user.id).in('status',['draft','menunggu','ditolak']);
+  if(error){document.getElementById('contribNewsMessage').textContent='Gagal menghapus berita: '+error.message;return;}
+  document.getElementById('contribNewsMessage').textContent='Berita berhasil dihapus dari riwayat Anda.';
+  await loadMyNews(user.id);return;
+ }
  const b=e.target.closest('[data-edit-news]');if(!b)return;
  const {data:{user}}=await supabaseClient.auth.getUser();if(!user)return;
  const {data,error}=await supabaseClient.from('wdb_berita').select('id,judul,kategori,penulis,isi,foto_url,status').eq('id',b.dataset.editNews).eq('kontributor_id',user.id).maybeSingle();
  if(error||!data){document.getElementById('contribNewsMessage').textContent='Berita tidak dapat dibuka: '+(error?.message||'data tidak ditemukan');return;}
- document.getElementById('contribTitle').value=data.judul||'';document.getElementById('contribCategory').value=data.kategori||'';document.getElementById('contribAuthor').value="";document.getElementById('contribBody').value=data.isi||'';document.getElementById('contributorNewsForm').dataset.editId=data.id;document.getElementById('contribNewsMessage').textContent='Mode edit: perbaiki berita lalu simpan draft atau kirim ulang.';document.getElementById('contributorNewsForm').scrollIntoView({behavior:'smooth'});
+ document.getElementById('contribTitle').value=data.judul||'';document.getElementById('contribCategory').value=data.kategori||'';document.getElementById('contribAuthor').value=data.penulis||'';document.getElementById('contribBody').value=data.isi||'';document.getElementById('contributorNewsForm').dataset.editId=data.id;document.getElementById('contribNewsMessage').textContent='Mode edit: perbaiki berita lalu simpan draft atau kirim ulang.';document.getElementById('contributorNewsForm').scrollIntoView({behavior:'smooth'});
 });
 document.getElementById('contributorSignOut').onclick=async()=>{const {error}=await supabaseClient.auth.signOut();if(error){document.getElementById('contribNewsMessage').textContent='Gagal keluar: '+error.message;return;}document.getElementById('contributorDashboard').classList.add('hidden');document.getElementById('loginForm').classList.remove('hidden');document.querySelector('.welcome').classList.remove('hidden');document.querySelector('.hero').classList.remove('hidden');document.querySelector('.layout').style.gridTemplateColumns='1.05fr .95fr';showLogin();showNotice('Anda sudah keluar','Silakan masuk kembali untuk mengelola WDB.');};
 
@@ -816,8 +444,4 @@ document.getElementById('savePasswordBtn').onclick=async()=>{const p=document.ge
 document.getElementById('backLoginBtn').onclick=showLogin;
 supabaseClient.auth.onAuthStateChange((event,session)=>{if(event==='PASSWORD_RECOVERY')showRecovery();});
 restoreSession();
-</script>
-
-
-
-</body></html>
+</script></body></html>
