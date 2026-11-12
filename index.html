@@ -553,7 +553,8 @@ const galleryExtraFiles=document.getElementById('galleryExtraFiles');
 function renumberGalleryRows(){
  galleryExtraFiles.querySelectorAll('.galleryExtraRow').forEach((row,i)=>{
   const n=i+2;row.querySelector('.galleryExtraTitle').textContent='FOTO '+n+' (THUMBNAIL)';
-  row.querySelector('.galleryCaptionLabel').textContent='Keterangan Foto '+n;
+  const captionTitle=row.querySelector('.galleryCaptionTitle');
+  if(captionTitle)captionTitle.textContent='Keterangan Foto '+n;
  });
 }
 function addGalleryMediaRow(){
@@ -563,8 +564,9 @@ function addGalleryMediaRow(){
  const pick=document.createElement('label');pick.textContent='Pilih Foto Thumbnail';
  const file=document.createElement('input');file.type='file';file.accept='image/*';
  const capLabel=document.createElement('label');capLabel.className='galleryCaptionLabel';
- const cap=document.createElement('input');cap.type='text';cap.maxLength=300;cap.placeholder='Tuliskan keterangan foto ini';
- capLabel.appendChild(cap);
+ const capTitle=document.createElement('span');capTitle.className='galleryCaptionTitle';capTitle.textContent='Keterangan Foto';
+ const cap=document.createElement('input');cap.type='text';cap.maxLength=300;cap.placeholder='Tuliskan keterangan untuk thumbnail ini';
+ capLabel.append(capTitle,cap);
  fields.append(title,pick,file,capLabel);
  const remove=document.createElement('button');remove.type='button';remove.className='contentCancel';remove.textContent='Hapus';
  remove.addEventListener('click',()=>{row.remove();renumberGalleryRows();refreshGalleryPreview();});
