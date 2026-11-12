@@ -261,7 +261,12 @@ async function updateNewsStatus(id,status){
  newsMessage.textContent=status==='terbit'?'Berita berhasil diterbitkan.':'Berita berhasil ditolak.';
  await loadNews();
 }
-document.getElementById('openNewsMenu').addEventListener('click',()=>{newsPanel.classList.remove('hidden');loadNews();newsPanel.scrollIntoView({behavior:'smooth',block:'start'});});
+document.getElementById('openNewsMenu').addEventListener('click',()=>{
+ hideContentPanels();
+ newsPanel.classList.remove('hidden');
+ loadNews();
+ newsPanel.scrollIntoView({behavior:'smooth',block:'start'});
+});
 document.getElementById('closeNewsMenu').addEventListener('click',()=>newsPanel.classList.add('hidden'));
 document.getElementById('refreshNews').addEventListener('click',loadNews);
 document.getElementById('newsStatusFilter').addEventListener('change',renderNews);
@@ -316,7 +321,9 @@ async function loadContributors(){
  list.innerHTML=data.map(x=>`<article class="newsItem"><div><h4>${safeText(x.nama)}</h4><div class="newsMeta">${safeText(x.no_hp||'-')} · ${safeText(x.desa||'-')} · ${safeText(x.kecamatan||'-')}<br>Status: ${safeText(x.status||'menunggu')}</div><div class="newsActions">${String(x.status).toLowerCase()!=='disetujui'?`<button class="smallBtn approveBtn" data-cid="${safeText(x.id)}" data-status="disetujui">Setujui</button>`:''}<button class="smallBtn rejectBtn" data-cid="${safeText(x.id)}" data-status="ditolak">Tolak</button></div></div></article>`).join('');
 }
 document.getElementById('openContributorMenu').onclick=()=>{
- document.getElementById('contributorPanel').classList.remove('hidden');loadContributors();
+ hideContentPanels();
+ document.getElementById('contributorPanel').classList.remove('hidden');
+ loadContributors();
  document.getElementById('contributorPanel').scrollIntoView({behavior:'smooth'});
 };
 document.getElementById('closeContributorPanel').onclick=()=>document.getElementById('contributorPanel').classList.add('hidden');
@@ -496,7 +503,11 @@ const contentModules={
  announcement:{table:'wdb_pengumuman',panel:'announcementPanel',list:'announcementList',message:'announcementMessage'}
 };
 function contentMsg(key,msg,isError=false){const el=document.getElementById(contentModules[key].message);el.textContent=msg;el.style.color=isError?'#a3332b':'#52665b';}
-function hideContentPanels(){Object.values(contentModules).forEach(m=>document.getElementById(m.panel).classList.add('hidden'));}
+function hideContentPanels(){
+ Object.values(contentModules).forEach(m=>document.getElementById(m.panel).classList.add('hidden'));
+ document.getElementById('newsPanel').classList.add('hidden');
+ document.getElementById('contributorPanel').classList.add('hidden');
+}
 async function openContentPanel(key){
  hideContentPanels();
  const m=contentModules[key];if(!m)return;
