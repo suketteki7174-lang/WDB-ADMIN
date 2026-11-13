@@ -64,7 +64,7 @@
 @media(max-width:600px){.admin-main-menu{grid-template-columns:repeat(2,minmax(0,1fr))!important}.admin-main-menu .menuCard{padding:13px 10px}}
 
 /* Menu utama khusus Kontributor, mengikuti tampilan menu Admin pada contoh */
-.contributor-main-menu{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin:20px 0 18px}
+.contributor-main-menu{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:9px;margin:20px 0 18px}
 .contributor-main-menu button{min-width:0;min-height:43px;padding:10px 8px;border:1px solid #dce6e0;border-radius:9px;background:#fff;color:#18352b;font-size:12px;font-weight:750;cursor:pointer;transition:.18s}
 .contributor-main-menu button:hover,.contributor-main-menu button.active{border-color:#a9cfb8;background:#f5faf6;color:#08734f;box-shadow:0 3px 10px #064e3b0c}
 .contributor-menu-message{display:none;margin:-5px 0 16px;padding:10px 12px;border:1px solid #f1e3bd;border-radius:9px;background:#fff8e8;color:#765c22;font-size:11px;line-height:1.6}
@@ -92,6 +92,9 @@
 /* Admin Pusat hanya memeriksa antrean iklan; formulir hanya untuk Kontributor. */
 .contentPanel.adminReviewMode #adsForm{display:none!important}
 .contentPanel.contributorMode #adsReviewQueue{display:none!important}
+.posterMode .contribMediaSubhead,.posterMode #contribExtraFiles,.posterMode #addContribMedia,.posterMode .contribMediaHint{display:none!important}
+.posterMode .contribMediaArea{margin-top:12px}
+.posterMode .contribMainMedia strong{font-size:13px}
 </style><style>
 .galleryMediaTitle{background:#eef3ef;border-left:4px solid #d5b65b;padding:10px 13px;font-weight:800;color:#075b45;margin-top:8px}
 .galleryMainInfo{border:2px solid #087b57;background:#eef8f2;border-radius:10px;padding:13px;color:#075b45;font-weight:700}
@@ -148,7 +151,7 @@
  <div class="wide galleryPreview" id="galleryPreview"></div>
  <textarea id="galleryMedia" hidden></textarea>
  <textarea id="galleryCaptions" hidden></textarea><label>Status<select id="galleryAktif"><option value="true">Aktif</option><option value="false">Nonaktif</option></select></label><div class="wide contentFormActions"><button class="contentSave" type="submit">Simpan Galeri</button><button class="contentCancel" type="button" data-reset-form="galleryForm">Kosongkan</button></div></form><p class="contentHint">Foto 1 adalah foto utama. Foto tambahan dimulai dari Foto 2, Foto 3, Foto 4, dan seterusnya. Setiap foto tambahan dapat diberi keterangan.</p><div id="galleryMessage" class="newsMeta"></div><div id="galleryList" class="contentList"></div></section>
- <div class="dashnote">Hak akses Admin Pusat terverifikasi. Menu Kelola Berita terhubung ke tabel wdb_berita. Menu Isi Iklan, Isi Data TPP, Isi Pengumuman, dan Isi Galeri Foto terhubung ke tabel Supabase masing-masing.</div>
+ <div class="dashnote">Hak akses Admin Pusat terverifikasi. Menu Kelola Berita terhubung ke tabel wdb_berita. Menu Isi Poster menggunakan tabel wdb_berita dengan kategori Poster dan Supabase Storage bucket wdb-galeri; pemeriksaannya melalui Pemeriksaan Berita. Menu Isi Iklan, Isi Data TPP, Isi Pengumuman, dan Isi Galeri Foto terhubung ke tabel Supabase masing-masing.</div>
 </section></section>
 <section class="contributorDash hidden" id="contributorDashboard">
  <div class="contribTop"><div><h2>Ruang Kerja Kontributor</h2><div class="muted" id="contributorIdentity" hidden></div></div><button class="contribExit" id="contributorSignOut" type="button">Keluar</button></div>
@@ -159,6 +162,7 @@
   <button type="button" data-contributor-menu="ads">3. Isi Iklan</button>
   <button type="button" data-contributor-menu="announcement">4. Isi Pengumuman</button>
   <button type="button" data-contributor-menu="gallery">5. Isi Galeri Foto</button>
+  <button type="button" data-contributor-menu="poster">6. Isi Poster</button>
  </nav>
  <div class="contributor-menu-message" id="contributorMenuMessage" role="status"></div>
  <div id="contributorNewsSection">
@@ -177,6 +181,7 @@
     <option value="Produk Desa">Produk Desa</option>
     <option value="BUMDes">BUMDes</option>
     <option value="Kopdes">Kopdes</option>
+    <option value="Poster">Poster</option>
     <option value="Gaya Hidup">Gaya Hidup</option>
    </select></label>
    <label>Nama penulis<input id="contribAuthor" type="text" maxlength="120" placeholder="Masukkan nama penulis"></label>
@@ -366,17 +371,35 @@ document.getElementById('contributorList').addEventListener('click',async e=>{
 });
 
 // Navigasi menu kontributor: panel terpilih tampil di dalam Ruang Kerja Kontributor.
+let activeContributorMode='news';
+function setPosterFormMode(enabled){
+ const form=document.getElementById('contributorNewsForm');
+ const category=document.getElementById('contribCategory');
+ const mainLabel=document.querySelector('label[for="contribMainFile"]');
+ const mainInfo=document.querySelector('#contribMainMediaInfo strong');
+ activeContributorMode=enabled?'poster':'news';
+ form.classList.toggle('posterMode',enabled);
+ if(enabled){document.getElementById('contribExtraFiles').innerHTML='';refreshContribMediaPreview();}
+ else if(!document.getElementById('contribExtraFiles').children.length){addContributorMediaRow();}
+ category.value=enabled?'Poster':'';
+ category.disabled=enabled;
+ document.getElementById('contributorNewsHeading').textContent=enabled?'Kirim Poster':'Tulis Berita';
+ if(mainLabel)mainLabel.textContent=enabled?'Pilih File Poster':'Pilih Foto Utama Berita';
+ if(mainInfo)mainInfo.textContent=enabled?'1. FILE POSTER':'1. FOTO UTAMA BERITA';
+ const message=document.getElementById('contributorMenuMessage');
+ if(enabled){message.textContent='Unggah desain poster, isi judul dan keterangan, lalu kirim ke Admin Pusat. Poster tersimpan di Supabase sebagai berita kategori Poster dan mengikuti proses pemeriksaan yang sama.';message.style.display='block';}
+ else{message.textContent='';message.style.display='none';}
+}
 function showContributorMenu(key){
  const newsSection=document.getElementById('contributorNewsSection');
- const msg=document.getElementById('contributorMenuMessage');
  hideContentPanels();
- msg.style.display='none';
- if(key==='news'){
+ if(key==='news'||key==='poster'){
   newsSection.classList.remove('hidden');
-  document.getElementById('contributorNewsHeading').textContent='Tulis Berita';
+  setPosterFormMode(key==='poster');
   newsSection.scrollIntoView({behavior:'smooth',block:'start'});
   return;
  }
+ setPosterFormMode(false);
  const panelKey={team:'team',ads:'ads',announcement:'announcement',gallery:'gallery'}[key];
  if(!panelKey)return;
  newsSection.classList.add('hidden');
@@ -485,13 +508,13 @@ async function uploadContributorMedia(){
  }
  return {mainUrl,extras};
 }
-function resetContributorForm(){document.getElementById('contributorNewsForm').reset();document.getElementById('contribAuthor').value='';document.getElementById('contributorNewsForm').dataset.editId='';contribExtraFiles.innerHTML='';refreshContribMediaPreview();}
+function resetContributorForm(){document.getElementById('contributorNewsForm').reset();document.getElementById('contribAuthor').value='';document.getElementById('contributorNewsForm').dataset.editId='';contribExtraFiles.innerHTML='';refreshContribMediaPreview();if(activeContributorMode==='poster'){document.getElementById('contribCategory').value='Poster';document.getElementById('contribCategory').disabled=true;}}
 async function saveContributorNews(status){
  const title=document.getElementById('contribTitle').value.trim(),category=document.getElementById('contribCategory').value,body=document.getElementById('contribBody').value.trim();
  if(!title||!category||!body){document.getElementById('contribNewsMessage').textContent='Judul, kategori, dan isi berita wajib diisi.';return;}
  const {data:{user}}=await supabaseClient.auth.getUser();if(!user){document.getElementById('contribNewsMessage').textContent='Sesi berakhir. Silakan login kembali.';return;}
  const author=document.getElementById('contribAuthor').value.trim();
-  let uploadedMedia;try{document.getElementById('contribNewsMessage').textContent='Mengunggah foto/video berita...';uploadedMedia=await uploadContributorMedia();}catch(err){document.getElementById('contribNewsMessage').textContent=err.message;return;}const payload={kontributor_id:user.id,judul:title,kategori:category,penulis:author||null,isi:body,foto_url:uploadedMedia.mainUrl||null,media_tambahan:uploadedMedia.extras,status};
+  let uploadedMedia;try{document.getElementById('contribNewsMessage').textContent=category==='Poster'?'Mengunggah poster ke Supabase...':'Mengunggah foto/video berita...';uploadedMedia=await uploadContributorMedia();}catch(err){document.getElementById('contribNewsMessage').textContent=err.message;return;}if(category==='Poster'&&!uploadedMedia.mainUrl){document.getElementById('contribNewsMessage').textContent='Pilih file gambar poster terlebih dahulu.';return;}const payload={kontributor_id:user.id,judul:title,kategori:category,penulis:author||null,isi:body,foto_url:uploadedMedia.mainUrl||null,media_tambahan:uploadedMedia.extras,status};
  const editId=document.getElementById('contributorNewsForm').dataset.editId;
  let result;
  if(editId){result=await supabaseClient.from('wdb_berita').update(payload).eq('id',editId).eq('kontributor_id',user.id);}
