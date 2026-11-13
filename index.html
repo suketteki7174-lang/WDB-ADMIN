@@ -55,7 +55,7 @@
 
 
 .admin-menu-caption{padding:13px 15px;margin:14px 0 16px;background:#eef4ef;border-left:4px solid var(--gold);color:#52665b;font-size:12px;line-height:1.5}
-.admin-main-menu{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:9px}
+.admin-main-menu{grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:9px}
 .admin-main-menu .menuCard{padding:15px 12px;min-width:0}
 .admin-main-menu .menuCard b{font-size:13px;line-height:1.35}
 .admin-main-menu .menuCard span{font-size:10px}
@@ -125,6 +125,7 @@
   <button class="menuCard action" id="openAdsMenu" type="button"><div class="ico">📢</div><b>3. Iklan WDB</b><span>Periksa pengajuan iklan, lalu setujui atau tolak.</span></button>
   <button class="menuCard action" id="openAnnouncementMenu" type="button"><div class="ico">📣</div><b>4. Pengumuman WDB</b><span>Periksa pengajuan pengumuman, lalu setujui atau tolak.</span></button>
   <button class="menuCard action" id="openGalleryMenu" type="button"><div class="ico">🖼️</div><b>5. Galeri Foto</b><span>Periksa pengajuan galeri foto, lalu setujui atau tolak.</span></button>
+  <button class="menuCard action" id="openPosterMenu" type="button"><div class="ico">🖼️</div><b>6. Pemeriksaan Poster</b><span>Lihat poster kiriman kontributor, setujui untuk diterbitkan atau tolak.</span></button>
  </div>
  <div class="admin-secondary-actions"><button class="smallBtn viewBtn" id="openContributorMenu" type="button">✍️ Kelola Kontributor</button></div>
  <section class="newsPanel hidden" id="contributorPanel"><div class="newsHead"><h3>Verifikasi Kontributor</h3><button class="smallBtn viewBtn" id="closeContributorPanel" type="button">Tutup</button></div><div id="contributorMessage" class="newsMeta">Memuat pendaftar...</div><div id="contributorList" class="newsList"></div></section><section class="newsPanel hidden" id="newsPanel">
@@ -133,6 +134,13 @@
   <div id="newsMessage" class="newsMeta" role="status" aria-live="polite">Tekan Kelola Berita untuk memuat data.</div>
   <div class="newsList" id="newsList"></div>
   <div id="newsDetail" class="newsDetail hidden"></div>
+ </section>
+ <section class="newsPanel hidden" id="posterPanel">
+  <div class="newsHead"><h3>Pemeriksaan Poster</h3><div class="newsActions"><button class="smallBtn viewBtn" id="refreshPosters" type="button">Muat ulang</button><button class="smallBtn viewBtn" id="closePosterMenu" type="button">Tutup</button></div></div>
+  <div class="newsTools"><select id="posterStatusFilter"><option value="semua">Semua status</option><option value="menunggu">Menunggu pemeriksaan</option><option value="terbit">Terbit</option><option value="ditolak">Ditolak</option><option value="draft">Draft</option></select><input id="posterSearch" type="search" placeholder="Cari judul poster atau kontributor..."></div>
+  <div id="posterMessage" class="newsMeta" role="status" aria-live="polite">Memuat poster dari Supabase...</div>
+  <div class="newsList" id="posterList"></div>
+  <div id="posterDetail" class="newsDetail hidden"></div>
  </section>
 
  <section class="contentPanel hidden" id="adsPanel"><div class="newsHead"><h3>Pemeriksaan Pengajuan Iklan WDB</h3><button class="smallBtn viewBtn" data-close-panel="adsPanel" type="button">Tutup</button></div><div class="reviewQueue" id="adsReviewQueue"></div>
@@ -151,7 +159,7 @@
  <div class="wide galleryPreview" id="galleryPreview"></div>
  <textarea id="galleryMedia" hidden></textarea>
  <textarea id="galleryCaptions" hidden></textarea><label>Status<select id="galleryAktif"><option value="true">Aktif</option><option value="false">Nonaktif</option></select></label><div class="wide contentFormActions"><button class="contentSave" type="submit">Simpan Galeri</button><button class="contentCancel" type="button" data-reset-form="galleryForm">Kosongkan</button></div></form><p class="contentHint">Foto 1 adalah foto utama. Foto tambahan dimulai dari Foto 2, Foto 3, Foto 4, dan seterusnya. Setiap foto tambahan dapat diberi keterangan.</p><div id="galleryMessage" class="newsMeta"></div><div id="galleryList" class="contentList"></div></section>
- <div class="dashnote">Hak akses Admin Pusat terverifikasi. Menu Kelola Berita terhubung ke tabel wdb_berita. Menu Isi Poster menggunakan tabel wdb_berita dengan kategori Poster dan Supabase Storage bucket wdb-galeri; pemeriksaannya melalui Pemeriksaan Berita. Menu Isi Iklan, Isi Data TPP, Isi Pengumuman, dan Isi Galeri Foto terhubung ke tabel Supabase masing-masing.</div>
+ <div class="dashnote">Hak akses Admin Pusat terverifikasi. Menu Kelola Berita terhubung ke tabel wdb_berita. Menu Isi Poster menggunakan tabel wdb_berita dengan kategori Poster dan Supabase Storage bucket wdb-galeri; pemeriksaannya tersedia terpisah pada menu Pemeriksaan Poster. Menu Isi Iklan, Isi Data TPP, Isi Pengumuman, dan Isi Galeri Foto terhubung ke tabel Supabase masing-masing.</div>
 </section></section>
 <section class="contributorDash hidden" id="contributorDashboard">
  <div class="contribTop"><div><h2>Ruang Kerja Kontributor</h2><div class="muted" id="contributorIdentity" hidden></div></div><button class="contribExit" id="contributorSignOut" type="button">Keluar</button></div>
@@ -275,8 +283,8 @@ async function loadNews(){
  newsMessage.textContent='Mengambil data berita dari Supabase...';newsList.innerHTML='';newsDetail.classList.add('hidden');
  const {data,error}=await supabaseClient.from('wdb_berita').select('id,judul,kategori,penulis,isi,foto_url,status,created_at').order('created_at',{ascending:false});
  if(error){newsMessage.textContent='Gagal memuat berita: '+error.message;return;}
- cachedNews=data||[];newsMessage.textContent=`Berhasil memuat ${cachedNews.length} berita.`;renderNews();
- const total=cachedNews.length,waiting=cachedNews.filter(n=>!['terbit','ditolak'].includes(String(n.status||'menunggu').toLowerCase())).length;
+ cachedNews=(data||[]).filter(n=>String(n.kategori||'').toLowerCase()!=='poster');newsMessage.textContent=`Berhasil memuat ${cachedNews.length} berita (poster diperiksa pada menu Pemeriksaan Poster).`;renderNews();
+ const total=(data||[]).length,waiting=(data||[]).filter(n=>!['terbit','ditolak'].includes(String(n.status||'menunggu').toLowerCase())).length;
  const statEls=document.querySelectorAll('.stats .stat b');if(statEls[0])statEls[0].textContent=total;if(statEls[1])statEls[1].textContent=waiting;
 }
 function showNewsDetail(id){
@@ -318,6 +326,51 @@ async function deleteAdminNews(id){
  await loadNews();
 }
 newsList.addEventListener('click',e=>{const b=e.target.closest('button[data-news-action]');if(!b)return;const id=b.dataset.newsId,action=b.dataset.newsAction;if(action==='detail')showNewsDetail(id);if(action==='approve')updateNewsStatus(id,'terbit');if(action==='reject')updateNewsStatus(id,'ditolak');if(action==='delete')deleteAdminNews(id);});
+
+
+// Pemeriksaan Poster dipisahkan dari daftar berita, tetapi tetap memakai tabel wdb_berita.
+let cachedPosters=[];
+const posterPanel=document.getElementById('posterPanel');
+const posterList=document.getElementById('posterList');
+const posterMessage=document.getElementById('posterMessage');
+const posterDetail=document.getElementById('posterDetail');
+function posterStatusLabel(status){const v=String(status||'menunggu').toLowerCase();return v==='terbit'?'Terbit':v==='ditolak'?'Ditolak':v==='draft'?'Draft':'Menunggu pemeriksaan';}
+function renderPosters(){
+ const filter=document.getElementById('posterStatusFilter').value;
+ const q=document.getElementById('posterSearch').value.trim().toLowerCase();
+ const rows=cachedPosters.filter(p=>{const st=String(p.status||'menunggu').toLowerCase();const statusOk=filter==='semua'||(filter==='menunggu'&&!['terbit','ditolak','draft'].includes(st))||st===filter;const textOk=[p.judul,p.penulis,p.isi].some(v=>String(v||'').toLowerCase().includes(q));return statusOk&&textOk;});
+ if(!rows.length){posterList.innerHTML='<div class="emptyNews">Belum ada poster yang sesuai dengan pilihan.</div>';return;}
+ posterList.innerHTML=rows.map(p=>{const st=String(p.status||'menunggu').toLowerCase();const img=p.foto_url?`<img src="${safeText(p.foto_url)}" alt="Poster" style="width:100%;max-width:230px;max-height:320px;object-fit:contain;border:1px solid #e5ece8;border-radius:9px;background:#f8faf8;margin:8px 0">`:'';const actions=`<div class="newsActions"><button class="smallBtn viewBtn" data-poster-action="detail" data-poster-id="${safeText(p.id)}" type="button">Lihat poster</button>${st!=='terbit'&&st!=='draft'?`<button class="smallBtn approveBtn" data-poster-action="approve" data-poster-id="${safeText(p.id)}" type="button">Setujui & terbitkan</button>`:''}${st!=='ditolak'&&st!=='terbit'&&st!=='draft'?`<button class="smallBtn rejectBtn" data-poster-action="reject" data-poster-id="${safeText(p.id)}" type="button">Tolak</button>`:''}${st==='terbit'?'<span class="statusPill">Sudah terbit</span>':''}</div>`;return `<article class="newsItem"><div><h4>${safeText(p.judul||'Poster tanpa judul')}</h4><div class="newsMeta">Kategori: Poster · ${safeText(p.penulis||'Kontributor')}<br>${p.created_at?new Date(p.created_at).toLocaleString('id-ID'):'Waktu tidak tersedia'} · <span class="statusPill">${posterStatusLabel(p.status)}</span></div>${img}${actions}</div></article>`;}).join('');
+}
+async function loadPosters(){
+ posterMessage.textContent='Mengambil poster dari Supabase...';posterList.innerHTML='';posterDetail.classList.add('hidden');
+ const {data,error}=await supabaseClient.from('wdb_berita').select('id,judul,kategori,penulis,isi,foto_url,media_tambahan,status,created_at').ilike('kategori','Poster').order('created_at',{ascending:false});
+ if(error){posterMessage.textContent='Gagal memuat poster: '+error.message;return;}
+ cachedPosters=data||[];const pending=cachedPosters.filter(p=>!['terbit','ditolak','draft'].includes(String(p.status||'menunggu').toLowerCase())).length;
+ posterMessage.textContent=`Ditemukan ${cachedPosters.length} poster · ${pending} menunggu pemeriksaan.`;renderPosters();
+}
+function showPosterDetail(id){
+ const p=cachedPosters.find(x=>String(x.id)===String(id));if(!p)return;posterDetail.classList.remove('hidden');posterDetail.innerHTML='';
+ const h=document.createElement('h3');h.textContent=p.judul||'Poster tanpa judul';posterDetail.appendChild(h);
+ const meta=document.createElement('p');meta.className='newsMeta';meta.textContent=`Poster · ${p.penulis||'Kontributor'} · Status: ${posterStatusLabel(p.status)}`;posterDetail.appendChild(meta);
+ if(p.foto_url){const img=document.createElement('img');img.src=p.foto_url;img.alt='Poster kiriman kontributor';img.style.maxHeight='720px';img.style.objectFit='contain';posterDetail.appendChild(img);}
+ const desc=document.createElement('p');desc.textContent=p.isi||'Tidak ada keterangan tambahan.';posterDetail.appendChild(desc);
+}
+async function updatePosterStatus(id,status){
+ const p=cachedPosters.find(x=>String(x.id)===String(id));if(!p)return;
+ const action=status==='terbit'?'menyetujui dan menerbitkan':'menolak';
+ if(!confirm(`Anda akan ${action} poster "${p.judul||'Poster'}". Lanjutkan?`))return;
+ posterMessage.textContent='Menyimpan status poster...';
+ const {error}=await supabaseClient.from('wdb_berita').update({status}).eq('id',id).ilike('kategori','Poster');
+ if(error){posterMessage.textContent='Gagal mengubah status poster: '+error.message;return;}
+ posterMessage.textContent=status==='terbit'?'Poster berhasil disetujui dan diterbitkan.':'Poster berhasil ditolak.';await loadPosters();
+}
+posterList.addEventListener('click',e=>{const b=e.target.closest('[data-poster-action]');if(!b)return;const id=b.dataset.posterId,a=b.dataset.posterAction;if(a==='detail')showPosterDetail(id);if(a==='approve')updatePosterStatus(id,'terbit');if(a==='reject')updatePosterStatus(id,'ditolak');});
+document.getElementById('openPosterMenu').addEventListener('click',()=>{hideContentPanels();posterPanel.classList.remove('hidden');loadPosters();posterPanel.scrollIntoView({behavior:'smooth',block:'start'});});
+document.getElementById('closePosterMenu').addEventListener('click',()=>posterPanel.classList.add('hidden'));
+document.getElementById('refreshPosters').addEventListener('click',loadPosters);
+document.getElementById('posterStatusFilter').addEventListener('change',renderPosters);
+document.getElementById('posterSearch').addEventListener('input',renderPosters);
 
 document.getElementById('showRegisterBtn').onclick=()=>{
  document.getElementById('loginPanel').classList.add('hidden');
@@ -611,7 +664,7 @@ document.addEventListener('click',e=>{
  if(admin){deleteAdminAdSubmission(admin.dataset.reviewDelete,admin.dataset.reviewKey,admin.dataset.reviewStatus,admin.dataset.reviewTarget);return;}
 });
 function contentMsg(key,msg,isError=false){const el=document.getElementById(contentModules[key].message);el.textContent=msg;el.style.color=isError?'#a3332b':'#52665b';}
-const adminPanelIds=['newsPanel','contributorPanel','teamPanel','adsPanel','announcementPanel','galleryPanel'];
+const adminPanelIds=['newsPanel','posterPanel','contributorPanel','teamPanel','adsPanel','announcementPanel','galleryPanel'];
 function hideContentPanels(){
  document.querySelectorAll('.newsPanel,.contentPanel').forEach(panel=>panel.classList.add('hidden'));
  adminPanelIds.forEach(id=>{const panel=document.getElementById(id);if(panel)panel.classList.add('hidden');});
